@@ -5,8 +5,7 @@
 > student points and builds a short, explainable path back to the passing
 > threshold.
 
-**▶ Live demo: <https://pws-rag-edu.pages.dev/>** &nbsp;·&nbsp; 2-minute video: see
-[Releases](https://github.com/spataru-team/pws-rag-exam-coach/releases) &nbsp;·&nbsp;
+**▶ Live demo: <https://pws-rag-edu.pages.dev/>** &nbsp;·&nbsp; [▶ 2-minute video](https://youtu.be/8T5iniSu80c) &nbsp;·&nbsp;
 Built for the **Intel® AI Global Impact Festival 2026**
 
 ![Rescue Mode — recover exam points](docs/screenshots/rescue.png)
@@ -132,6 +131,27 @@ TypeScript · React · Vite · `vite-plugin-pwa` · Dexie (IndexedDB) · i18next
 Zustand · Vitest. CSS variables for themes; OpenAI-compatible LLM adapter;
 `bge-m3` 1024-dim multilingual embeddings via Ollama / OpenVINO Model Server /
 Cloudflare Workers AI (with an offline fallback).
+
+## Sources
+
+Official 2026 statistics cited in the video and submission, from ANCE (Agenția
+Națională pentru Curriculum și Evaluare) and MEC (Ministry of Education and Research),
+Republic of Moldova:
+
+- **7,092** ninth-graders registered for the *Limba și literatura română (alolingvi)*
+  exam, session 2026 —
+  <https://ance.gov.md/content/încep-examenele-naționale-de-absolvire-gimnaziului-sesiunea-2026>
+- **5,996** papers written, **80.7%** pass rate for that exam (preliminary main-session
+  results; 82.7% in 2025) —
+  <https://mec.gov.md/ro/content/au-fost-anuntate-rezultatele-preliminare-ale-examenelor-de-absolvire-gimnaziului>
+- **89.32%** final pass rate for the same subject after the August retake session —
+  <https://ance.gov.md/content/au-fost-anunțate-rezultatele-sesiunii-din-august-examenelor-de-absolvire-clasei-ix>
+- **3,107** Bacalaureat candidates from minority-language classes, first paper 2 June 2026 —
+  <https://ance.gov.md/content/prima-probă-examenului-național-de-bacalaureat-2026-are-loc-astăzi-2-iunie-în-55-de-centre>
+
+Curriculum textbooks: `ctice.gov.md` (Ministry of Education content centre) —
+catalogue in [`corpus/manifest.json`](corpus/manifest.json). Embedding model:
+`bge-m3` (BAAI). Local inference: Intel OpenVINO, OpenVINO Model Server, NNCF.
 
 ## License
 

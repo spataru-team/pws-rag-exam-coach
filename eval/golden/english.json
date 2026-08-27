@@ -1,0 +1,95 @@
+{
+  "subjectId": "english",
+  "items": [
+    {
+      "id": "en-g-001",
+      "query": "When do we use the present continuous tense?",
+      "lang": "en",
+      "expectedSubjectId": "english",
+      "expectedTopicId": "en-grammar",
+      "expectedChunkIds": [
+        "en-gram-001"
+      ],
+      "expectedAnswerRubricId": "en-written-rubric"
+    },
+    {
+      "id": "en-g-002",
+      "query": "What is the difference between skimming and scanning?",
+      "lang": "en",
+      "expectedSubjectId": "english",
+      "expectedTopicId": "en-reading",
+      "expectedChunkIds": [
+        "en-read-002"
+      ],
+      "expectedAnswerRubricId": "en-written-rubric"
+    },
+    {
+      "id": "en-g-003",
+      "query": "How do I structure a short written text with linking words?",
+      "lang": "en",
+      "expectedSubjectId": "english",
+      "expectedTopicId": "en-writing",
+      "expectedChunkIds": [
+        "en-write-001"
+      ],
+      "expectedAnswerRubricId": "en-written-rubric"
+    },
+    {
+      "id": "en-g-004",
+      "query": "What is the past simple tense and when do we use it?",
+      "lang": "en",
+      "expectedSubjectId": "english",
+      "expectedTopicId": "en-grammar",
+      "expectedChunkIds": [
+        "en-gram-002"
+      ],
+      "expectedAnswerRubricId": "en-written-rubric"
+    },
+    {
+      "id": "en-g-005",
+      "query": "What are synonyms, antonyms and collocations?",
+      "lang": "en",
+      "expectedSubjectId": "english",
+      "expectedTopicId": "en-vocabulary",
+      "expectedChunkIds": [
+        "en-voc-001"
+      ],
+      "expectedAnswerRubricId": "en-written-rubric"
+    },
+    {
+      "id": "en-g-006",
+      "query": "How do prefixes and suffixes form new words?",
+      "lang": "en",
+      "expectedSubjectId": "english",
+      "expectedTopicId": "en-vocabulary",
+      "expectedChunkIds": [
+        "en-voc-002"
+      ],
+      "expectedAnswerRubricId": "en-written-rubric"
+    },
+    {
+      "id": "en-g-007-ru",
+      "query": "Когда в английском языке используется настоящее длительное время?",
+      "lang": "ru",
+      "expectedSubjectId": "english",
+      "expectedTopicId": "en-grammar",
+      "expectedChunkIds": [
+        "en-gram-001"
+      ],
+      "expectedAnswerRubricId": "en-written-rubric",
+      "notes": "Russian-language query probing cross-lingual retrieval into English-language material."
+    },
+    {
+      "id": "en-g-008-ru",
+      "query": "Что такое синонимы, антонимы и устойчивые словосочетания в английском языке?",
+      "lang": "ru",
+      "expectedSubjectId": "english",
+      "expectedTopicId": "en-vocabulary",
+      "expectedChunkIds": [
+        "en-voc-001"
+      ],
+      "expectedAnswerRubricId": "en-written-rubric",
+      "notes": "Russian-language query probing cross-lingual retrieval into English-language material."
+    }
+  ]
+}

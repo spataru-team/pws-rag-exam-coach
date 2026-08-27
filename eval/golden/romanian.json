@@ -1,0 +1,187 @@
+{
+  "subjectId": "romanian",
+  "items": [
+    {
+      "id": "ro-g-001",
+      "query": "Cum se formează articolul hotărât în limba română?",
+      "lang": "ro",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-article",
+      "expectedChunkIds": [
+        "ro-art-001"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric",
+      "notes": "Should explain enclitic definite article with examples."
+    },
+    {
+      "id": "ro-g-002",
+      "query": "Cum se formează perfectul compus?",
+      "lang": "ro",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-verb",
+      "expectedChunkIds": [
+        "ro-verb-002"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric"
+    },
+    {
+      "id": "ro-g-003",
+      "query": "Cum se acordă adjectivul cu substantivul?",
+      "lang": "ro",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-agreement",
+      "expectedChunkIds": [
+        "ro-agr-001"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric"
+    },
+    {
+      "id": "ro-g-004",
+      "query": "Ce este metafora și epitetul?",
+      "lang": "ro",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-reading",
+      "expectedChunkIds": [
+        "ro-read-001"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric"
+    },
+    {
+      "id": "ro-g-005",
+      "query": "Cum corectez o propoziție cu greșeli de acord și diacritice?",
+      "lang": "ro",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-sentence-correction",
+      "expectedChunkIds": [
+        "ro-corr-001"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric"
+    },
+    {
+      "id": "ro-g-006",
+      "query": "Care sunt cele patru conjugări ale verbului românesc?",
+      "lang": "ro",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-verb",
+      "expectedChunkIds": [
+        "ro-verb-001"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric"
+    },
+    {
+      "id": "ro-g-007",
+      "query": "Ce sunt sinonimele, antonimele și paronimele?",
+      "lang": "ro",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-vocabulary",
+      "expectedChunkIds": [
+        "ro-voc-001"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric"
+    },
+    {
+      "id": "ro-g-008",
+      "query": "Cum scriu un text cu introducere, cuprins și încheiere?",
+      "lang": "ro",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-text-production",
+      "expectedChunkIds": [
+        "ro-text-001"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric"
+    },
+    {
+      "id": "ro-g-009",
+      "query": "Ce sfaturi sunt pentru testarea națională la limba română?",
+      "lang": "ro",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-exam-tasks",
+      "expectedChunkIds": [
+        "ro-exam-001"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric"
+    },
+    {
+      "id": "ro-g-010",
+      "query": "Cum se repară un motor diesel de camion?",
+      "lang": "ro",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-exam-tasks",
+      "expectedChunkIds": [],
+      "expectInsufficient": true,
+      "notes": "Off-topic for a Romanian-language course; retrieval should refuse."
+    },
+    {
+      "id": "ro-g-011-ru",
+      "query": "Как в румынском языке присоединяется определённый артикль к существительному?",
+      "lang": "ru",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-article",
+      "expectedChunkIds": [
+        "ro-art-001"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric",
+      "notes": "Russian-language query, no Romanian grammar terms — cross-lingual retrieval probe for the pilot's target audience (Russian-language schools)."
+    },
+    {
+      "id": "ro-g-012-ru",
+      "query": "Сколько групп спряжения у румынских глаголов и как изменяется глагол в настоящем времени?",
+      "lang": "ru",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-verb",
+      "expectedChunkIds": [
+        "ro-verb-001"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric",
+      "notes": "Russian-language query probing cross-lingual retrieval."
+    },
+    {
+      "id": "ro-g-013-ru",
+      "query": "Как прилагательное должно согласовываться с существительным в румынском языке — по роду и числу?",
+      "lang": "ru",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-agreement",
+      "expectedChunkIds": [
+        "ro-agr-001"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric",
+      "notes": "Russian-language query probing cross-lingual retrieval."
+    },
+    {
+      "id": "ro-g-014-ru",
+      "query": "Что такое слова с похожим значением и слова с противоположным значением?",
+      "lang": "ru",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-vocabulary",
+      "expectedChunkIds": [
+        "ro-voc-001"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric",
+      "notes": "Russian-language query probing cross-lingual retrieval (synonyms/antonyms, no Romanian terms)."
+    },
+    {
+      "id": "ro-g-015-ru",
+      "query": "Как найти в художественном тексте главную мысль и средства выразительности, например сравнение?",
+      "lang": "ru",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-reading",
+      "expectedChunkIds": [
+        "ro-read-001"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric",
+      "notes": "Russian-language query probing cross-lingual retrieval."
+    },
+    {
+      "id": "ro-g-016-ru",
+      "query": "Как исправить ошибку согласования и орфографии в румынском предложении?",
+      "lang": "ru",
+      "expectedSubjectId": "romanian",
+      "expectedTopicId": "ro-sentence-correction",
+      "expectedChunkIds": [
+        "ro-corr-001"
+      ],
+      "expectedAnswerRubricId": "ro-written-rubric",
+      "notes": "Russian-language query probing cross-lingual retrieval."
+    }
+  ]
+}

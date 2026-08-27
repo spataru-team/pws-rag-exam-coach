@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Video inset — Rescue Mode logic</title>
+<!--
+  Screen-capture plate for docs/INTEL_FESTIVAL_2026_READINESS.html §15.1, beat
+  0:26-0:54 ("Innovation — Rescue Mode"), in-camera half-screen per the script's
+  "Что на экране" column. Unlike inset-metrics.html this is NOT a placeholder —
+  the contrast and formula below are the actual selection logic
+  (src/learning/rescueEngine.ts:118-211), fixed content, no numbers to swap in later.
+
+  HOW TO USE:
+    1. Open this file in a browser at the intended capture size (.stage below is
+       sized to 1920x1080 so it can fill the frame directly, unlike the smaller
+       960x540 PiP inset).
+    2. Screen-record or screenshot the #card element while Daniil/Anna speak the
+       "half-know" / "ranks each lost point" lines (script section 15.1).
+    3. Cut it in as a full-screen or half-screen graphic under the voiceover, or
+       as a static hold if recording live is inconvenient.
+-->
+<style>
+  :root {
+    color-scheme: dark;
+    --surface:      #14181f;
+    --surface-2:    #1b212b;
+    --text-primary: #ffffff;
+    --text-muted:   #a7afc0;
+    --bad:          #d95926;
+    --bad-bg:       rgba(217, 89, 38, 0.14);
+    --good:         #2fae60;
+    --good-bg:      rgba(47, 174, 96, 0.14);
+    --accent:       #3987e5;
+    --ring:         rgba(255,255,255,0.10);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #0d0d0d;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .stage {
+    width: 1920px;
+    height: 1080px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #card {
+    width: 88%;
+    height: 84%;
+    background: var(--surface);
+    border: 1px solid var(--ring);
+    border-radius: 28px;
+    padding: 56px 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 36px;
+    color: var(--text-primary);
+  }
+  h1 {
+    margin: 0;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  h1 span { color: var(--text-muted); font-weight: 500; }
+  .rows { display: flex; flex-direction: column; gap: 18px; }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 22px 28px;
+    border-radius: 16px;
+  }
+  .row.bad  { background: var(--bad-bg);  border: 1px solid rgba(217, 89, 38, 0.35); }
+  .row.good { background: var(--good-bg); border: 1px solid rgba(47, 174, 96, 0.35); }
+  .mark {
+    font-size: 34px;
+    line-height: 1;
+    flex: 0 0 auto;
+  }
+  .row.bad .mark  { color: var(--bad); }
+  .row.good .mark { color: var(--good); }
+  .row-text { font-size: 30px; line-height: 1.35; }
+  .row-text strong { font-weight: 700; }
+  .arrow-down {
+    align-self: center;
+    font-size: 30px;
+    color: var(--text-muted);
+  }
+  .targets {
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 32px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--ring);
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .targets::before { content: "🎯"; font-size: 24px; }
+  .formula {
+    margin: 8px 0 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--ring);
+    font-size: 22px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+  }
+  .formula code {
+    color: var(--text-primary);
+    font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
+    font-size: 21px;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div id="card">
+      <h1>What does the student already <span>half-know?</span></h1>
+
+      <div class="rows">
+        <div class="row bad">
+          <div class="mark">❌</div>
+          <div class="row-text">Weakest skill first → <strong>long, expensive repair</strong></div>
+        </div>
+        <div class="row good">
+          <div class="mark">✅</div>
+          <div class="row-text">Partly mastered skill → <strong>+1 / +2 achievable rubric points</strong></div>
+        </div>
+      </div>
+
+      <div class="arrow-down">↓</div>
+      <div class="targets">up to 4 Rescue targets</div>
+
+      <p class="formula">
+        <code>lost points × trainability × transfer reliability ÷ training cost</code>
+        → ranked recovery targets → stop once the forecast clears a safe pass margin
+      </p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+{
+  "subjectId": "russian",
+  "items": [
+    {
+      "id": "rus-g-001",
+      "query": "Обзор литературного процесса первой половины ХХ века",
+      "lang": "ru",
+      "expectedSubjectId": "russian",
+      "expectedTopicId": "rus-literature-20th-century",
+      "expectedChunkIds": [
+        "russian-12-ru-001"
+      ],
+      "expectedAnswerRubricId": "rus-written-rubric"
+    },
+    {
+      "id": "rus-g-002",
+      "query": "Как война меняет героя, его самоощущение и восприятие мира?",
+      "lang": "ru",
+      "expectedSubjectId": "russian",
+      "expectedTopicId": "rus-literary-analysis",
+      "expectedChunkIds": [
+        "russian-12-ru-239"
+      ],
+      "expectedAnswerRubricId": "rus-written-rubric"
+    },
+    {
+      "id": "rus-g-003",
+      "query": "К каким нравственным и жизненным установкам обращается автор?",
+      "lang": "ru",
+      "expectedSubjectId": "russian",
+      "expectedTopicId": "rus-literary-analysis",
+      "expectedChunkIds": [
+        "russian-12-ru-597"
+      ],
+      "expectedAnswerRubricId": "rus-written-rubric"
+    },
+    {
+      "id": "rus-g-004",
+      "query": "Каким предстаёт образ Жени Комельковой в этом фрагменте?",
+      "lang": "ru",
+      "expectedSubjectId": "russian",
+      "expectedTopicId": "rus-literary-analysis",
+      "expectedChunkIds": [
+        "russian-12-ru-716"
+      ],
+      "expectedAnswerRubricId": "rus-written-rubric",
+      "notes": "Named the character explicitly (А зори здесь тихие) — a generic 'the heroine' phrasing matches many other female-character passages in this book just as well."
+    },
+    {
+      "id": "rus-g-005",
+      "query": "Как в стихотворениях любовь связывается с вечностью?",
+      "lang": "ru",
+      "expectedSubjectId": "russian",
+      "expectedTopicId": "rus-poetry-analysis",
+      "expectedChunkIds": [
+        "russian-12-ru-954"
+      ],
+      "expectedAnswerRubricId": "rus-written-rubric"
+    },
+    {
+      "id": "rus-g-006",
+      "query": "Как настроить домашний Wi-Fi роутер?",
+      "lang": "ru",
+      "expectedSubjectId": "russian",
+      "expectedTopicId": "rus-literary-analysis",
+      "expectedChunkIds": [],
+      "expectInsufficient": true,
+      "notes": "Off-topic for the literature course; retrieval should refuse."
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+import type { Subject } from '@/types'
+
+/**
+ * Mathematics — grades 9 (algebra/geometry foundations) and 12 (BAC,
+ * calculus + applied/humanities-profile math). Content sourced from real
+ * Ministry-of-Education textbooks (Matematică, 9 și 12 clasă) via
+ * scripts/ingest-pdf.ts — see corpus/manifest.json.
+ */
+export const mathSubject: Subject = {
+  id: 'math',
+  title: 'Matematică',
+  interfaceTitleByLanguage: {
+    en: 'Mathematics',
+    ru: 'Математика',
+    ro: 'Matematică',
+  },
+  learningLanguages: ['ro', 'ru'],
+  enabled: true,
+  examModeAvailable: true,
+  defaultGradeLevel: 9,
+  recommendedSessionLengthMin: 25,
+  exerciseTypes: [
+    {
+      id: 'math-short',
+      subjectId: 'math',
+      title: { en: 'Short answer', ru: 'Краткий ответ', ro: 'Răspuns scurt' },
+      inputMode: 'short_answer',
+      feedbackMode: 'immediate',
+    },
+    {
+      id: 'math-solve',
+      subjectId: 'math',
+      title: { en: 'Solve & explain', ru: 'Решить и объяснить', ro: 'Rezolvă și explică' },
+      inputMode: 'explanation',
+      feedbackMode: 'rubric_based',
+      rubricId: 'math-answer-rubric',
+    },
+  ],
+  assessmentRubrics: [
+    {
+      id: 'math-answer-rubric',
+      subjectId: 'math',
+      title: { en: 'Answer rubric', ru: 'Рубрика ответа', ro: 'Grilă de evaluare' },
+      language: 'ru',
+      scoringScale: { min: 0, max: 10, label: 'national 0–10' },
+      criteria: [
+        {
+          id: 'method',
+          title: { en: 'Method', ru: 'Метод решения', ro: 'Metoda de rezolvare' },
+          description: {
+            en: 'The chosen method/formula is correct for the problem.',
+            ru: 'Выбранный метод/формула верны для данной задачи.',
+            ro: 'Metoda/formula aleasă este corectă pentru problemă.',
+          },
+          maxPoints: 4,
+        },
+        {
+          id: 'execution',
+          title: { en: 'Execution', ru: 'Выполнение вычислений', ro: 'Execuția calculului' },
+          description: {
+            en: 'Calculations are carried out correctly, step by step.',
+            ru: 'Вычисления выполнены верно, по шагам.',
+            ro: 'Calculele sunt executate corect, pas cu pas.',
+          },
+          maxPoints: 4,
+        },
+        {
+          id: 'answer',
+          title: { en: 'Final answer', ru: 'Итоговый ответ', ro: 'Răspuns final' },
+          description: {
+            en: 'The final answer is stated clearly and matches the calculation.',
+            ru: 'Итоговый ответ сформулирован ясно и соответствует вычислению.',
+            ro: 'Răspunsul final este formulat clar și corespunde calculului.',
+          },
+          maxPoints: 2,
+        },
+      ],
+    },
+  ],
+  topicTree: [
+    {
+      id: 'math-real-numbers',
+      subjectId: 'math',
+      title: {
+        en: 'Real numbers',
+        ru: 'Множество действительных чисел',
+        ro: 'Mulțimea numerelor reale',
+      },
+      skillArea: 'algebra',
+      prerequisites: [],
+      difficulty: 'basic',
+      gradeLevel: 9,
+      examRelevance: 'core',
+    },
+    {
+      id: 'math-algebraic-expressions',
+      subjectId: 'math',
+      title: {
+        en: 'Algebraic expressions',
+        ru: 'Алгебраические выражения',
+        ro: 'Expresii algebrice',
+      },
+      skillArea: 'algebra',
+      prerequisites: ['math-real-numbers'],
+      difficulty: 'basic',
+      gradeLevel: 9,
+      examRelevance: 'core',
+    },
+    {
+      id: 'math-equations-quadratic',
+      subjectId: 'math',
+      title: {
+        en: 'Equations reducible to quadratic',
+        ru: 'Уравнения, приводимые к квадратным',
+        ro: 'Ecuații reductibile la ecuația de gradul II',
+      },
+      skillArea: 'algebra',
+      prerequisites: ['math-algebraic-expressions'],
+      difficulty: 'intermediate',
+      gradeLevel: 9,
+      examRelevance: 'core',
+    },
+    {
+      id: 'math-functions',
+      subjectId: 'math',
+      title: { en: 'Numeric functions & graphs', ru: 'Числовые функции и графики', ro: 'Funcții numerice și grafice' },
+      skillArea: 'functions',
+      prerequisites: ['math-algebraic-expressions'],
+      difficulty: 'intermediate',
+      gradeLevel: 9,
+      examRelevance: 'high',
+    },
+    {
+      id: 'math-geometry-circle',
+      subjectId: 'math',
+      title: {
+        en: 'Circle geometry (inscribed angles, tangents)',
+        ru: 'Геометрия окружности (вписанные углы, касательные)',
+        ro: 'Geometria cercului (unghiuri înscrise, tangente)',
+      },
+      skillArea: 'geometry',
+      prerequisites: [],
+      difficulty: 'intermediate',
+      gradeLevel: 9,
+      examRelevance: 'high',
+    },
+    {
+      id: 'math-calculus-antiderivative',
+      subjectId: 'math',
+      title: {
+        en: 'Antiderivatives / integrals',
+        ru: 'Первообразная / интегралы',
+        ro: 'Primitive / integrale',
+      },
+      skillArea: 'calculus',
+      prerequisites: ['math-functions'],
+      difficulty: 'advanced',
+      gradeLevel: 12,
+      examRelevance: 'core',
+    },
+    {
+      id: 'math-calculus-applications',
+      subjectId: 'math',
+      title: {
+        en: 'Applications of integrals',
+        ru: 'Приложения интегралов',
+        ro: 'Aplicații ale integralelor',
+      },
+      skillArea: 'calculus',
+      prerequisites: ['math-calculus-antiderivative'],
+      difficulty: 'advanced',
+      gradeLevel: 12,
+      examRelevance: 'medium',
+    },
+    {
+      id: 'math-applied-finance',
+      subjectId: 'math',
+      title: {
+        en: 'Applied math: budget, profit, interest',
+        ru: 'Прикладная математика: бюджет, прибыль, проценты',
+        ro: 'Matematică aplicată: buget, profit, dobândă',
+      },
+      skillArea: 'applied',
+      prerequisites: ['math-real-numbers'],
+      difficulty: 'intermediate',
+      gradeLevel: 12,
+      examRelevance: 'core',
+    },
+    {
+      id: 'math-exam-tasks',
+      subjectId: 'math',
+      title: { en: 'Exam-style problem sets', ru: 'Экзаменационные задания', ro: 'Sarcini de examen' },
+      skillArea: 'exam',
+      prerequisites: ['math-calculus-antiderivative', 'math-applied-finance'],
+      difficulty: 'advanced',
+      gradeLevel: 12,
+      examRelevance: 'core',
+    },
+  ],
+  metadata: { supportLanguage: 'ru' },
+}

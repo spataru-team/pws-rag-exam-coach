@@ -1,0 +1,70 @@
+{
+  "subjectId": "biology",
+  "items": [
+    {
+      "id": "bio-g-001",
+      "query": "Ce este celula și care sunt componentele ei principale?",
+      "lang": "ro",
+      "expectedSubjectId": "biology",
+      "expectedTopicId": "bio-cell",
+      "expectedChunkIds": [
+        "bio-cell-001"
+      ],
+      "expectedAnswerRubricId": "bio-answer-rubric"
+    },
+    {
+      "id": "bio-g-002",
+      "query": "Care sunt nivelurile de organizare ale unui organism pluricelular?",
+      "lang": "ro",
+      "expectedSubjectId": "biology",
+      "expectedTopicId": "bio-organism-levels",
+      "expectedChunkIds": [
+        "bio-org-001"
+      ],
+      "expectedAnswerRubricId": "bio-answer-rubric"
+    },
+    {
+      "id": "bio-g-003",
+      "query": "Чем растительная клетка отличается от животной?",
+      "lang": "ru",
+      "expectedSubjectId": "biology",
+      "expectedTopicId": "bio-cell",
+      "expectedChunkIds": [
+        "bio-cell-002"
+      ],
+      "expectedAnswerRubricId": "bio-answer-rubric"
+    },
+    {
+      "id": "bio-g-004",
+      "query": "Ce conține nucleul celulei și ce rol au mitocondriile?",
+      "lang": "ro",
+      "expectedSubjectId": "biology",
+      "expectedTopicId": "bio-cell",
+      "expectedChunkIds": [
+        "bio-cell-003"
+      ],
+      "expectedAnswerRubricId": "bio-answer-rubric"
+    },
+    {
+      "id": "bio-g-005",
+      "query": "Ce este un țesut și ce este un organ?",
+      "lang": "ro",
+      "expectedSubjectId": "biology",
+      "expectedTopicId": "bio-terminology",
+      "expectedChunkIds": [
+        "bio-term-001"
+      ],
+      "expectedAnswerRubricId": "bio-answer-rubric"
+    },
+    {
+      "id": "bio-g-006",
+      "query": "Cum funcționează un motor cu reacție al unui avion?",
+      "lang": "ro",
+      "expectedSubjectId": "biology",
+      "expectedTopicId": "bio-terminology",
+      "expectedChunkIds": [],
+      "expectInsufficient": true,
+      "notes": "Off-topic for grade-7 biology; retrieval should refuse."
+    }
+  ]
+}

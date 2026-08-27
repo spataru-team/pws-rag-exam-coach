@@ -1,0 +1,135 @@
+# Evaluation
+
+This document defines the metrics used to evaluate the app and describes the
+evaluation harness.
+
+## Metric families
+
+### Learning metrics
+- **Mastery growth** — change in `TopicMastery.masteryScore` over time.
+- **Accuracy / confidence** — rolling EMAs per topic.
+- **Retention** — performance on spaced-repetition reviews vs first attempts.
+- **Streak / consistency** — study days without punishing missed days.
+- **Weak-topic recovery** — mistakes later answered correctly (the "comeback").
+
+### Subject-level metrics
+- **Readiness** — exam-relevance-weighted mastery (`readinessEstimate`).
+- **Coverage** — practised topics ÷ total exam-relevant topics.
+- **Per-subject XP / level.**
+
+### Retrieval metrics
+- **Recall@k** — share of expected chunks retrieved in the top-K (k = 1/3/5).
+- **MRR** — mean reciprocal rank of the first expected chunk (ordering quality).
+- **Top-1 similarity** — strength of the best match.
+- **Subject isolation** — retrieval never returns other subjects' chunks
+  (unit-tested in `rag/retrieve.test.ts`).
+- **Refusal accuracy** — share of off-topic (`expectInsufficient`) items correctly
+  flagged. Gated for `auto` mode (0.75, measured 0.8 on 5 items) — see the
+  `DEFAULT_MIN_SIMILARITY` note in `docs/ARCHITECTURE.md` for how this threshold
+  is chosen and why it needs recalibrating per embedding model. **Not** gated
+  for `deterministic` mode: the offline stub has no real semantic discrimination
+  (its off-topic and on-topic similarity ranges fully overlap), so its
+  refusalAccuracy is not a meaningful signal either way.
+- **byLang breakdown** — every golden item now declares `lang: 'ru'|'ro'|'en'`
+  (the *query's* language, not the corpus's), and `runEvalHarness` reports
+  recall@5/MRR/avgTopSimilarity per language. This is the number that actually
+  proves (or disproves) a fix for the ru-query-vs-ro-corpus failure mode — see
+  "Cross-lingual coverage" below.
+
+### Hybrid retrieval + reranker + query expansion
+The default pipeline is **hybrid** (vector cosine + BM25-lite lexical, fused via
+Reciprocal Rank Fusion) followed by a **conservative lexical reranker**
+(`src/rag/lexical.ts`, `src/rag/rerank.ts`). The reranker keeps the first-stage
+order as a strong prior and only promotes on clear lexical evidence (term
+coverage / exact phrase), so a strong vector hit is never demoted. Before the
+BM25 pass, a cross-language glossary built from every subject's own topic
+titles (`src/rag/queryExpansion.ts`) expands the lexical-only query text — a
+Russian query gets a chance at literal term overlap with a Romanian chunk,
+without touching the (already multilingual) vector branch. A network-backed
+`CrossEncoderReranker` also exists (`src/rag/crossEncoderReranker.ts`) but is
+not the default — see `ovms/README.md`'s "Known limitation". Pure vector,
+hybrid-only, and hybrid+rerank can be compared with `npm run eval:sweep`.
+
+### Generation metrics
+- **Groundedness** — share of cited chunk ids actually present in context
+  (`tutorService`). A correct refusal scores 1.
+- **Format compliance** — answer cites `[#id]` or correctly refuses.
+- **Citation validity** — cited ids ⊆ retrieved ids.
+
+### Model-performance metrics (Model Lab + Stats screen)
+- **Latency** — average plus **p50 / p95 percentiles** (overall and per
+  provider/model), shown on the Stats screen (`src/stats/metrics.ts`).
+- **Tokens in/out**, **estimated cost**.
+- **Groundedness**, **format compliance**, **user rating**, optional
+  **teacher rating** — all captured in `ModelRunMetrics`.
+
+### Accessibility metrics
+- Keyboard navigability of all interactive controls.
+- Visible focus indicators; information never conveyed by colour alone.
+- Dyslexia mode increases line height, letter/word/paragraph spacing, font size.
+- Correct rendering of Romanian diacritics (ă, â, î, ș, ț).
+- Interface available in EN/RU/RO.
+
+### Privacy / security metrics
+- No personal name fields in the export (validated in `export/schema.ts`).
+- No API keys in source or git; keys only in local IndexedDB.
+- Cloud provider use shows an explicit warning before sending data.
+- Export is explicit and user-triggered.
+
+## Harness
+
+`eval/harness.ts` is the shared core (used by both commands below). It loads the
+golden sets in `eval/golden/`, runs subject-filtered retrieval against the packs,
+and computes recall@1/3/5, MRR, avg top similarity and refusal accuracy, writing
+a timestamped JSON report to `eval/results/`.
+
+- All seven subjects have real golden items (`romanian` 16, `english` 8,
+  `chemistry`/`math` 7 each, `russian` 6, `biology`/`history` 6 each — 56
+  total), including `expectInsufficient` off-topic items per subject and
+  Russian-language cross-lingual items for `romanian`/`english`.
+- Each item declares `expectedSubjectId`, `expectedTopicId`, `expectedChunkIds`,
+  and optionally `expectedAnswerRubricId` / `expectInsufficient`.
+
+Commands:
+- **`npm run eval`** — auto mode: uses each pack's embedding model (real
+  `bge-m3` via Ollama when present). Report only.
+- **`npm run eval:sweep`** — sweeps topK × minSimilarity × {hybrid} × {rerank}
+  and prints the best configs; used to pick the tuned defaults in
+  `src/rag/retrieve.ts`.
+- **`npm run eval:ci`** — **deterministic** mode (`--mode=deterministic`): re-embeds
+  chunk text and queries with the offline stub, so the run is fully reproducible
+  without Ollama, and **gates** (`--gate`) against `eval/thresholds.json`.
+
+### CI gating
+The CI workflow runs `npm run eval:ci` after the unit tests. The deterministic
+gate catches *pipeline and data* regressions — a broken subject filter, ranking
+bug, hybrid/rerank regression, or a golden item referencing a missing chunk —
+reproducibly and offline. Thresholds (recall@5, MRR) live in
+`eval/thresholds.json` with margin below measured values. Real semantic quality
+is measured locally with `npm run eval` (Ollama up).
+
+> Note: deterministic-mode scores reflect the lexical/stub pipeline, not real
+> semantics. Run `ollama pull bge-m3` + `npm run seed`, then
+> `npm run eval`, for realistic semantic numbers.
+
+### Cross-lingual coverage
+Every golden item carries `lang` (the query's language) — not just the `*-ru`
+id suffix convention some items also use — and `runEvalHarness` reports a
+`byLang` breakdown of recall@5/MRR/avgTopSimilarity for `ru`/`ro`/`en`
+(`npm run eval` / `npm run eval:ci` print one line per language). This is the
+number that motivated and then measured the `bge-m3` migration and everything
+built on top of it:
+
+| stage | ru recall@5 | ru MRR | overall recall@5 | overall MRR | refusalAcc |
+|---|---|---|---|---|---|
+| nomic-embed-text@768 (pre-migration) | 0.625 | 0.358 | — | — | — |
+| bge-m3@1024 (migration only) | 0.905 | 0.811 | 0.948 | 0.886 | 0.0 (broken — see below) |
+| + fixed insufficient-gate scoping + recalibrated threshold | 0.905 | 0.811 | 0.948 | 0.886 | 0.8 |
+| + cross-language query expansion | **0.940** | **0.829** | **0.967** | **0.896** | 0.8 |
+
+The refusalAccuracy column tells its own story: after the bge-m3 migration it
+measured **0.0** — `DEFAULT_MIN_SIMILARITY` was still tuned for nomic's lower
+cosine baseline, and a second bug (the gate scanning a wider candidate pool
+than the results actually returned) meant it stayed broken even after
+retuning the number in isolation. Both are fixed in `src/rag/retrieve.ts`; see
+the inline comments there for the exact measured before/after.

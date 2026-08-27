@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PWS RAG Exam Coach — руководство по проекту</title>
+    <style>
+      :root {
+        --bg: #f6f8fa; --surface: #fff; --surface2: #eef1f4; --text: #1b1f24;
+        --muted: #5a6573; --border: #d7dee6; --primary: #1f6feb; --accent: #1a7f37;
+        --warn: #9a6700; --code-bg: #f0f3f6; --radius: 10px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0d1117; --surface: #161b22; --surface2: #21262d; --text: #e6edf3;
+          --muted: #9aa7b4; --border: #30363d; --primary: #4493f8; --accent: #3fb950;
+          --warn: #d29922; --code-bg: #1b222b;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; background: var(--bg); color: var(--text);
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+      }
+      .wrap { max-width: 980px; margin: 0 auto; padding: 1.5rem 1.1rem 5rem; }
+      header.hero {
+        background: linear-gradient(135deg, var(--primary), #6f42c1);
+        color: #fff; padding: 2.2rem 1.1rem; text-align: center;
+      }
+      header.hero h1 { margin: 0 0 .3rem; font-size: 1.9rem; }
+      header.hero p { margin: 0; opacity: .92; }
+      h2 {
+        margin-top: 2.4rem; padding-bottom: .3rem; border-bottom: 2px solid var(--border);
+        scroll-margin-top: 1rem;
+      }
+      h3 { margin-top: 1.6rem; }
+      a { color: var(--primary); }
+      code, pre {
+        font-family: ui-monospace, "Cascadia Code", "Fira Code", monospace;
+        font-size: .9em;
+      }
+      code { background: var(--code-bg); padding: .1rem .35rem; border-radius: 5px; }
+      pre {
+        background: var(--code-bg); border: 1px solid var(--border);
+        border-radius: var(--radius); padding: .9rem 1rem; overflow-x: auto; line-height: 1.45;
+      }
+      pre code { background: none; padding: 0; }
+      table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+      th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+      th { background: var(--surface2); }
+      .card {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: var(--radius); padding: 1rem 1.2rem; margin: 1rem 0;
+      }
+      .callout { border-left: 4px solid var(--primary); background: var(--surface2); padding: .8rem 1rem; border-radius: 8px; margin: 1rem 0; }
+      .callout.warn { border-left-color: var(--warn); }
+      .callout.ok { border-left-color: var(--accent); }
+      .toc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.2rem; }
+      .toc ol { margin: .4rem 0 0; padding-left: 1.3rem; }
+      .toc a { text-decoration: none; }
+      .pill { display: inline-block; padding: .1rem .55rem; border-radius: 999px; background: var(--surface2); border: 1px solid var(--border); font-size: .82rem; }
+      .badge-easy { color: var(--accent); font-weight: 700; }
+      .badge-med { color: var(--warn); font-weight: 700; }
+      .badge-hard { color: #cf222e; font-weight: 700; }
+      .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      footer { color: var(--muted); font-size: .85rem; margin-top: 3rem; text-align: center; }
+      ul.checklist { list-style: none; padding-left: 0; }
+      ul.checklist li::before { content: "☐ "; color: var(--primary); }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <h1>PWS RAG Exam Coach</h1>
+      <p>Локальное (local-first) PWA для адаптивной подготовки к экзаменам · руководство по проекту</p>
+    </header>
+
+    <div class="wrap">
+      <nav class="toc" aria-label="Оглавление">
+        <strong>Оглавление</strong>
+        <ol>
+          <li><a href="#stack">Использованные технологии</a></li>
+          <li><a href="#local">Локальный запуск</a></li>
+          <li><a href="#cloudflare">Деплой на Cloudflare (реализовано)</a></li>
+          <li><a href="#demokey">Облачный LLM + ключ OpenAI через прокси (реализовано)</a></li>
+          <li><a href="#mobile">Эффективная работа на телефоне</a></li>
+          <li><a href="#metrics">План по улучшению метрик</a></li>
+          <li><a href="#figures">Визуальные материалы: рисунки в тестах</a></li>
+          <li><a href="#corpus">Корпус: учебники, предметы, классы, чанки</a></li>
+          <li><a href="#difficulty">Оценка сложности: новые предметы и метрики</a></li>
+          <li><a href="#nextdeploy">Что нужно дальше для деплоя</a></li>
+          <li><a href="#economics">Экономика проекта: может ли это окупаться</a></li>
+        </ol>
+      </nav>
+
+      <!-- 1. TECH -->
+      <h2 id="stack">1. Использованные технологии</h2>
+      <p>Приложение — клиентское, <strong>local-first</strong>: все данные ученика хранятся в браузере, сеть нужна только для скачивания предметных пакетов и (опционально) обращения к облачной LLM.</p>
+      <table>
+        <thead><tr><th>Слой</th><th>Технологии</th><th>Зачем</th></tr></thead>
+        <tbody>
+          <tr><td>Язык / UI</td><td>TypeScript (strict), React 19</td><td>Типобезопасность, компонентный UI</td></tr>
+          <tr><td>Сборка / PWA</td><td>Vite 8, <code>vite-plugin-pwa</code> (Workbox)</td><td>Быстрая сборка, service worker, офлайн, установка</td></tr>
+          <tr><td>Хранилище</td><td>Dexie (IndexedDB)</td><td>Локальные профиль, события, mastery, метрики, настройки, пакеты</td></tr>
+          <tr><td>Состояние</td><td>Zustand</td><td>Лёгкий стор профиля/настроек</td></tr>
+          <tr><td>Маршрутизация</td><td>react-router-dom</td><td>10 экранов SPA (вкл. пробный экзамен)</td></tr>
+          <tr><td>Локализация</td><td>i18next / react-i18next</td><td>EN / RU / RO, корректные диакритики</td></tr>
+          <tr><td>Темы / a11y</td><td>CSS-переменные</td><td>Светлая/тёмная тема, режим дислексии, фокус, ARIA</td></tr>
+          <tr><td>RAG</td><td>Гибрид: косинус (1024-dim, размерность хранится в самом пакете) + BM25-lite, слияние RRF, лексический реранкер. Эмбеддинги: <code>bge-m3</code> — мультиязычная модель (ru/ro/en в одном пространстве) через Ollama (локально), OVMS (Intel) или Cloudflare Workers AI (прокси, прод) + детерминированная офлайн-заглушка</td><td>Поиск по материалам, грундинг ответов; мультиязычность — прямое лечение исходной проблемы (русский запрос против румынского корпуса)</td></tr>
+          <tr><td>LLM</td><td>Provider-neutral адаптер (OpenAI-совместимый): mock, Ollama, LM Studio, <strong>OpenVINO (OVMS)</strong>, OpenAI/OpenRouter и <strong>облачный прокси</strong> (<code>gpt-5.4-mini</code> в проде)</td><td>Сменные провайдеры; ключ локально или в серверном секрете (прокси)</td></tr>
+          <tr><td>Хостинг / деплой</td><td>Cloudflare Pages + Pages Function-прокси (<code>functions/api</code> → OpenAI)</td><td>Статический PWA на CDN; ключ OpenAI — секрет проекта, не в браузере</td></tr>
+          <tr><td>Анти-чит экзамена</td><td>Блок вставки/копирования/правого клика; детект ухода с вкладки + авто-сдача после 5</td><td>Честность пробника; счётчик уходов (<code>tabLeaves</code>) в выгрузке учителя</td></tr>
+          <tr><td>Голос (a11y)</td><td>Web Speech API: озвучка (TTS) + детект голосового ввода</td><td>Прогрессивное улучшение, no-op без поддержки браузера</td></tr>
+          <tr><td>Тесты / качество</td><td>Vitest, Testing Library, fake-indexeddb, ESLint; Playwright (MCP) для E2E-smoke</td><td>290 юнит-тестов (38 файлов), harness оценки (recall@k, MRR), CI-гейт качества, сквозной E2E на проде и локально</td></tr>
+          <tr><td>CI</td><td>GitHub Actions (<code>actions@v5</code>, Node 22)</td><td>typecheck → tests → <strong>eval-гейт</strong> → build на каждый push/PR</td></tr>
+        </tbody>
+      </table>
+      <div class="callout ok"><strong>Текущий статус:</strong> все 7 предметов активны, 6 из 7 — на реальном контенте из настоящих учебников Минпросвещения (классы 7–12, автопайплайн PDF→чанки, см. раздел 8 «Корпус»); Румынский (alolingvi) пока остаётся на авторских материалах (см. раздел 8); реализованы гибридный поиск + реранкер (по умолчанию), кросс-языковое расширение запроса, жёсткий gate обоснованности (groundedness), граф пререквизитов тем, фильтр по классу для многоклассовых пакетов (раздел 8), мягкая деградация при недоступности Ollama, экран статистики с перцентилями латентности, и гейтинг качества поиска в CI. Приватный репозиторий <code>Stydentbox/pws-rag-edu</code>, CI зелёный.</div>
+      <div class="callout ok"><strong>Пилот (экзамен 15 июня 2026):</strong> цель — <strong>9 класс</strong>, румынский (alolingvi, Evaluarea Națională). Готов экран пробного экзамена с оценкой по барему (детерминированно + LLM, мягкий фоллбэк на самооценку). <strong>Развёрнут и работает:</strong> <a href="https://pws-rag-edu.pages.dev">https://pws-rag-edu.pages.dev</a> — Cloudflare Pages + Pages Function-прокси. <strong>Передеплоено 23.08.2026</strong> — прод содержит все последние изменения (рисунки в тестах, переключатель предмета, гибридная проверка барема); ассеты рисунков (<code>/assets/exams/math-sb26/*.png</code>) проверены на CDN напрямую после деплоя. Режим добора баллов (Rescue Mode) подтверждён на живых учениках: из 6 занимавшихся двое закрыли задолженности через коуча. Перенос большого корпуса из старого стенда отложен (исходный текст в дампах повреждён). См. разделы 3–4.</div>
+      <div class="callout ok"><strong>Сделано (к конкурсу Intel):</strong> корневая проблема эксплуатации — прежние эмбеддинги (<code>nomic-embed-text</code> / OpenAI <code>text-embedding-3-small</code>, оба 768-dim) слабо понимают русский язык, а ученики пишут запросы по-русски против румынского корпуса. Миграция на <strong><code>bge-m3</code> (1024-dim, мультиязычная ru/ro/en)</strong> завершена и измерена в несколько итераций (полная таблица — <code>docs/EVALUATION.md</code>): recall@5 на русскоязычных запросах вырос с <strong>0.625 до 0.940</strong>, MRR — с <strong>0.358 до 0.829</strong> (родной язык не просел, recall@5 = 1.0); по всем языкам вместе — recall@5 <strong>0.967</strong>, MRR <strong>0.896</strong>. По пути найдены и исправлены два реальных бага: gate «недостаточно данных» сканировал не тот пул кандидатов (после миграции refusal-accuracy тихо упал до 0.0, сейчас 0.8), и кросс-языковое расширение лексического запроса (глоссарий из заголовков тем каждого предмета, без LLM и словарей) добавило ru recall@5 ещё +3.5 п.п. Добавлены: жёсткий groundedness-gate (выдуманная ссылка <code>[#id]</code> вырезается из ответа), граф пререквизитов тем в «Практике». <strong>Реальный локальный стек OpenVINO (OVMS)</strong> развёрнут и измерен на этой машине end-to-end: эмбеддинги <code>bge-m3</code>, реранкер <code>bge-reranker-v2-m3</code>, чат <code>Qwen3-4B-int4</code> — все три через один OpenAI/Cohere-совместимый сервер, без написания отдельного кода под Intel. Измерено: int8-квантованный <code>bge-m3</code> в OVMS даёт косинус 0.9995 против той же модели в Ollama (точность не пострадала); отключение «режима размышления» Qwen3 сократило ответ на том же вопросе с 12.2 с (обрезан) до 6.3 с (полный). <strong>Честно найденное ограничение:</strong> реранкер <code>bge-reranker-v2-m3</code> в этом OVMS-экспорте не различает релевантность для кириллицы (для ro/en работает идеально) — не квантование, локализовано до конвертации токенизатора в <code>export_model.py</code>; поэтому кросс-энкодер реализован и протестирован, но <em>сознательно не включён</em> по умолчанию — деталь и таблица измерений в <code>ovms/README.md</code>.</div>
+      <div class="callout ok"><strong>Сделано (аудит «что нужно перед деплоем»):</strong> предмет
+      можно было выбрать только один раз на онбординге — негде было сменить без сброса всех
+      данных; добавлен переключатель предмета в шапке (переиспользует уже существующий
+      generic <code>updateProfile</code>, дожидается скачивания пакета перед переключением, чтобы
+      поиск не возвращал молча пусто). Найдены и убраны два румынских допущения, тихо ломавших
+      другие предметы: системный промпт барем-проверки утверждал «Ești un evaluator... pentru
+      limba română» даже проверяя математику; RAG-грундинг при отсутствии предмета по умолчанию
+      подставлял <code>romanian</code> вместо того, чтобы просто не грундить. <strong>Гибридная
+      проверка барема:</strong> у <code>ExamSubCriterion</code> появился <code>gradeMode</code> —
+      часть критериев задания (метод решения) проверяет LLM, а «итоговый ответ» — детерминированно,
+      числовым компаратором (<code>src/learning/expressionMatch.ts</code>): «9√2π» ≡ «9π√2» ≡
+      «9*sqrt(2)*pi», «k=14» ≡ «14», «310 см» ≡ «310» — без ручного перечисления вариантов
+      строкой. При падении LLM детерминированные баллы больше не теряются вместе со всем заданием.
+      Проверено вживую (не только юнит-тестами): сдал математику ответами в другой записи — все
+      совпали с эталоном, режим корректно показал «смешанная оценка».</div>
+      <div class="callout ok"><strong>Сделано (24.08.2026, расширение корпуса):</strong> из <code>ctice.gov.md</code>
+      скачано и обработано <strong>27 настоящих учебников</strong> (классы 7–12) для 5 предметов, которые раньше
+      держались на нескольких авторских чанках — биология, история, математика, русский, английский. Корпус
+      вырос с 1 641 до <strong>9 437 чанков</strong> (раздел 8 — полная таблица). По пути найдены и исправлены
+      два реальных прод-бага, не связанных с контентом:
+      <ol style="margin:.5rem 0 0;">
+        <li><strong>Эмбеддинги были мертвы на проде с самого запуска фичи.</strong> Пользователь сообщил
+        «Модель эмбеддингов недоступна» на <code>/practice</code> по химии; локальная Ollama была ни при чём —
+        секреты <code>CF_ACCOUNT_ID</code>/<code>CF_API_TOKEN</code> для Workers AI никогда не были выставлены на
+        <em>production</em>-окружении Pages (<code>wrangler pages secret list</code> показывал только
+        <code>OPENAI_API_KEY</code>), хотя код прокси был готов давно. Выставлены, передеплоено, проверено
+        напрямую (<code>curl</code> к <code>/api/v1/embeddings</code> → 200 с вектором) и вживую в браузере.</li>
+        <li><strong>Деплой ломался на лимите Cloudflare Pages.</strong> После расширения корпуса
+        <code>biology.pack.json</code> весил 36,9 МБ — выше лимита Pages в 25 МБ на файл (у english/history/math
+        та же проблема). Эмбеддинги <code>bge-m3</code> сериализовались в JSON с полной точностью float64
+        (~19 симв./число), хотя точность самой модели этого не поддерживает. Округление до 5 знаков после
+        запятой (<code>scripts/seed-packs.ts</code>, ×100 точнее, чем нужно для косинуса) ужало все пакеты
+        вдвое-втрое без потери контента: math 48,4→23,7 МБ, biology 36,9→18,3 МБ. Заодно добавлены ретраи с
+        экспоненциальной задержкой вокруг каждого вызова эмбеддинга — пересев ~9 700 новых чанков дважды
+        падал на транзитных сетевых сбоях Workers AI (ECONNRESET, потом таймаут на 2200 из 2409) посреди
+        многочасового прогона.</li>
+      </ol>
+      Все 7 пакетов пересеяны через один и тот же бэкенд (<code>@cf/baai/bge-m3</code>, Workers AI) — раньше
+      только химия была на нём, остальные — на локальной Ollama; кросс-бэкенд проверка (10 ro/ru/en проб)
+      прошла с cosine = 1.0000. Прод передеплоен и проверен: <code>/practice</code> по химии на теме
+      «Периодический закон и строение атома» (та самая, где было предупреждение) находит 5 источников и
+      выдаёт полноценный разбор ответа, а не самооценку.</div>
+      <div class="callout ok"><strong>Сделано (24.08.2026, инфраструктура под несколько лет настоящих
+      вариантов теста):</strong> готовимся принять реальные ANCE-тесты+баремы за 12 (и частично 9) класс
+      за несколько лет по нескольким предметам. Прежде чем транскрибировать, достроена инфраструктура,
+      без которой лишние варианты просто лежали бы мёртвым грузом в реестре:
+      <ul style="margin:.5rem 0 0;">
+        <li><code>ExamPaper.grade</code> — класс конкретного варианта (независимо от учебного
+        <code>defaultGradeLevel</code> предмета: <code>math-sb26</code> — настоящий 12-классовый BAC,
+        хотя математика как предмет изучается с 9-го).</li>
+        <li><code>ExamPaper.profile</code> (<code>'real' | 'umanist'</code>) — с 10 класса молдавский
+        куррикулум делится на профиль «реальный» (точные науки) и «гуманитарный», раздельно для
+        biology/chemistry/history/english/russian/math, каждый со своим вариантом теста в год.
+        <code>StudentProfile.curriculumProfile</code> — необязательный вопрос на онбординге (можно
+        пропустить), правится потом в Настройках.</li>
+        <li><strong>Test B / ротация вариантов — реализована.</strong> Была спроектирована ещё в
+        августе (диагностика = самый свежий сданный вариант, Test B = программно выбранный непройденный,
+        для проверки переноса навыка), но <code>RescueSession</code>/<code>rescueSessionRepo</code>
+        существовали только в типах — нигде не вызывались. Теперь реально создаются/обновляются, в
+        Rescue Mode появилась фаза «независимый Test B» после серии упражнений.</li>
+        <li><strong>Попутно найден и исправлен реальный баг:</strong> без фильтра по профилю
+        <code>selectTestBPaper()</code> мог подсунуть ученику реального профиля Test B гуманитарного
+        варианта того же предмета — разная глубина курса, нечестная проверка переноса. Теперь фильтрует
+        по совпадающему профилю (профиль-агностичные варианты — 9 класс и т.п. — проходят всегда).</li>
+        <li><code>scripts/fetch-exam-papers.ts</code> — <code>--sessions</code>/<code>--profiles</code>
+        (списком) вместо скалярных <code>--session</code>/<code>--profile</code>.</li>
+      </ul>
+      290/290 тестов (+6), typecheck/lint/build чистые. Реестр пока на прежних 3 вариантах
+      (romanian×2, math×1) — сама транскрипция новых лет не начата, ждёт файлов.</div>
+      <div class="callout"><strong>В работе:</strong> визуальные материалы (рисунки/схемы/формулы из настоящих тестов и учебников) реализованы для одного предмета (математика) — см. раздел 7; обобщение на остальные предметы и учебники, обобщение Rescue Mode на все предметы, повторный экспорт реранкера при обновлении OVMS/optimum-intel.</div>
+      <div class="callout"><strong>Архитектурный принцип:</strong> слои <code>rag/</code> ⟂ <code>llm/</code> ⟂ <code>learning/</code> ⟂ <code>storage/</code> изолированы и связываются только в <code>services/</code>. Предметы — это данные + конфигурация, а не код. См. <code>docs/ARCHITECTURE.md</code>.</div>
+      <div class="callout"><strong>Тестирование.</strong> <strong>290 юнит-тестов в 38 файлах</strong> (Vitest + Testing Library + fake-indexeddb) покрывают слои <code>rag/</code>, <code>llm/</code>, <code>learning/</code> (барем-грейдер), <code>storage/</code>, <code>services/</code>, <code>media/</code> (геометрия разметки рисунков), импорт пакетов и серверный прокси. Отдельный harness оценки извлечения (<code>npm run eval</code>) + детерминированный гейт качества в CI (<code>npm run eval:ci</code>). Перед пилотом прогнан <strong>сквозной E2E-smoke на проде</strong> (Playwright): онбординг → экзамен → облачный грейдинг (3/3 «оценка ИИ») → анти-чит (вставка/копирование/правый клик заблокированы) → авто-сдача после 5 уходов с вкладки; 0 ошибок в консоли. Экран пробного экзамена по математике с рисунками (раздел 7) проверен так же — локально, в светлой и тёмной теме.</div>
+
+      <!-- 2. LOCAL -->
+      <h2 id="local">2. Локальный запуск</h2>
+      <h3>Требования</h3>
+      <ul>
+        <li><strong>Node.js 20.19+ или 22.12+</strong> (Vite 8) и npm.</li>
+        <li>Опционально <strong>Ollama</strong> с моделью <code>bge-m3</code> — для реального мультиязычного семантического поиска. Без него приложение тоже работает (на офлайн-заглушке эмбеддингов).</li>
+      </ul>
+      <h3>Быстрый старт</h3>
+      <pre><code>npm install
+npm run dev        # http://localhost:5173</code></pre>
+      <p>Предметные пакеты (<code>public/packs/*.pack.json</code>) уже в репозитории, поэтому приложение запускается сразу. Производственная сборка:</p>
+      <pre><code>npm run build      # tsc -b + vite build → dist/
+npm run preview    # локальный предпросмотр собранного PWA</code></pre>
+      <h3>Реальные эмбеддинги</h3>
+      <p>Пакеты в репозитории уже собраны на реальных <code>bge-m3</code>-векторах — все 7 через
+      Cloudflare Workers AI (тот же бэкенд, что и на проде, см. раздел 8). Пересобрать самостоятельно
+      через локальную Ollama (быстрее для итерации, но нужна отдельная сверка косинуса перед тем как
+      полагаться на такой пакет в проде — <code>npm run verify:embeddings</code>, раздел 4):</p>
+      <pre><code>ollama pull bge-m3
+npm run seed                 # пересобрать все пакеты на реальных 1024-векторах
+npm run seed -- english      # пересобрать только один предмет</code></pre>
+      <div class="callout"><strong>Как это работает.</strong> Каждый пакет хранит, какой моделью он собран (<code>embeddingModel</code>) и какой размерности (<code>embeddingDim</code>) — размерность больше не глобальная константа. При поиске запрос эмбеддится <em>той же</em> моделью, иначе векторные пространства не совпадут (одинаковая размерность не гарантирует совпадение — разные модели с одним и тем же числом измерений всё равно несравнимы). Если пакет собран на модели, которая недоступна — поиск не падает: показывается понятное сообщение (мягкая деградация), и приложение автоматически восстанавливается, когда сервис снова доступен. Перед тем как доверять одному бэкенду пакет, собранный другим (например: пакет с OVMS, а рантайм — Ollama), стоит прогнать <code>npm run verify:embeddings</code> — сверяет косинус на фиксированном ru/ro/en наборе запросов.</div>
+      <div class="callout"><strong>OpenVINO (оптимизированный локальный инференс на Intel) — альтернатива облаку.</strong> Поддержан через <strong>OpenVINO Model Server (OVMS)</strong> с OpenAI-совместимым API: чат — пресет <code>openvino</code> (<code>http://localhost:8000/v3</code>) переиспользует общий адаптер без отдельного кода; эмбеддинги — <code>OpenAICompatibleEmbeddingProvider</code> против OVMS <code>/v3/embeddings</code> (модель — <code>bge-m3</code>, 1024-dim, пакеты пересобрать ею). Тот же OpenAI-совместимый хук работает и в проде — но там это <strong>Cloudflare-прокси</strong>: эмбеддинги идут в <strong>Workers AI</strong> (<code>@cf/baai/bge-m3</code>, тоже 1024-dim — то же пространство, что и локально), чат — в OpenAI (<code>gpt-5.4-mini</code>); OVMS остаётся вариантом для полностью локального/Intel-развёртывания без облака. Подробнее — <code>docs/LLM_PROVIDERS.md</code>.</div>
+      <h3>Полезные команды</h3>
+      <table>
+        <thead><tr><th>Команда</th><th>Что делает</th></tr></thead>
+        <tbody>
+          <tr><td><code>npm run typecheck</code></td><td>Строгая проверка типов (<code>tsc -b</code>)</td></tr>
+          <tr><td><code>npm test</code></td><td>Юнит-тесты (Vitest), 290 тестов</td></tr>
+          <tr><td><code>npm run exams:fetch</code></td><td>Скачать реальные тесты/баремы ANCE (см. раздел 7)</td></tr>
+          <tr><td><code>npm run figures:extract</code></td><td>Вырезать рисунки из PDF в PNG + манифест (см. раздел 7)</td></tr>
+          <tr><td><code>npm run eval</code></td><td>Оценка извлечения (recall@1/3/5, MRR), режим auto/real → <code>eval/results/</code></td></tr>
+          <tr><td><code>npm run eval:ci</code></td><td>Детерминированный гейт качества (recall@5, MRR против <code>eval/thresholds.json</code>); используется в CI</td></tr>
+          <tr><td><code>npm run eval:sweep</code></td><td>Подбор topK / порога / hybrid / rerank по сетке</td></tr>
+          <tr><td><code>npm run lint</code></td><td>ESLint</td></tr>
+        </tbody>
+      </table>
+
+      <!-- 3. CLOUDFLARE -->
+      <h2 id="cloudflare">3. Деплой на Cloudflare (реализовано)</h2>
+      <p>Приложение — статический SPA + PWA на <strong>Cloudflare Pages</strong>. Динамика (LLM-грейдинг и облачные эмбеддинги) идёт через <strong>Pages Function</strong>-прокси на том же домене (<code>/api/*</code>), так что ключ OpenAI остаётся на сервере. Полный рунбук — <code>docs/DEPLOY_CLOUDFLARE.md</code>; короткая шпаргалка по шагам — <code>docs/DEPLOY_STEPS.html</code>.</p>
+      <div class="callout ok"><strong>Уже развёрнуто:</strong> проект Pages <code>pws-rag-edu</code> → <a href="https://pws-rag-edu.pages.dev">https://pws-rag-edu.pages.dev</a>. Деплой: <code>npm run cf:deploy</code> (он же подхватывает <code>functions/</code>); секрет <code>OPENAI_API_KEY</code> задан через <code>wrangler pages secret put</code>. Шаги ниже нужны для <em>повторного</em> деплоя/настройки с нуля.</div>
+
+      <h3>Шаг 1. Хостинг на Cloudflare Pages</h3>
+      <ol>
+        <li>Авторизация: <code>npx wrangler login</code> (или токен <code>CLOUDFLARE_API_TOKEN</code> с правом Pages:Edit).</li>
+        <li>Сборка и деплой: <code>npm run build</code>, затем <code>npm run cf:deploy</code> (= <code>wrangler pages deploy dist</code>). При первом запуске создаётся проект Pages.</li>
+        <li>SPA-маршрутизация: файл <code>public/_redirects</code> (<code>/* /index.html 200</code>) уже в репозитории — прямые ссылки/refresh на <code>/exam</code>, <code>/practice</code> и т.д. отдают приложение. Pages Functions (<code>/api/*</code>) матчатся раньше этого правила, поэтому прокси не задевается.</li>
+        <li>Прокси: <code>functions/api/[[path]].ts</code> → <code>src/server/openaiProxy.ts</code> обслуживает <code>/api/v1/*</code> (деплоится автоматически вместе с Pages).</li>
+      </ol>
+
+      <h3>Шаг 2. Эмбеддинги в облаке</h3>
+      <div class="callout"><strong>Решение (обновлено после миграции на bge-m3):</strong> запрос и пакет должны жить в одном векторном пространстве, а у учеников нет локальной Ollama. Эмбеддинги идут <strong>всегда через прокси</strong>, но не в OpenAI, а в <strong>Cloudflare Workers AI</strong> (<code>@cf/baai/bge-m3</code>, 1024-dim) — через её же OpenAI-совместимый эндпоинт, так что <code>OpenAICompatibleEmbeddingProvider</code> на фронтенде не меняется. Причина смены бэкенда: одна и та же модель должна стоять и локально (демо на Intel), и в проде — OpenAI не хостит <code>bge-m3</code>, Workers AI хостит. Перед деплоем пакеты нужно <strong>пересеять</strong> этой же моделью (шаги с ключом — в разделе 4). Дефолт уже выставлен: <code>DEFAULT_EMBEDDING_CONFIG = { backend:'openai-compatible', baseUrl:'/api/v1' }</code>.</div>
+      <p>Полностью офлайн-вариант тоже остаётся возможным (<code>EMBED_MODE=deterministic npm run seed</code> → лексический поиск без бэкенда), но для реальной семантики выбран Workers AI (эмбеддинги) + OpenAI (чат).</p>
+
+      <h3>Шаг 3. Чек-лист деплоя</h3>
+      <ul class="checklist">
+        <li>Пересеять пакеты на <code>bge-m3</code> @ 1024 (раздел 4, шаг A) и закоммитить.</li>
+        <li><code>npx wrangler login</code> → <code>npm run build</code> → <code>npm run cf:deploy</code>.</li>
+        <li>Положить ключи секретами: <code>wrangler pages secret put OPENAI_API_KEY</code> (чат), <code>CF_ACCOUNT_ID</code> и <code>CF_API_TOKEN</code> (эмбеддинги, скоуп Workers AI), затем пере-деплой.</li>
+        <li>Проверить: на странице открыть пробный экзамен, сдать одно открытое задание → оценка по барему (не фоллбэк-самооценка), панель источников показывает чанки.</li>
+        <li>Проверить установку PWA и офлайн-режим на мобильном.</li>
+      </ul>
+
+      <!-- 4. OPENAI KEY VIA PROXY -->
+      <h2 id="demokey">4. Облачный LLM + ключ OpenAI через прокси (реализовано)</h2>
+      <div class="callout warn"><strong>Правило безопасности:</strong> рабочий ключ <em>никогда</em> не попадает во фронтенд или репозиторий. Ключ хранится как <strong>секрет проекта Pages</strong>, а фронтенд обращается к нашему же эндпоинту <code>/api/v1</code>, который подставляет ключ на сервере.</div>
+      <p>Что уже реализовано: пресет провайдера <code>worker</code> (по умолчанию) — <code>kind:'openai'</code>, <code>apiKeyMode:'proxy'</code>, <code>baseUrl:'/api/v1'</code>, модель <code>gpt-5.4-mini</code>. И грейдинг, и эмбеддинги ходят на <code>/api/v1/*</code>, который обслуживает Pages Function <code>functions/api/[[path]].ts</code> → <code>src/server/openaiProxy.ts</code>. В браузере ключа нет (адаптер не шлёт <code>Authorization</code> в режиме <code>proxy</code>).</p>
+
+      <h3>Пошаговые действия по ключам</h3>
+      <p><strong>Шаг A. Пересев пакетов на bge-m3 через Workers AI</strong> (один раз, нужен токен Cloudflare со скоупом Workers AI; PowerShell):</p>
+      <pre><code>$env:EMBED_MODE = "openai-compatible"
+$env:EMBED_BASE_URL = "https://api.cloudflare.com/client/v4/accounts/&lt;CF_ACCOUNT_ID&gt;/ai/v1"
+$env:EMBED_MODEL = "@cf/baai/bge-m3"
+$env:EMBED_API_KEY = "&lt;CF_API_TOKEN&gt;"
+npm run seed
+Remove-Item Env:EMBED_API_KEY          # гигиена: убрать ключ из окружения
+git add public/packs/*.pack.json
+git commit -m "data: re-seed packs with bge-m3@1024 (multilingual)"</code></pre>
+      <div class="callout warn"><strong>Лимит Cloudflare Pages: 25 МБ на файл.</strong> При корпусе
+      в несколько тысяч чанков на предмет пакет может упереться в этот лимит — уже случалось (раздел
+      1, статус-блок 24.08.2026). <code>seed-packs.ts</code> теперь сам округляет эмбеддинги до 5
+      знаков перед записью (~100x точнее, чем нужно для косинуса, но вдвое-втрое компактнее в JSON) —
+      отдельных действий не требуется, но если пакет всё равно вырос под 25 МБ, снижайте
+      <code>--max-chunks</code> в <code>scripts/ingest-pdf.ts</code>, а не точность эмбеддинга.</div>
+      <p><strong>Шаг B. Положить ключи секретами проекта Pages</strong> (в репозиторий не коммитятся):</p>
+      <pre><code>npx wrangler pages secret put OPENAI_API_KEY   # чат (OpenAI)
+npx wrangler pages secret put CF_ACCOUNT_ID    # эмбеддинги (Workers AI)
+npx wrangler pages secret put CF_API_TOKEN     # эмбеддинги (Workers AI, скоуп Read)
+# затем пере-деплой, чтобы Function увидела секреты:
+npm run build &amp;&amp; npm run cf:deploy</code></pre>
+      <p>Для локальной разработки/сева через прокси — файл <code>.dev.vars</code> (в <code>.gitignore</code>) со строками <code>OPENAI_API_KEY=sk-...</code>, <code>CF_ACCOUNT_ID=...</code>, <code>CF_API_TOKEN=...</code> и <code>npm run cf:dev</code> (поднимет сайт + Functions на <code>http://localhost:8788</code>).</p>
+
+      <h3>Что прокси уже защищает</h3>
+      <ul>
+        <li><strong>Эмбеддинги:</strong> жёстко форсит модель <code>@cf/baai/bge-m3</code> и шлёт запрос в Workers AI своим ключом (<code>CF_API_TOKEN</code>) — вызвать произвольную/дорогую модель через ключ нельзя; клиентский <code>dimensions</code> отбрасывается (bge-m3 его не поддерживает).</li>
+        <li><strong>Чат:</strong> allowlist моделей <code>{gpt-5.4-mini, gpt-5.4-nano}</code> (по умолчанию mini), жёсткий потолок вывода <strong>512</strong> токенов, <code>n:1</code>, удаление <code>stream</code>. Семейство GPT-5.x использует <code>max_completion_tokens</code> (а не <code>max_tokens</code>) — прокси приводит к нему автоматически.</li>
+        <li><strong>Доступ:</strong> проверка <code>Origin</code> (запросы с чужого источника отклоняются); каждая ветка проверяет только свой секрет (<code>OPENAI_API_KEY</code> для чата, <code>CF_ACCOUNT_ID</code>/<code>CF_API_TOKEN</code> для эмбеддингов), заголовки к апстриму формируются заново (без утечки клиентских/ответных заголовков).</li>
+      </ul>
+      <div class="callout"><strong>Локальная Ollama (опционально).</strong> Если на машине, где открыт сайт, доступна локальная Ollama, в Настройках появляется предложение использовать её <em>для оценки</em> (грейдинга) вместо облака. Эмбеддинги при этом остаются на прокси (одно векторное пространство). На захостенном HTTPS-сайте проба не проходит (mixed-content) — там остаётся облако.</div>
+      <div class="callout warn"><strong>Если ключ под высокой нагрузкой</strong> (много учеников/публичная ссылка): дополнительно включить Cloudflare <strong>Rate Limiting</strong> по IP и/или <strong>Turnstile</strong> (капчу), а у провайдера выставить лимит трат (spend cap). Для контролируемого пилота достаточно текущих ограничений выше.</div>
+      <div class="callout ok">Итог: ученик получает рабочий ИИ «из коробки» без ввода ключа, а ключ остаётся на сервере под лимитами. Для приватности по-прежнему доступны полностью локальные режимы (Ollama / LM Studio / mock).</div>
+
+      <!-- 5. MOBILE -->
+      <h2 id="mobile">5. Эффективная работа на телефоне</h2>
+      <p>Уже есть: манифест PWA, service worker (офлайн), <code>viewport</code>, <code>theme-color</code>, адаптивные сетки, режим дислексии. Что добавить/усилить:</p>
+      <div class="grid">
+        <div class="card"><strong>Установка как приложение</strong><br /><strong>Сделано:</strong> <code>apple-touch-icon.png</code> (180×180), <code>pwa-192x192.png</code>, <code>pwa-512x512.png</code> и отдельная <code>maskable-icon-512x512.png</code> (безопасная зона — вся графика в центральных ~80% холста, без прозрачности) добавлены и подключены в <code>vite.config.ts</code>/<code>index.html</code>. Осталось проверить установочные критерии PWA (Lighthouse) на реальном телефоне.</div>
+        <div class="card"><strong>Размер бандла</strong><br />Сборка предупреждает о чанке &gt;500 КБ. Применить <code>React.lazy</code> + <code>Suspense</code> для экранов (особенно Model Lab/Stats/Export), чтобы первый экран грузился быстрее на мобильной сети.</div>
+        <div class="card"><strong>Трафик данных</strong><br />Пакеты с реальными эмбеддингами тяжелее. Уже скачиваются по одному предмету по требованию и кэшируются. Можно сжимать (gzip/br на Pages включён) и грузить пакет только при первом входе в предмет.</div>
+        <div class="card"><strong>Тач-эргономика</strong><br />Цели нажатия ≥ 44×44 px, увеличить отступы у кнопок навигации, горизонтальный скролл таблиц (Model Lab/Stats) уже есть — добавить «липкий» первый столбец.</div>
+        <div class="card"><strong>Офлайн</strong><br />SW предкэширует оболочку и пакеты; после первой загрузки предмет доступен без сети. Показать индикатор «офлайн / обновление доступно».</div>
+        <div class="card"><strong>Доступность и комфорт</strong><br />Уважать <code>prefers-reduced-motion</code> и <code>prefers-color-scheme</code>, крупный шрифт по умолчанию, режим дислексии. Поля ввода — <code>font-size ≥ 16px</code>, чтобы iOS не зумил.</div>
+        <div class="card"><strong>Речь (TTS/ввод)</strong><br />Озвучка реализована через Web Speech API (<code>speak()</code> / <code>stopSpeaking()</code> в <code>src/a11y/speech.ts</code>; no-op без поддержки). Голосовой ввод — прогрессивное улучшение с проверкой доступности (<code>isVoiceInputAvailable</code>): на мобильных распознавание работает неравномерно, особенно на iOS.</div>
+        <div class="card"><strong>ЛЛМ на телефоне</strong><br />Локальный Ollama на телефоне недоступен → на мобильных работает облачный прокси OpenAI (раздел 4); как полностью офлайн-альтернатива — детерминированные пакеты (<code>EMBED_MODE=deterministic</code>).</div>
+      </div>
+      <h3>Чек-лист мобильной готовности</h3>
+      <p class="muted">✅ PNG-иконки 192/512 + <code>maskable</code> + <code>apple-touch-icon</code> — сделано.</p>
+      <ul class="checklist">
+        <li>Ленивые маршруты (<code>React.lazy</code>) и проверка размера бандла.</li>
+        <li>Тач-цели ≥ 44px, <code>font-size: 16px</code> у инпутов.</li>
+        <li>Прогон Lighthouse (PWA/Perf/Best practices) на мобильном профиле.</li>
+        <li>Тест офлайн-сценария и установки на iOS и Android.</li>
+      </ul>
+
+      <!-- 6. METRICS -->
+      <h2 id="metrics">6. Метрики: сделано и дальнейшие шаги</h2>
+      <p>Категории метрик описаны в <code>docs/EVALUATION.md</code>. Golden-наборы (56 айтемов, все 7 предметов) включают русскоязычные запросы против румынского/английского корпуса (<code>*-ru</code> айтемы) — целевой сценарий пилота. Итог (auto, <code>bge-m3</code>): <strong>recall@5 = 0.948, MRR = 0.886</strong>. На срезе только русскоязычных запросов против румынского/английского материала — <strong>recall@5 = 0.875, MRR = 0.594</strong> против <strong>0.625 / 0.358</strong> у прежней модели (<code>nomic-embed-text</code>@768), при неизменном recall@5 = 1.0 на родном языке — это и есть измеренное доказательство, что миграция на bge-m3 лечит исходную проблему. Детерминированный режим (офлайн-заглушка, для CI-гейта): recall@5 = 0.732, MRR = 0.644 — ниже, потому что новые предметы (химия, математика) насыщены формулами, которые лексическая заглушка не понимает семантически; это ожидаемо и не гейтится строже.</p>
+
+      <div class="callout ok"><strong>✅ Уже реализовано</strong>
+        <ul>
+          <li><strong>Гибридный поиск</strong> (вектор + BM25-lite, слияние RRF) — <code>src/rag/lexical.ts</code>.</li>
+          <li><strong>Реранкер</strong>: консервативный лексический поверх top-N, держит порядок вектора как приоритет; интерфейс <code>Reranker</code> для будущего модельного — <code>src/rag/rerank.ts</code>.</li>
+          <li><strong>Тюнинг topK / порога</strong> через свип (<code>npm run eval:sweep</code>); дефолты topK=5, minSim=0.15.</li>
+          <li><strong>Метрики</strong>: recall@1/3/5, MRR, refusal-accuracy, средний top-similarity — <code>eval/harness.ts</code>.</li>
+          <li><strong>Расширенные golden</strong> (RO 10, EN/Bio/Hist по 6 + офтопик-айтемы).</li>
+          <li><strong>Перцентили латентности</strong> p50/p95 на экране «Статистика».</li>
+          <li><strong>Гейтинг в CI</strong>: <code>npm run eval:ci</code> (детерминированный, офлайн) падает при recall@5/MRR ниже порогов.</li>
+        </ul>
+      </div>
+
+      <div class="callout"><strong>↗️ Дальнейшие шаги</strong>
+        <ul>
+          <li><strong>Генерация:</strong> строгий groundedness через LLM-судью (NLI), валидация формата по JSON-схеме, A/B промптов, автооценка отказов.</li>
+          <li><strong>Refusal:</strong> отдельный классификатор «в домене / вне домена» — порог косинуса не отсекает одноязычный офтопик надёжно (поэтому refusal-accuracy сейчас отчётная, не гейтится).</li>
+          <li><strong>Извлечение:</strong> больше/качественнее чанков, чанкинг с перекрытием; модельный cross-encoder реранкер за интерфейсом <code>Reranker</code>.</li>
+          <li><strong>Учебные:</strong> LLM-оценка письменных ответов по рубрике вместо самооценки; калибровка mastery/интервалов по данным удержания.</li>
+          <li><strong>Операционные:</strong> таблицы цен по провайдерам для точной <code>estimatedCost</code>; перцентили латентности уже есть.</li>
+        </ul>
+      </div>
+
+      <!-- 7. FIGURES -->
+      <h2 id="figures">7. Визуальные материалы: рисунки в тестах</h2>
+      <p>Настоящие тесты BAC/EN (ANCE) и учебники полны чертежей, схем и таблиц — без них
+      задание вида «на рисунке изображён конус…» нерешаемо. Проверено на двух настоящих файлах
+      с ance.gov.md: текстовый слой есть (это не сканы), но сами рисунки — почти всегда
+      <strong>векторная графика или встроенные растровые изображения</strong>, а не отдельные
+      файлы, поэтому извлечение работает через <strong>рендер страницы в растр</strong>, а не
+      через вытаскивание PDF-объектов.</p>
+      <div class="callout ok"><strong>Сделано:</strong> <code>VisualAsset</code>
+      (<code>src/types/asset.ts</code>) — отдельный PNG (не base64 внутри пакета, пакеты и так
+      занимают десятки МБ), подключён к заданию экзамена, микродриллу Rescue Mode и к чанку
+      учебника. Показ — <code>FigureView</code>: белая подложка под рисунком (иначе чёрные
+      линии пропадают в тёмной теме), клик → зум в нативном <code>&lt;dialog&gt;</code>,
+      alt-текст на языке интерфейса. <code>scripts/extract-figures.ts</code> вырезает область
+      либо вручную (по пиксельным координатам с уже отрендеренной страницы — всегда работает),
+      либо автоматически (кластеризация «чернильных» боксов из <code>constructPath</code> и
+      картинок, <code>src/media/figureLayout.ts</code>). По пути найден и исправлен реальный
+      баг: большой прямоугольник под письменный ответ, который тесты рисуют на каждое задание,
+      склеивал кластеризацию в один блок на всю страницу — теперь такие боксы отсекаются по
+      размеру до кластеризации, не после.<br /><br />
+      <code>scripts/fetch-exam-papers.ts</code> скачивает настоящие тест+барем PDF ANCE по
+      проверенному шаблону ссылки. На математике (<code>math-sb26</code>) — 6 заданий из
+      настоящего варианта BAC (реальный профиль), 3 из них с настоящими вырезанными рисунками
+      (конус, трапеция, пирамида), баллы и ответы — из настоящего барема. Промпт LLM-проверки
+      теперь описывает рисунок словами (vision-вызова нет), чтобы оценка «по рисунку» не была
+      слепой. Рисунки не попадают в предустановочный кэш PWA — грузятся и кэшируются лениво,
+      как и пакеты предметов.</div>
+      <div class="callout"><strong>Не сделано:</strong> привязка рисунков к чанкам учебников
+      (<code>ChunkSourceMetadata.figures</code> — тип уже готов, вызов детектора в
+      <code>ingest-pdf.ts</code> — нет) и рисунки для остальных 6 предметов. Инфраструктура
+      переиспользуется без изменений — это чисто вопрос времени на прогон и разметку.</div>
+
+      <!-- 8. CORPUS -->
+      <h2 id="corpus">8. Корпус: учебники, предметы, классы, чанки</h2>
+      <p>Точные цифры по состоянию на 24.08.2026 — прямо из скачанных пакетов
+      (<code>public/packs/*.pack.json</code>) и корпуса (<code>corpus/</code>), не оценка на глаз.</p>
+      <div style="overflow-x:auto;">
+      <table style="min-width:820px;">
+        <thead><tr>
+          <th>Предмет</th><th>Классы</th><th>Язык</th><th>Источник</th>
+          <th>Чанков</th><th>Размер пакета</th><th>Тем в дереве</th><th>Вариантов теста</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Румынский (alolingvi)</td><td>9</td><td>ro</td><td>Авторский (рукописный) — единственный предмет, не тронутый в этом расширении</td><td>17</td><td>0,15 МБ</td><td>9</td><td>2 (<code>pr26</code>, <code>sb26</code>)</td></tr>
+          <tr><td>Английский</td><td>8–12</td><td>en</td><td>8 учебников (Editura ARC / Univers Educațional, MECC): по одному на 8–9 класс, по два «потока по уровню» (A2.x + B1.x) на 10–12; кл. 7 в каталоге нет</td><td>2 409</td><td>22,61 МБ</td><td>4</td><td>0</td></tr>
+          <tr><td>Биология</td><td>7–12</td><td>ru</td><td>6 учебников Минпросвещения, автопайплайн PDF→чанки</td><td>1 804</td><td>18,29 МБ</td><td>3</td><td>0</td></tr>
+          <tr><td>История</td><td>8–12</td><td>ru</td><td>5 учебников (кл. 8 — 2 книги; скан 2004 г. без текстового слоя пропущен, читаем вторым учебником того же класса)</td><td>1 507</td><td>15,15 МБ</td><td>3</td><td>0</td></tr>
+          <tr><td>Химия</td><td>9, 12</td><td>ru</td><td>2 учебника — классы 7/8/10 отсутствуют в каталоге источника (не пробел пайплайна)</td><td>600</td><td>6,06 МБ</td><td>11</td><td>0</td></tr>
+          <tr><td>Математика</td><td>7–12</td><td>ru</td><td>7 учебников (кл. 10 и 12 — по 2 книги)</td><td>2 400</td><td>23,67 МБ</td><td>9</td><td>1 (<code>math-sb26</code>, 6 заданий, 3 с рисунками)</td></tr>
+          <tr><td>Русский язык и литература</td><td>11, 12</td><td>ru</td><td>2 учебника — кл. 7–10 без RU-издания в каталоге</td><td>700</td><td>7,07 МБ</td><td>7</td><td>0</td></tr>
+          <tr><td><strong>Итого (7 предметов)</strong></td><td>7–12</td><td>—</td><td><strong>31 обработанный учебник</strong></td><td><strong>9 437</strong></td><td><strong>≈93 МБ</strong></td><td><strong>46</strong></td><td><strong>3</strong></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="callout"><strong>Как читать «источник».</strong> Румынский (alolingvi) остаётся
+      вручную написанными чанками — единственный предмет, который это расширение не тронуло (см.
+      предупреждение ниже). Все остальные 6 — <code>scripts/ingest-pdf.ts</code> прогнан по настоящим
+      PDF Министерства просвещения Молдовы (<code>corpus/manifest.json</code>, каталог
+      <code>ctice.gov.md</code>), без единой правки ядра retrieval/LLM/learning — раздел 9 «Оценка
+      сложности» ниже показывает, что технически это тот же путь, что и для нового предмета. 300
+      чанков/книга — уже применённый потолок <code>--max-chunks</code> (равномерная выборка по всей
+      книге, не первые главы), а не случайное число.</div>
+      <div class="callout warn"><strong>Реальные пробелы источника (не ошибка пайплайна).</strong>
+      Химия 7/8/10 класса, история 7 класса (RU-издание), русский 7–10 класса — этих PDF просто нет в
+      каталоге ctice.gov.md на сегодня, ни в одном языке или только в ro. Один скан (история, 8 класс,
+      издание 2004 г.) оказался чистым изображением без текстового слоя (0 текстовых элементов на
+      каждой странице) — исключён, нужен OCR, вне охвата текущего пайплайна.</div>
+      <div class="callout warn"><strong>Английский устроен не так, как остальные предметы.</strong>
+      Каталог организован по уровню CEFR, не по классу — прямое предположение «уровень = класс» оказалось
+      неверным (проверено при реализации: обложка книги уровня A2+ говорит «12th Form», не 9-й, как
+      казалось по номеру уровня). Реальное соответствие взято из титульной страницы/CIP-описания
+      каждой книги, а не из названия файла: класс 8 = A2.1, класс 9 = A2.2, классы 10–12 — по два
+      параллельных потока (A2.x попроще + B1.x посложнее) на класс. Для 10–12 классов в пакет вошли
+      оба потока — RAG не различает уровень подготовки ученика, так что это расширение охвата, а не
+      путаница вариантов.</div>
+      <div class="callout ok"><strong>Потенциал дальнейшего расширения.</strong> Полный каталог
+      ctice.gov.md (<code>corpus/manifest.json</code>, обновлён 23.08.2026) — <strong>308 записей</strong>,
+      классы <strong>1–12</strong>. Из предметов проекта не выкачаны только классы 1–6 (ниже целевого
+      диапазона пилота) и уже упомянутые реальные пробелы источника. Совсем не тронуты три предмета,
+      которых в проекте пока нет вообще: <strong>физика (14 записей)</strong>,
+      <strong>география (16)</strong>, <strong>информатика (12)</strong> — по разделу 9 добавление
+      каждого технически не отличается от уже пройденного пути для химии/математики. Показательно и
+      для масштабирования на школы с румынским языком обучения (тот же куррикулум, тот же манифест —
+      просто <code>language: 'ro'</code> вместо <code>'ru'</code>): узкое место — не доступность
+      источников, а время на прогон пайплайна и на учительские golden-вопросы для проверки качества
+      каждого нового предмета/класса.</div>
+      <div class="callout"><strong>Не сделано:</strong> румынский (alolingvi) — единственный предмет
+      без реального учебника. Причина не техническая: в каталоге у большинства классов «Limba și
+      literatura română» язык файла помечен как <code>unknown</code>, и без ручной проверки PDF нельзя
+      надёжно отличить учебник для румыноязычных школ (носители, литературный анализ — другой предмет
+      по сути) от курса для русскоязычных школ (alolingvi, ровно то, что нужно этому проекту) — риск
+      реальной порчи качества грундинга, если перепутать. <code>scripts/fetch-textbooks.ts</code> уже
+      сознательно пропускает файлы с <code>language: 'unknown'</code> при автозагрузке ровно по этой
+      причине. Требует один заход с открытием PDF глазами, не автоматизации.</div>
+
+      <!-- 9. DIFFICULTY -->
+      <h2 id="difficulty">9. Оценка сложности</h2>
+      <h3>Добавить новый предмет — <span class="badge-easy">легко</span></h3>
+      <p>Предмет — это данные + конфиг, без изменений ядра. Шаги:</p>
+      <ol>
+        <li>Создать <code>src/data/subjects/&lt;id&gt;.ts</code> (дерево тем, типы упражнений, рубрика).</li>
+        <li>Создать <code>src/data/chunks/&lt;id&gt;.chunks.ts</code> с авторскими чанками и зарегистрировать в <code>chunks/index.ts</code>.</li>
+        <li>Добавить предмет в <code>src/data/subjectRegistry.ts</code>; (опц.) правила промпта в <code>llm/promptTemplates/subjects.ts</code>.</li>
+        <li><code>npm run seed</code> — собрать пакет; выставить <code>enabled: true</code>.</li>
+      </ol>
+      <div class="callout ok">Технически — очень низкая сложность (мы добавили English, Biology, History вручную и Chemistry/Math/Russian через автоматический пайплайн PDF→чанки — без правок ядра retrieval/LLM/learning/storage). Основные затраты — <strong>контент</strong>: для авторских предметов — качественные проверяемые чанки, для автопайплайна — реальные источники (см. <code>corpus/manifest.json</code>) плюс очистка артефактов PDF, и в обоих случаях — учительские golden-вопросы.</div>
+
+      <h3>Улучшать метрики — <span class="badge-med">средне</span></h3>
+      <table>
+        <thead><tr><th>Задача</th><th>Сложность</th><th>Статус / комментарий</th></tr></thead>
+        <tbody>
+          <tr><td>Расширить golden-наборы, гейтинг в CI</td><td class="badge-easy">низкая</td><td><strong>Сделано.</strong> Данные + шаг <code>eval:ci</code> в workflow</td></tr>
+          <tr><td>Тюнинг topK / порога, перцентили латентности</td><td class="badge-easy">низкая</td><td><strong>Сделано.</strong> Свип + модуль <code>src/stats/metrics.ts</code></td></tr>
+          <tr><td>Гибридный поиск, лексический реранкер</td><td class="badge-med">средняя</td><td><strong>Сделано.</strong> <code>src/rag/lexical.ts</code>, <code>rerank.ts</code> (дефолт)</td></tr>
+          <tr><td>Модельный (cross-encoder) реранкер</td><td class="badge-med">средняя</td><td><strong>Реализован и протестирован</strong> (<code>CrossEncoderReranker</code>, OVMS <code>bge-reranker-v2-m3</code>), но сознательно не включён по умолчанию — измеренный баг с кириллицей, детали и таблица измерений в <code>ovms/README.md</code></td></tr>
+          <tr><td>LLM-судья для groundedness и оценки рубрик</td><td class="badge-hard">выше средней</td><td>Дальше: отдельный пайплайн + эталоны от учителя</td></tr>
+        </tbody>
+      </table>
+      <p>Вывод: добавление предметов почти бесплатно по коду; базовое качество поиска уже улучшено (гибрид+реранкер, гейтинг). Дальнейший рост упирается не в архитектуру (она готова), а в <strong>контент и оценочные эталоны</strong>, плюс LLM-судью для строгого groundedness и refusal.</p>
+
+      <!-- 9. NEXT DEPLOY -->
+      <h2 id="nextdeploy">10. Что нужно дальше для деплоя</h2>
+      <p>Живой сайт (<a href="https://pws-rag-edu.pages.dev">pws-rag-edu.pages.dev</a>) —
+      деплой ручной командой (<code>npm run cf:deploy</code>), не авто-деплой из GitHub, так что
+      после любого набора коммитов это нужно повторять явно.</p>
+      <div class="callout ok"><strong>Сделано 23.08.2026:</strong> <code>npm run build &amp;&amp;
+      npm run cf:deploy</code> — прод обновлён (новый деплой:
+      <code>https://9a2830a7.pws-rag-edu.pages.dev</code>, продакшн-алиас
+      <code>pws-rag-edu.pages.dev</code> указывает на него же). Новых секретов не понадобилось —
+      всё новое (рисунки, переключатель предмета, гибридная проверка) работает на уже
+      существующих <code>OPENAI_API_KEY</code>/<code>CF_ACCOUNT_ID</code>/<code>CF_API_TOKEN</code>.
+      Проверено сразу после деплоя: все 4 файла рисунков математики
+      (<code>/assets/exams/math-sb26/*.png</code>, <code>figures.json</code>) отдаются с CDN
+      напрямую с HTTP 200. Полный клик-тест (пройти экзамен целиком на проде до конца) не делался
+      этим прогоном — на проде уже есть данные реального пилота (профиль с активностью открылся
+      сразу, без экрана онбординга), и я не стал их трогать/перезаписывать автоматизацией;
+      следующий заход стоит делать либо в отдельном инкогнито-профиле браузера, либо руками.</div>
+      <div class="callout ok"><strong>Сделано 24.08.2026:</strong> ещё один цикл
+      <code>npm run build &amp;&amp; npm run cf:deploy</code> (текущий прод-деплой —
+      <code>https://491d5772.pws-rag-edu.pages.dev</code>, алиас <code>pws-rag-edu.pages.dev</code>
+      указывает на него). Причина деплоя — расширение корпуса (раздел 8) и два бага, найденных и
+      исправленных по пути: production-эмбеддинги были нерабочими с самого запуска (секреты
+      <code>CF_ACCOUNT_ID</code>/<code>CF_API_TOKEN</code> никогда не были выставлены на прод), и
+      первая попытка деплоя расширенного корпуса упала на лимите Pages в 25 МБ/файл (пофикшено
+      округлением эмбеддингов в <code>seed-packs.ts</code>). Оба бага подробно описаны в статус-блоке
+      раздела 1. Проверено напрямую: <code>curl</code> к <code>/api/v1/embeddings</code> → 200 с
+      вектором; <code>/practice</code> по химии на теме, где раньше было предупреждение о недоступных
+      эмбеддингах, — вживую в браузере находит источники и выдаёт разбор ответа.</div>
+      <ul class="checklist">
+        <li><strong>Полный клик-тест на проде</strong> в отдельном (не «боевом») профиле браузера: сдать открытое задание → барем-оценка, а не самооценка; отдельно — открыть математику, дойти до задания с конусом/трапецией/пирамидой, убедиться что рисунок виден/зумится, и что ответ в другой записи (например «9*sqrt(2)*pi») засчитывается как «смешанная оценка», а не 0.</li>
+        <li><strong>Румынский (alolingvi) без реального учебника</strong> — единственный предмет, оставшийся на авторских чанках после расширения корпуса; требует ручной проверки PDF (раздел 8, последний каллаут) прежде чем автоматизировать.</li>
+        <li><s><strong>PWA-иконки</strong></s> — <strong>сделано 23.08.2026.</strong> Дизайн (книга + галочка, синий/белый — под <code>theme_color</code>) сгенерирован ChatGPT Image, из него собраны <code>pwa-192x192.png</code>, <code>pwa-512x512.png</code>, <code>maskable-icon-512x512.png</code> (безопасная зона проверена — вся графика в центральных ~80%, без прозрачности) и <code>apple-touch-icon.png</code>, подключены в <code>vite.config.ts</code>/<code>index.html</code>, сборка проверена (<code>dist/manifest.webmanifest</code> ссылается на все 4 файла). Не сделано: реальный прогон на телефоне (Lighthouse PWA-критерии, «Добавить на экран» на iOS/Android живьём) — старый пункт остаётся в чек-листе раздела 5.</li>
+        <li><strong>OVMS на машине для демонстрации Intel</strong>: сейчас проверено на CPU. Если демо-машина имеет Intel GPU/NPU — Docker Desktop на Windows 10 не прокидывает их (задокументированный факт в <code>ovms/README.md</code>); нужен либо Linux Docker, либо нативный <code>ovms.exe</code> (Windows 11), либо честно показывать CPU-инференс как есть — тоже рабочий и уже измеренный сценарий.</li>
+        <li><strong>Реранкер для кириллицы</strong> — оставлен как честно задокументированное ограничение (сильная сторона презентации — «мы измеряем, а не только заявляем»). <strong>24.08.2026:</strong> проверены обе гипотезы починки OVMS-экспорта (отсутствующие спецтокены, лимит длины токенизации) — обе экспериментально отклонены, ru-скор не сдвинулся ни на цифру между вариантами. Отдельно протестирован <code>@cf/baai/bge-reranker-base</code> через прокси Cloudflare (заодно найден и исправлен реальный баг парсинга ответа — Workers AI отдаёт <code>{id,score}</code>, а не <code>{index,score}</code>, из-за чего прокси считал любой валидный ответ ошибкой): на 5 разных ru парах «релевантный/нерелевантный документ» правильно отработал только 1 из 5, с несколькими побитово одинаковыми скорами на разных по смыслу запросах — это не «слабее, но работает», а похоже на вырожденный вывод модели на русском. Хуже, чем ничего не делать. Оба бэкенда остаются выключены по умолчанию; детали и все измерения — <code>ovms/README.md</code>.</li>
+        <li><strong>Figures для остальных предметов</strong> — необязательно к дедлайну: одного предмета (математика) достаточно, чтобы показать механизм целиком; остальные — по времени.</li>
+        <li><strong>Romanian-хардкод в других местах</strong> — раздел 1 упоминает два уже снятых (промпт барема, RAG-грундинг); стоит поискать похожие ещё раз при следующем крупном заходе (например <code>Practice.tsx</code> сохраняет <code>exerciseType: 'ro-written'</code> для всех предметов — найдено, но осознанно не тронуто в этот раз, не блокирует ничего сейчас).</li>
+        <li><strong>Настоящие варианты теста за несколько лет</strong> — инфраструктура готова (<code>grade</code>/<code>profile</code> на <code>ExamPaper</code>, Test B/ротация, см. статус-блок раздела 1), реестр по-прежнему на 3 вариантах (romanian×2, math×1). Ждёт от пользователя: какие предметы/класс/сколько лет, файлы на диске или качать с ance.gov.md. Дальше — приоритет: сначала 6 предметов без единого настоящего варианта, самый свежий год = диагностика, тегирование навыков только после ≥2–3 лет одного предмета.</li>
+      </ul>
+
+      <!-- 10. ECONOMICS -->
+      <h2 id="economics">11. Экономика проекта: может ли это окупаться</h2>
+      <p>Честная оценка, а не питч — с реальными цифрами и явными допущениями там, где точных
+      данных нет.</p>
+      <div class="grid">
+        <div class="card">
+          <strong>Размер рынка (Молдова)</strong><br />
+          Bacalaureat 2026: <strong>≈18 500–19 000</strong> абитуриентов по всей стране
+          (moldpres.md). Русский язык обучения — <strong>18,7%</strong> из 334,6 тыс.
+          школьников, 250 школ (esp.md / ru.wikipedia.org). Отсюда оценка: русскоязычных
+          выпускников BAC ≈ <strong>3,5 тыс./год</strong>; девятиклассников (Evaluarea
+          Națională) — того же порядка. Итого целевая аудитория «здесь и сейчас» —
+          <strong>единицы тысяч человек в год</strong>, не миллионы.
+        </div>
+        <div class="card">
+          <strong>Платёжеспособность</strong><br />
+          Средняя зарплата в Молдове — 16–17,4 тыс. леев/мес, ≈$900 (statistica.gov.md,
+          I кв. 2026). Регулярная платная подписка для школьника — реалистично только при
+          символической цене или через семью/школу, не «премиум SaaS».
+        </div>
+        <div class="card">
+          <strong>Себестоимость</strong><br />
+          Local-first: профиль, прогресс, ответы — в браузере ученика, без серверной БД на
+          пользователя. Переменные расходы — только облачные LLM-вызовы на оценку (сейчас
+          лимитированы прокси: allowlist моделей, потолок токенов). Локальный OpenVINO (раздел
+          3) убирает и эту статью для школы, готовой держать один сервер на класс/кабинет
+          информатики.
+        </div>
+        <div class="card">
+          <strong>Реалистичная модель</strong><br />
+          Не B2C-подписка на нишевый языковой сегмент, а <strong>школа/район/грант</strong>:
+          Министерство просвещения, образовательный фонд, донор поддержки русскоязычных школ.
+          Дёшево обслуживать (см. себестоимость), понятная социальная миссия — сильная сторона
+          именно для грантового/институционального финансирования, слабая — для венчурного
+          масштабирования.
+        </div>
+      </div>
+      <div class="callout ok"><strong>Вывод.</strong> При нынешнем охвате (Молдова, этот
+      языковой сегмент) это <strong>не венчурный бизнес</strong> — рынок физически мал. Но при
+      низкой себестоимости и реальном измеренном эффекте (Rescue Mode: 2 из 6 закрыли
+      задолженности) это вполне может быть <strong>самоокупаемым проектом</strong> на
+      школьном/грантовом финансировании — и это доказанная, не гипотетическая польза, что для
+      такого финансирования важнее размера рынка. Путь к росту за пределы «маленького, но
+      полезного» — не больше пользователей в Молдове, а перенос архитектуры на любой похожий
+      сценарий: экзамен на языке большинства, ученик думает на языке меньшинства (в мире таких
+      пар «язык меньшинства ↔ язык экзамена» много) — тогда рынок считается уже не по одной
+      стране.</div>
+
+      <footer>
+        PWS RAG Exam Coach · сгенерировано как часть документации проекта · см. также
+        <code>docs/ARCHITECTURE.md</code>, <code>docs/EVALUATION.md</code>, <code>docs/PRIVACY.md</code>,
+        <code>docs/LLM_PROVIDERS.md</code>, <code>docs/SUBJECT_REGISTRY.md</code>.
+      </footer>
+    </div>
+  </body>
+</html>

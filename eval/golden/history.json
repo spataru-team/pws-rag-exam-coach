@@ -1,0 +1,71 @@
+{
+  "subjectId": "history",
+  "items": [
+    {
+      "id": "hist-g-001",
+      "query": "Ce este cronologia și ce înseamnă un secol?",
+      "lang": "ro",
+      "expectedSubjectId": "history",
+      "expectedTopicId": "hist-chronology",
+      "expectedChunkIds": [
+        "hist-chr-001"
+      ],
+      "expectedAnswerRubricId": "hist-answer-rubric"
+    },
+    {
+      "id": "hist-g-002",
+      "query": "Ce este o sursă istorică și ce tipuri există?",
+      "lang": "ro",
+      "expectedSubjectId": "history",
+      "expectedTopicId": "hist-sources",
+      "expectedChunkIds": [
+        "hist-src-001"
+      ],
+      "expectedAnswerRubricId": "hist-answer-rubric"
+    },
+    {
+      "id": "hist-g-003",
+      "query": "Что такое причинно-следственная связь в истории?",
+      "lang": "ru",
+      "expectedSubjectId": "history",
+      "expectedTopicId": "hist-sources",
+      "expectedChunkIds": [
+        "hist-src-002"
+      ],
+      "expectedAnswerRubricId": "hist-answer-rubric"
+    },
+    {
+      "id": "hist-g-004",
+      "query": "Cum se calculează durata dintre două evenimente, inclusiv î.Hr.?",
+      "lang": "ro",
+      "expectedSubjectId": "history",
+      "expectedTopicId": "hist-chronology",
+      "expectedChunkIds": [
+        "hist-chr-003"
+      ],
+      "expectedAnswerRubricId": "hist-answer-rubric"
+    },
+    {
+      "id": "hist-g-005",
+      "query": "Ce termeni istorici de bază există, precum epocă și sursă?",
+      "lang": "ro",
+      "expectedSubjectId": "history",
+      "expectedTopicId": "hist-terms",
+      "expectedChunkIds": [
+        "hist-term-001"
+      ],
+      "expectedAnswerRubricId": "hist-answer-rubric"
+    },
+    {
+      "id": "hist-g-006",
+      "query": "Что изучает археология и что такое эпоха?",
+      "lang": "ru",
+      "expectedSubjectId": "history",
+      "expectedTopicId": "hist-terms",
+      "expectedChunkIds": [
+        "hist-term-002"
+      ],
+      "expectedAnswerRubricId": "hist-answer-rubric"
+    }
+  ]
+}

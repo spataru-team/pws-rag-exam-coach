@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Деплой пилота на Cloudflare — по шагам</title>
+    <style>
+      :root {
+        --bg: #f6f8fa; --surface: #fff; --surface2: #eef1f4; --text: #1b1f24;
+        --muted: #5a6573; --border: #d7dee6; --primary: #1f6feb; --accent: #1a7f37;
+        --warn: #9a6700; --danger: #cf222e; --code-bg: #f0f3f6; --radius: 10px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0d1117; --surface: #161b22; --surface2: #21262d; --text: #e6edf3;
+          --muted: #9aa7b4; --border: #30363d; --primary: #4493f8; --accent: #3fb950;
+          --warn: #d29922; --danger: #f85149; --code-bg: #1b222b;
+        }
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--text);
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+      .wrap { max-width: 880px; margin: 0 auto; padding: 1.5rem 1.1rem 5rem; }
+      header.hero { background: linear-gradient(135deg, var(--primary), #6f42c1);
+        color: #fff; padding: 2rem 1.1rem; text-align: center; }
+      header.hero h1 { margin: 0 0 .3rem; font-size: 1.7rem; }
+      header.hero p { margin: 0; opacity: .92; }
+      h2 { margin-top: 2.2rem; padding-bottom: .3rem; border-bottom: 2px solid var(--border); }
+      a { color: var(--primary); }
+      code, pre { font-family: ui-monospace, "Cascadia Code", "Fira Code", monospace; font-size: .9em; }
+      code { background: var(--code-bg); padding: .1rem .35rem; border-radius: 5px; }
+      pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: var(--radius);
+        padding: .9rem 1rem; overflow-x: auto; line-height: 1.5; position: relative; }
+      pre code { background: none; padding: 0; }
+      .step { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+        padding: 1rem 1.2rem; margin: 1.1rem 0; }
+      .step h3 { margin: 0 0 .6rem; display: flex; align-items: center; gap: .6rem; }
+      .num { display: inline-flex; align-items: center; justify-content: center;
+        width: 1.8rem; height: 1.8rem; border-radius: 999px; background: var(--primary); color: #fff;
+        font-size: .95rem; font-weight: 700; flex: none; }
+      .callout { border-left: 4px solid var(--primary); background: var(--surface2);
+        padding: .7rem 1rem; border-radius: 8px; margin: .8rem 0; }
+      .callout.ok { border-left-color: var(--accent); }
+      .callout.warn { border-left-color: var(--warn); }
+      .callout.danger { border-left-color: var(--danger); }
+      .expect { font-size: .92rem; color: var(--muted); margin: .4rem 0 0; }
+      .expect strong { color: var(--text); }
+      .tldr { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius);
+        padding: 1rem 1.2rem; }
+      footer { color: var(--muted); font-size: .85rem; margin-top: 3rem; text-align: center; }
+      kbd { background: var(--surface2); border: 1px solid var(--border); border-bottom-width: 2px;
+        border-radius: 5px; padding: .05rem .4rem; font-size: .85em; }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <h1>Деплой пилота на Cloudflare — по шагам</h1>
+      <p>PWS RAG Exam Coach · румынский, 9 класс · экзамен 15 июня</p>
+    </header>
+
+    <div class="wrap">
+      <div class="callout ok">
+        <strong>Что уже готово (делать НЕ нужно):</strong> код, тесты, прокси и
+        пересев пакетов на эмбеддинги <code>bge-m3</code> — всё закоммичено и запушено. Осталось только
+        <strong>выложить сайт</strong> и положить ключи. Всё ниже делается из папки проекта
+        <code>C:\project_claude\pws-rag-edu</code> в PowerShell.
+      </div>
+      <div class="callout warn"><strong>Обновлено (миграция на bge-m3):</strong> эмбеддинги теперь идут через
+      <strong>Cloudflare Workers AI</strong>, не OpenAI — нужен отдельный секрет-набор
+      (<code>CF_ACCOUNT_ID</code> + <code>CF_API_TOKEN</code>) в дополнение к <code>OPENAI_API_KEY</code>
+      (тот остаётся только для чата). См. шаг 4 и <code>docs/DEPLOY_CLOUDFLARE.md</code> за подробностями.</div>
+
+      <h2>TL;DR (для тех, кто спешит)</h2>
+      <div class="tldr">
+        <pre><code>npx wrangler login
+npm run build
+npm run cf:deploy
+npx wrangler pages secret put OPENAI_API_KEY
+npx wrangler pages secret put CF_ACCOUNT_ID
+npx wrangler pages secret put CF_API_TOKEN
+npm run build
+npm run cf:deploy</code></pre>
+        <p class="expect">Между 3-м и 4-м шагом запомни <strong>имя проекта</strong>, которое выберешь
+        (например <code>pws-rag-edu</code>) и <strong>адрес сайта</strong> вида
+        <code>https://pws-rag-edu.pages.dev</code>. Подробности и проверки — ниже.</p>
+      </div>
+
+      <h2>Что понадобится</h2>
+      <ul>
+        <li>Аккаунт <strong>Cloudflare</strong> (бесплатный) — на нём будет жить сайт.</li>
+        <li><strong>Ключ OpenAI</strong> (<code>sk-...</code>) — только для чата (грейдинг).</li>
+        <li><strong>Cloudflare account id</strong> и <strong>API-токен со скоупом Workers AI: Read</strong> —
+        для эмбеддингов (<code>bge-m3</code>). Account id виден в дашборде Cloudflare справа на любой странице
+        сайта; токен создаётся в <em>My Profile → API Tokens → Create Token</em>.</li>
+        <li>Терминал в папке проекта (PowerShell, как сейчас). Node и зависимости уже стоят.</li>
+      </ul>
+
+      <!-- STEP 1 -->
+      <div class="step">
+        <h3><span class="num">1</span> Войти в Cloudflare</h3>
+        <pre><code>npx wrangler login</code></pre>
+        <p class="expect">Откроется браузер → нажми <strong>Allow / Разрешить</strong>. В терминале появится
+        <strong>«Successfully logged in»</strong>. Если браузер не открылся — скопируй ссылку из терминала вручную.</p>
+        <div class="callout warn">Альтернатива без браузера: создать в дашборде Cloudflare API-токен
+        (шаблон «Edit Cloudflare Workers» или права <em>Pages: Edit</em>) и задать его:
+        <code>$env:CLOUDFLARE_API_TOKEN = "токен"</code> — тогда <code>wrangler login</code> не нужен.</div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step">
+        <h3><span class="num">2</span> Собрать приложение</h3>
+        <pre><code>npm run build</code></pre>
+        <p class="expect">Должно закончиться <strong>«✓ built …»</strong> и создать папку <code>dist/</code>.
+        Предупреждение про «chunks larger than 500 kB» — это норма, игнорируем.</p>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step">
+        <h3><span class="num">3</span> Первый деплой (создаёт проект)</h3>
+        <pre><code>npm run cf:deploy</code></pre>
+        <p class="expect">При первом запуске спросит:
+        <br />• <strong>Create a new project?</strong> → Да.
+        <br />• <strong>Project name</strong> → введи <code>pws-rag-edu</code> (запомни это имя).
+        <br />• <strong>Production branch</strong> → можно оставить по умолчанию.
+        <br />В конце выведет адрес: <strong><code>https://pws-rag-edu.pages.dev</code></strong> — это и есть сайт.</p>
+        <div class="callout">На этом шаге сайт уже открывается, НО оценка по барему пока не работает —
+        ключа ещё нет. Это нормально, чиним в шаге 4.</div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step">
+        <h3><span class="num">4</span> Положить ключи секретами</h3>
+        <pre><code>npx wrangler pages secret put OPENAI_API_KEY --project-name pws-rag-edu
+npx wrangler pages secret put CF_ACCOUNT_ID --project-name pws-rag-edu
+npx wrangler pages secret put CF_API_TOKEN --project-name pws-rag-edu</code></pre>
+        <p class="expect">Каждая команда попросит вставить значение — <strong>ключ OpenAI (<code>sk-...</code>)</strong>,
+        затем <strong>account id</strong>, затем <strong>API-токен (скоуп Workers AI)</strong> — жми <kbd>Enter</kbd>
+        после каждого. Должно ответить <strong>«Successfully created secret …»</strong> трижды.</p>
+        <div class="callout danger"><strong>Важно:</strong> ключи вводятся только здесь (они уходят в секреты проекта Cloudflare,
+        в код/гит не попадают). Не вставляй их в файлы и не коммить их. В браузере ученика ключей тоже нет —
+        запросы идут через наш прокси.</div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step">
+        <h3><span class="num">5</span> Пере-деплой, чтобы прокси увидел ключ</h3>
+        <pre><code>npm run build
+npm run cf:deploy</code></pre>
+        <p class="expect">Секрет подхватывается функцией только после нового деплоя. После этого
+        грейдинг через OpenAI заработает.</p>
+      </div>
+
+      <!-- CHECK -->
+      <h2>Проверка (1 минута)</h2>
+      <div class="step">
+        <h3><span class="num">✓</span> Открой сайт и сдай одно задание</h3>
+        <ol>
+          <li>Открой <code>https://pws-rag-edu.pages.dev</code>.</li>
+          <li>Пройди до <strong>пробного экзамена</strong>, ответь на одно открытое задание, отправь.</li>
+          <li>Должна прийти <strong>оценка по барему с баллами по критериям</strong> (а не «самооценка»),
+          и в панели источников видны фрагменты материалов.</li>
+        </ol>
+        <p class="expect"><strong>Если оценка «самооценка» / поиск «недоступен»:</strong> значит прокси не достучался до OpenAI.
+        Проверь: (а) секрет выставлен на проект <code>pws-rag-edu</code>; (б) ты сделал пере-деплой (шаг 5);
+        (в) посмотри логи в реальном времени:</p>
+        <pre><code>npx wrangler pages deployment tail --project-name pws-rag-edu</code></pre>
+        <p class="expect">…и снова сдай задание — в логах будет видно обращение к <code>/api/v1/chat/completions</code>
+        и ответ/ошибку OpenAI (например, неверный ключ или нет доступа к модели).</p>
+      </div>
+
+      <h2>Если что-то пошло не так</h2>
+      <ul>
+        <li><strong>«wrangler: command not found»</strong> → запускай через <code>npx wrangler …</code> (как в командах выше).</li>
+        <li><strong>На под-страницах (refresh) — 404</strong> → должно быть исправлено файлом <code>public/_redirects</code>
+          (уже в репозитории). Если правил вручную — пересобери (<code>npm run build</code>) и задеплой заново.</li>
+        <li><strong>Грейдинг отвечает 401/403 в логах</strong> → ключ <code>OPENAI_API_KEY</code> неверный или у него
+          нет доступа к <code>gpt-5.4-mini</code>. Перевыставь секрет (шаг 4) и пере-деплой.</li>
+        <li><strong>Эмбеддинги/поиск отвечают 401/403 или 500 «CF_ACCOUNT_ID/CF_API_TOKEN not set»</strong> →
+          проверь, что <code>CF_ACCOUNT_ID</code> и <code>CF_API_TOKEN</code> оба выставлены, а токен даёт доступ
+          к Workers AI. Перевыставь секреты (шаг 4) и пере-деплой.</li>
+        <li><strong>Хочешь сменить модель/лимиты</strong> → они заданы в <code>src/server/openaiProxy.ts</code>
+          (allowlist <code>gpt-5.4-mini</code>/<code>gpt-5.4-nano</code>, лимит вывода 512 токенов). После правки —
+          <code>npm run build</code> + <code>npm run cf:deploy</code>.</li>
+      </ul>
+
+      <div class="callout ok"><strong>Деньги:</strong> Cloudflare — бесплатно (статика безлимит, функции 100 000
+      запросов/день). Платишь только за использование OpenAI по своему ключу. Для контролируемого пилота
+      прокси уже ограничивает модели и длину ответа.</div>
+
+      <div class="callout warn"><strong>Если ссылку будут открывать много людей</strong> (публичный класс):
+      включи в дашборде Cloudflare <em>Rate Limiting</em> и/или <em>Turnstile</em>, а у OpenAI поставь лимит трат —
+      чтобы ключ не «сожгли». Для closed-пилота с вашими ребятами это не обязательно.</div>
+
+      <footer>
+        Полная версия с пояснениями — <code>docs/DEPLOY_CLOUDFLARE.md</code> и раздел 4 в
+        <code>docs/PROJECT_GUIDE.html</code>. Вопросы по шагам — пишите, разберём.
+      </footer>
+    </div>
+  </body>
+</html>

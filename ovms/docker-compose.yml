@@ -1,0 +1,47 @@
+# OpenVINO Model Server (OVMS) — optimized local inference on Intel CPU/GPU/NPU.
+# Serves an OpenAI/Cohere-compatible REST API that this app consumes for ALL THREE
+# RAG stages, one server, one port:
+#   - embeddings: POST http://localhost:8000/v3/embeddings         (bge-m3, 1024-dim)
+#   - rerank:     POST http://localhost:8000/v3/rerank             (bge-reranker-v2-m3)
+#   - chat:       POST http://localhost:8000/v3/chat/completions   (provider preset `openvino`, model ov-llm)
+#
+# Usage:
+#   1) Prepare model graphs into ./models — see README.md / ovms/tools/ (export_model.py).
+#      OVMS does NOT auto-pull like Ollama; each model must be exported once.
+#   2) docker compose -f ovms/docker-compose.yml up -d
+#      (GPU/NPU on the competition machine: target_device is baked into each graph.pbtxt
+#      at EXPORT time, not a server flag — re-export with --target_device GPU|NPU (see
+#      ovms/tools/), then uncomment the `devices:` passthrough below. Docker Desktop on
+#      Windows can't pass through Intel iGPU/NPU either way — GPU/NPU needs Linux Docker
+#      or the native ovms.exe binary; see docs/ARCHITECTURE.md.)
+#   3) Seed packs with OVMS embeddings:
+#        EMBED_MODE=openai-compatible EMBED_BASE_URL=http://localhost:8000/v3 \
+#        EMBED_MODEL=bge-m3 npm run seed
+#      (PowerShell: $env:EMBED_MODE='openai-compatible'; $env:EMBED_MODEL='bge-m3'; npm run seed)
+#   4) In the app, pick the "OpenVINO (local, OVMS)" provider — Settings also points
+#      embeddings/rerank at the same base URL in one click (see src/llm/ovmsProbe.ts).
+
+services:
+  ovms:
+    image: openvino/model_server:latest
+    container_name: pws-ovms
+    restart: unless-stopped
+    ports:
+      - '8000:8000' # REST (OpenAI/Cohere-compatible)
+      - '9000:9000' # gRPC (optional)
+    volumes:
+      # Prepared model graphs + config.json (see README.md).
+      - ./models:/workspace:ro
+    command: >
+      --config_path /workspace/config.json
+      --port 9000
+      --rest_port 8000
+    # GPU/NPU: uncomment to pass through Intel devices (host must have the drivers).
+    # Requires the graphs themselves to have been exported with --target_device GPU|NPU.
+    # devices:
+    #   - /dev/dri:/dev/dri
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8000/v2/health/ready']
+      interval: 15s
+      timeout: 5s
+      retries: 10

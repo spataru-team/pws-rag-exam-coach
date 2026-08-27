@@ -1,0 +1,84 @@
+{
+  "subjectId": "chemistry",
+  "items": [
+    {
+      "id": "chem-g-001",
+      "query": "Что такое окисление и восстановление в химических реакциях?",
+      "lang": "ru",
+      "expectedSubjectId": "chemistry",
+      "expectedTopicId": "chem-bonding",
+      "expectedChunkIds": [
+        "chemistry-9-ru-021"
+      ],
+      "expectedAnswerRubricId": "chem-answer-rubric"
+    },
+    {
+      "id": "chem-g-002",
+      "query": "Как определить растворимость веществ в воде?",
+      "lang": "ru",
+      "expectedSubjectId": "chemistry",
+      "expectedTopicId": "chem-solutions",
+      "expectedChunkIds": [
+        "chemistry-9-ru-063"
+      ],
+      "expectedAnswerRubricId": "chem-answer-rubric"
+    },
+    {
+      "id": "chem-g-003",
+      "query": "Как диссоциируют кислоты, основания и средние соли?",
+      "lang": "ru",
+      "expectedSubjectId": "chemistry",
+      "expectedTopicId": "chem-solutions",
+      "expectedChunkIds": [
+        "chemistry-9-ru-084",
+        "chemistry-9-ru-069",
+        "chemistry-9-ru-070"
+      ],
+      "expectedAnswerRubricId": "chem-answer-rubric",
+      "notes": "Multiple valid chunks within the same dissociation section (069/070/084)."
+    },
+    {
+      "id": "chem-g-004",
+      "query": "Как получить уксусный альдегид и что такое альдегиды?",
+      "lang": "ru",
+      "expectedSubjectId": "chemistry",
+      "expectedTopicId": "chem-organic-functional",
+      "expectedChunkIds": [
+        "chemistry-12-ru-036"
+      ],
+      "expectedAnswerRubricId": "chem-answer-rubric"
+    },
+    {
+      "id": "chem-g-005",
+      "query": "Как образуются названия сложных эфиров?",
+      "lang": "ru",
+      "expectedSubjectId": "chemistry",
+      "expectedTopicId": "chem-organic-functional",
+      "expectedChunkIds": [
+        "chemistry-12-ru-071"
+      ],
+      "expectedAnswerRubricId": "chem-answer-rubric"
+    },
+    {
+      "id": "chem-g-006",
+      "query": "Как происходит гидролиз крахмала?",
+      "lang": "ru",
+      "expectedSubjectId": "chemistry",
+      "expectedTopicId": "chem-organic-functional",
+      "expectedChunkIds": [
+        "chemistry-12-ru-142"
+      ],
+      "expectedAnswerRubricId": "chem-answer-rubric"
+    },
+    {
+      "id": "chem-g-007",
+      "query": "Как отремонтировать дизельный двигатель грузовика?",
+      "lang": "ru",
+      "expectedSubjectId": "chemistry",
+      "expectedTopicId": "chem-applied-life",
+      "expectedChunkIds": [],
+      "expectInsufficient": true,
+      "notes": "Off-topic for the chemistry course; retrieval should refuse."
+    }
+  ]
+}

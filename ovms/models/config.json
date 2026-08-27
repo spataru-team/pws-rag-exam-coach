@@ -1,0 +1,22 @@
+{
+    "model_config_list": [
+        {
+            "config": {
+                "name": "bge-m3",
+                "base_path": "bge-m3"
+            }
+        },
+        {
+            "config": {
+                "name": "bge-reranker-v2-m3",
+                "base_path": "bge-reranker-v2-m3"
+            }
+        },
+        {
+            "config": {
+                "name": "ov-llm",
+                "base_path": "ov-llm"
+            }
+        }
+    ]
+}

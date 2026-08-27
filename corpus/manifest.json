@@ -1,0 +1,3065 @@
+{
+  "sourceUrl": "https://ctice.gov.md/?page_id=447",
+  "fetchedAt": "2026-08-23T21:18:01.218Z",
+  "entries": [
+    {
+      "id": "688",
+      "grade": 1,
+      "subject": "other",
+      "subjectRaw": "Abecedar - Partea I",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Abecedar - Partea I (a.2025, romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=688"
+    },
+    {
+      "id": "689",
+      "grade": 1,
+      "subject": "other",
+      "subjectRaw": "Abecedar - Partea II",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Abecedar - Partea II (a.2025, romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=689"
+    },
+    {
+      "id": "690",
+      "grade": 1,
+      "subject": "other",
+      "subjectRaw": "Caiet Abecedar Partea-1",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Caiet Abecedar Partea-1 (a.2025, romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=690"
+    },
+    {
+      "id": "691",
+      "grade": 1,
+      "subject": "other",
+      "subjectRaw": "Caiet Abecedar Partea-II",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Caiet Abecedar Partea-II (a.2025, romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=691"
+    },
+    {
+      "id": "233",
+      "grade": 1,
+      "subject": "other",
+      "subjectRaw": "Educatia Digitala",
+      "language": "ro",
+      "year": 2018,
+      "filename": "Educatia Digitala (a. 2018, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=233"
+    },
+    {
+      "id": "307",
+      "grade": 1,
+      "subject": "other",
+      "subjectRaw": "Educatia Digitala",
+      "language": "ru",
+      "year": 2018,
+      "filename": "Educatia Digitala (a. 2018, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=307"
+    },
+    {
+      "id": "273",
+      "grade": 1,
+      "subject": "romanian",
+      "subjectRaw": "Ghidul profesorului, Limba si literatura romana cl.1",
+      "language": "unknown",
+      "year": 2019,
+      "filename": "Ghidul profesorului, Limba si literatura romana cl.1 (a. 2019).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=273"
+    },
+    {
+      "id": "234",
+      "grade": 1,
+      "subject": "other",
+      "subjectRaw": "Limba Gagauza",
+      "language": "unknown",
+      "year": 2018,
+      "filename": "Limba Gagauza (a. 2018).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=234"
+    },
+    {
+      "id": "449",
+      "grade": 1,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2019,
+      "filename": "Limba si literatura romana (a. 2019, alolingvi).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=449"
+    },
+    {
+      "id": "235",
+      "grade": 1,
+      "subject": "other",
+      "subjectRaw": "Limba Ukraineana",
+      "language": "unknown",
+      "year": 2018,
+      "filename": "Limba Ukraineana (a. 2018).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=235"
+    },
+    {
+      "id": "553",
+      "grade": 1,
+      "subject": "other",
+      "subjectRaw": "Буквар. Български език и литература",
+      "language": "unknown",
+      "filename": "Буквар. Български език и литература.pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=553"
+    },
+    {
+      "id": "693",
+      "grade": 1,
+      "subject": "other",
+      "subjectRaw": "БУКВАРЬ часть 1",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "БУКВАРЬ часть 1 (a.2025, rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=693"
+    },
+    {
+      "id": "692",
+      "grade": 1,
+      "subject": "other",
+      "subjectRaw": "БУКВАРЬ часть 2",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "БУКВАРЬ часть 2 (a.2025, rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=692"
+    },
+    {
+      "id": "464",
+      "grade": 1,
+      "subject": "math",
+      "subjectRaw": "Matematica cl 1",
+      "language": "ru",
+      "year": 2021,
+      "filename": "Matematica cl 1 (a. 2021 in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=464"
+    },
+    {
+      "id": "465",
+      "grade": 1,
+      "subject": "math",
+      "subjectRaw": "Matematica cl1",
+      "language": "ro",
+      "year": 2021,
+      "filename": "Matematica cl1 (a. 2021 in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=465"
+    },
+    {
+      "id": "308",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Educatia Digitala",
+      "language": "ro",
+      "year": 2019,
+      "filename": "Educatia Digitala (a. 2019, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=308"
+    },
+    {
+      "id": "309",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Educatia Digitala",
+      "language": "ru",
+      "year": 2019,
+      "filename": "Educatia Digitala (a. 2019, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=309"
+    },
+    {
+      "id": "283",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Educatia moral spirituala",
+      "language": "ro",
+      "year": 2019,
+      "filename": "Educatia moral spirituala (a. 2019, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=283"
+    },
+    {
+      "id": "284",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Educatia moral spirituala",
+      "language": "ru",
+      "year": 2019,
+      "filename": "Educatia moral spirituala (a. 2019, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=284"
+    },
+    {
+      "id": "228",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Educatia plastica",
+      "language": "ro",
+      "year": 2018,
+      "filename": "Educatia plastica (a. 2018, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=228"
+    },
+    {
+      "id": "230",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Educatia plastica",
+      "language": "ru",
+      "year": 2018,
+      "filename": "Educatia plastica (a. 2018, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=230"
+    },
+    {
+      "id": "705",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Educație muzicală",
+      "language": "ro",
+      "year": 2019,
+      "filename": "Educație muzicală (a.2019, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=705"
+    },
+    {
+      "id": "706",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Educație muzicală",
+      "language": "ru",
+      "year": 2019,
+      "filename": "Educație muzicală (a.2019, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=706"
+    },
+    {
+      "id": "285",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Ghidul profesorului, Educatia moral spirituala cl.2",
+      "language": "ro",
+      "year": 2019,
+      "filename": "Ghidul profesorului, Educatia moral spirituala cl.2 (a. 2019, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=285"
+    },
+    {
+      "id": "286",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Ghidul profesorului, Educatia moral spirituala cl.2",
+      "language": "ru",
+      "year": 2019,
+      "filename": "Ghidul profesorului, Educatia moral spirituala cl.2 (a. 2019, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=286"
+    },
+    {
+      "id": "708",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Limba bulgară",
+      "language": "unknown",
+      "year": 2019,
+      "filename": "Limba bulgară (a.2019).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=708"
+    },
+    {
+      "id": "481",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Limba Engleza, nivelul A1.1",
+      "language": "unknown",
+      "year": 2019,
+      "filename": "Limba Engleza, nivelul A1.1 (a.2019).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=481"
+    },
+    {
+      "id": "482",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Limba Franceză, nivelul A1.1",
+      "language": "unknown",
+      "year": 2019,
+      "filename": "Limba Franceză, nivelul A1.1 (a.2019).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=482"
+    },
+    {
+      "id": "707",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Limba găgăuză",
+      "language": "unknown",
+      "year": 2019,
+      "filename": "Limba găgăuză (a.2019).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=707"
+    },
+    {
+      "id": "288",
+      "grade": 2,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2019,
+      "filename": "Limba si literatura romana (a. 2019, alolingvi).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=288"
+    },
+    {
+      "id": "359",
+      "grade": 2,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2019,
+      "filename": "Limba si literatura romana (a.2019).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=359"
+    },
+    {
+      "id": "508",
+      "grade": 2,
+      "subject": "russian",
+      "subjectRaw": "Limba si literatura rusa",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Limba si literatura rusa (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=508"
+    },
+    {
+      "id": "121",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Limba ucraineana",
+      "language": "unknown",
+      "filename": "Limba ucraineana.pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=121"
+    },
+    {
+      "id": "703",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Stiinte",
+      "language": "ru",
+      "year": 2019,
+      "filename": "Stiinte (a.2019 , limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=703"
+    },
+    {
+      "id": "368",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Stiinte",
+      "language": "ro",
+      "year": 2019,
+      "filename": "Stiinte (a.2019, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=368"
+    },
+    {
+      "id": "519",
+      "grade": 2,
+      "subject": "other",
+      "subjectRaw": "Украïнська мова і літературa",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Украïнська мова і літературa (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=519"
+    },
+    {
+      "id": "468",
+      "grade": 2,
+      "subject": "math",
+      "subjectRaw": "Matematica cl2",
+      "language": "ro",
+      "year": 2021,
+      "filename": "Matematica cl2 (a. 2021 in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=468"
+    },
+    {
+      "id": "469",
+      "grade": 2,
+      "subject": "math",
+      "subjectRaw": "Matematica cl2",
+      "language": "ru",
+      "year": 2021,
+      "filename": "Matematica cl2(a. 2021 in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=469"
+    },
+    {
+      "id": "541",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Dezvoltarea personală",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Dezvoltarea personală (a. 2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=541"
+    },
+    {
+      "id": "394",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Educatia digitala",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Educatia digitala (a. 2020, în limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=394"
+    },
+    {
+      "id": "412",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Educatia plastica",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Educatia plastica (a. 2020, în limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=412"
+    },
+    {
+      "id": "414",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Educatia plastica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Educatia plastica (a. 2020, în limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=414"
+    },
+    {
+      "id": "504",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Educatia tehnologica",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Educatia tehnologica (a. 2023, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=504"
+    },
+    {
+      "id": "505",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Educatia tehnologica",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Educatia tehnologica (a. 2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=505"
+    },
+    {
+      "id": "378",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Educatie muzicala",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Educatie muzicala (a. 2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=378"
+    },
+    {
+      "id": "379",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Educatie muzicala",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Educatie muzicala (a. 2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=379"
+    },
+    {
+      "id": "626",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Educaţia moral-spirituală",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Educaţia moral-spirituală (a. 2024, lima romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=626"
+    },
+    {
+      "id": "638",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Educația moral-spirituală",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Educația moral-spirituală (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=638"
+    },
+    {
+      "id": "520",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Gagauz dili hem literatura okumakları",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Gagauz dili hem literatura okumakları (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=520"
+    },
+    {
+      "id": "483",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Limba Engleza, nivelul A1.2",
+      "language": "unknown",
+      "year": 2019,
+      "filename": "Limba Engleza, nivelul A1.2 (a.2019).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=483"
+    },
+    {
+      "id": "484",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Limba Franceză, nivelul A1.2",
+      "language": "unknown",
+      "year": 2019,
+      "filename": "Limba Franceză, nivelul A1.2 (a.2019).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=484"
+    },
+    {
+      "id": "500",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Limba si literatura bulgara",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Limba si literatura bulgara (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=500"
+    },
+    {
+      "id": "380",
+      "grade": 3,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba si literatura romana (a. 2020).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=380"
+    },
+    {
+      "id": "360",
+      "grade": 3,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba si literatura romana (a.2020, alolingvi).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=360"
+    },
+    {
+      "id": "542",
+      "grade": 3,
+      "subject": "russian",
+      "subjectRaw": "Limba si literatura rusa",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Limba si literatura rusa (a. 2023 ).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=542"
+    },
+    {
+      "id": "352",
+      "grade": 3,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Matematica (a.2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=352"
+    },
+    {
+      "id": "350",
+      "grade": 3,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Matematica (a.2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=350"
+    },
+    {
+      "id": "509",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Stiinte",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Stiinte (a. 2023, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=509"
+    },
+    {
+      "id": "697",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Stiinte",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Stiinte(a. 2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=697"
+    },
+    {
+      "id": "521",
+      "grade": 3,
+      "subject": "other",
+      "subjectRaw": "Украïнська мова i лiтературa",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Украïнська мова i лiтературa (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=521"
+    },
+    {
+      "id": "534",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Educatia muzicala",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Educatia muzicala (a. 2023, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=534"
+    },
+    {
+      "id": "535",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Educatia muzicala",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Educatia muzicala (a. 2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=535"
+    },
+    {
+      "id": "413",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Educatia plastica",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Educatia plastica (a. 2020, în limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=413"
+    },
+    {
+      "id": "415",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Educatia plastica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Educatia plastica (a. 2020, în limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=415"
+    },
+    {
+      "id": "507",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Educatia tehnologica",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Educatia tehnologica (a. 2023, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=507"
+    },
+    {
+      "id": "506",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Educatia tehnologica",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Educatia tehnologica (a. 2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=506"
+    },
+    {
+      "id": "639",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Educația moral-spirituală",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Educația moral-spirituală (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=639"
+    },
+    {
+      "id": "627",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Educaţia moral-spirituală",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Educaţia moral-spirituală (a.2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=627"
+    },
+    {
+      "id": "524",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Gagauz dili hem literatura okumakları",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Gagauz dili hem literatura okumakları (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=524"
+    },
+    {
+      "id": "381",
+      "grade": 4,
+      "subject": "history",
+      "subjectRaw": "Istoria romanilor si universala",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Istoria romanilor si universala (a.2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=381"
+    },
+    {
+      "id": "382",
+      "grade": 4,
+      "subject": "history",
+      "subjectRaw": "Istoria romanilor si universala",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Istoria romanilor si universala (a.2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=382"
+    },
+    {
+      "id": "485",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Limba Engleza, nivelul A1",
+      "language": "unknown",
+      "year": 2019,
+      "filename": "Limba Engleza, nivelul A1 (a.2019).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=485"
+    },
+    {
+      "id": "486",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Limba Franceză, nivelul A1",
+      "language": "unknown",
+      "year": 2019,
+      "filename": "Limba Franceză, nivelul A1 (a.2019).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=486"
+    },
+    {
+      "id": "602",
+      "grade": 4,
+      "subject": "russian-as-foreign-language",
+      "subjectRaw": "Limba Rusa",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Limba Rusa (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=602"
+    },
+    {
+      "id": "501",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Limba si literatura bulgara",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Limba si literatura bulgara (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=501"
+    },
+    {
+      "id": "362",
+      "grade": 4,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba si literatura romana (a.2020, alolingvi).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=362"
+    },
+    {
+      "id": "431",
+      "grade": 4,
+      "subject": "romanian",
+      "subjectRaw": "Limba și literatura română",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba și literatura română (a. 2020).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=431"
+    },
+    {
+      "id": "630",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Limba Ucraineana",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Limba Ucraineana (a. 2024, limba ucraineana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=630"
+    },
+    {
+      "id": "349",
+      "grade": 4,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Matematica (a.2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=349"
+    },
+    {
+      "id": "348",
+      "grade": 4,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Matematica (a.2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=348"
+    },
+    {
+      "id": "556",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Stiinte",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Stiinte (a. 2023, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=556"
+    },
+    {
+      "id": "557",
+      "grade": 4,
+      "subject": "other",
+      "subjectRaw": "Stiinte",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Stiinte (a. 2023, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=557"
+    },
+    {
+      "id": "566",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Educatia tehnologica",
+      "language": "ru",
+      "year": 2024,
+      "filename": " Educatia tehnologica (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=566"
+    },
+    {
+      "id": "533",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Educatia muzicala",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Educatia muzicala (a. 2023, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=533"
+    },
+    {
+      "id": "682",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Educatia pentru societate",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Educatia pentru societate (a. 2020, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=682"
+    },
+    {
+      "id": "567",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Educatia tehnologica",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Educatia tehnologica (a. 2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=567"
+    },
+    {
+      "id": "543",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Educatie muzicala",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Educatie muzicala (a.2023, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=543"
+    },
+    {
+      "id": "289",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Educatie pentru societate",
+      "language": "ro",
+      "year": 2019,
+      "filename": "Educatie pentru societate (a.2019, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=289"
+    },
+    {
+      "id": "369",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Educatie plastica",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Educatie plastica (a. 2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=369"
+    },
+    {
+      "id": "370",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Educatie plastica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Educatie plastica (a. 2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=370"
+    },
+    {
+      "id": "686",
+      "grade": 5,
+      "subject": "geography",
+      "subjectRaw": "Geografia",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Geografia (a. 2020, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=686"
+    },
+    {
+      "id": "655",
+      "grade": 5,
+      "subject": "geography",
+      "subjectRaw": "Geografie",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Geografie (a. 2020, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=655"
+    },
+    {
+      "id": "554",
+      "grade": 5,
+      "subject": "history",
+      "subjectRaw": "Istoria romanilor si universala",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Istoria romanilor si universala (a. 2023, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=554"
+    },
+    {
+      "id": "609",
+      "grade": 5,
+      "subject": "history",
+      "subjectRaw": "Istoria romanilor si universala",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Istoria romanilor si universala (a. 2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=609"
+    },
+    {
+      "id": "604",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Le Francais A 1.1. 5e classe",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Le Francais A 1.1. 5e classe (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=604"
+    },
+    {
+      "id": "628",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Le Francais A 1.1. 5e classe",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Le Francais A 1.1. 5e classe (audio, a.2024).zip",
+      "url": "https://ctice.md:1443/public/download.php?id=628"
+    },
+    {
+      "id": "400",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Limba Engleza, nivelul A2.1",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba Engleza, nivelul A2.1 (a.2020).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=400"
+    },
+    {
+      "id": "594",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Limba Gagauza",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Limba Gagauza (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=594"
+    },
+    {
+      "id": "659",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Limba romana",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Limba romana (a.2023, alolingvi).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=659"
+    },
+    {
+      "id": "442",
+      "grade": 5,
+      "subject": "russian-as-foreign-language",
+      "subjectRaw": "Limba rusa",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Limba rusa (a.2020, scoala nationala).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=442"
+    },
+    {
+      "id": "363",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Limba si literatura bulgara",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba si literatura bulgara (a. 2020).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=363"
+    },
+    {
+      "id": "560",
+      "grade": 5,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Limba si literatura romana (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=560"
+    },
+    {
+      "id": "62",
+      "grade": 5,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "filename": "Limba si literatura romana.pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=62"
+    },
+    {
+      "id": "138",
+      "grade": 5,
+      "subject": "russian",
+      "subjectRaw": "Limba si literatura rusa",
+      "language": "unknown",
+      "filename": "Limba si literatura rusa.pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=138"
+    },
+    {
+      "id": "429",
+      "grade": 5,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Matematica (a. 2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=429"
+    },
+    {
+      "id": "401",
+      "grade": 5,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Matematica (a.2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=401"
+    },
+    {
+      "id": "613",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Stiinte",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Stiinte (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=613"
+    },
+    {
+      "id": "614",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Познание мира",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Познание мира (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=614"
+    },
+    {
+      "id": "526",
+      "grade": 5,
+      "subject": "other",
+      "subjectRaw": "Украïнська мова i лiтературa",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Украïнська мова i лiтературa (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=526"
+    },
+    {
+      "id": "510",
+      "grade": 6,
+      "subject": "biology",
+      "subjectRaw": "Biologia",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Biologia (a. 2023, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=510"
+    },
+    {
+      "id": "511",
+      "grade": 6,
+      "subject": "biology",
+      "subjectRaw": "Biologia",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Biologia (a. 2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=511"
+    },
+    {
+      "id": "683",
+      "grade": 6,
+      "subject": "other",
+      "subjectRaw": "Educatia pentru societate",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Educatia pentru societate (a. 2020, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=683"
+    },
+    {
+      "id": "568",
+      "grade": 6,
+      "subject": "other",
+      "subjectRaw": "Educatia tehnologica",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Educatia tehnologica (a. 2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=568"
+    },
+    {
+      "id": "569",
+      "grade": 6,
+      "subject": "other",
+      "subjectRaw": "Educatia tehnologica",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Educatia tehnologica (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=569"
+    },
+    {
+      "id": "631",
+      "grade": 6,
+      "subject": "other",
+      "subjectRaw": "Educatie Muzicala",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Educatie Muzicala (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=631"
+    },
+    {
+      "id": "595",
+      "grade": 6,
+      "subject": "other",
+      "subjectRaw": "Educatie Muzicala",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Educatie Muzicala (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=595"
+    },
+    {
+      "id": "290",
+      "grade": 6,
+      "subject": "other",
+      "subjectRaw": "Educatie pentru societate",
+      "language": "ro",
+      "year": 2019,
+      "filename": "Educatie pentru societate (a.2019, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=290"
+    },
+    {
+      "id": "371",
+      "grade": 6,
+      "subject": "other",
+      "subjectRaw": "Educatie plastica",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Educatie plastica (a. 2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=371"
+    },
+    {
+      "id": "372",
+      "grade": 6,
+      "subject": "other",
+      "subjectRaw": "Educatie plastica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Educatie plastica (a. 2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=372"
+    },
+    {
+      "id": "559",
+      "grade": 6,
+      "subject": "physics",
+      "subjectRaw": "Fizica",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Fizica (a. 2023, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=559"
+    },
+    {
+      "id": "558",
+      "grade": 6,
+      "subject": "physics",
+      "subjectRaw": "Fizica",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Fizica (a. 2023, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=558"
+    },
+    {
+      "id": "529",
+      "grade": 6,
+      "subject": "geography",
+      "subjectRaw": "Geografie",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Geografie (a. 2023, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=529"
+    },
+    {
+      "id": "530",
+      "grade": 6,
+      "subject": "geography",
+      "subjectRaw": "Geografie",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Geografie (a. 2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=530"
+    },
+    {
+      "id": "699",
+      "grade": 6,
+      "subject": "history",
+      "subjectRaw": "Istoria romanilor si universala",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Istoria romanilor si universala (a.2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=699"
+    },
+    {
+      "id": "700",
+      "grade": 6,
+      "subject": "history",
+      "subjectRaw": "Istoria românilor și universală",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Istoria românilor și universală (a. 2023, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=700"
+    },
+    {
+      "id": "402",
+      "grade": 6,
+      "subject": "other",
+      "subjectRaw": "Limba Engleza, nivelul A2.2",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba Engleza, nivelul A2.2 (a.2020).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=402"
+    },
+    {
+      "id": "673",
+      "grade": 6,
+      "subject": "other",
+      "subjectRaw": "Limba Franceza, nivelul A1.2",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Limba Franceza, nivelul A1.2 (a.2025).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=673"
+    },
+    {
+      "id": "403",
+      "grade": 6,
+      "subject": "other",
+      "subjectRaw": "Limba Franceza, nivelul A2.2",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba Franceza, nivelul A2.2 (a.2020).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=403"
+    },
+    {
+      "id": "647",
+      "grade": 6,
+      "subject": "other",
+      "subjectRaw": "Limba găgăuză",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Limba găgăuză (a.2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=647"
+    },
+    {
+      "id": "404",
+      "grade": 6,
+      "subject": "russian-as-foreign-language",
+      "subjectRaw": "Limba rusa",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Limba rusa (a. 2020).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=404"
+    },
+    {
+      "id": "364",
+      "grade": 6,
+      "subject": "other",
+      "subjectRaw": "Limba si literatura bulgara",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba si literatura bulgara (a. 2020).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=364"
+    },
+    {
+      "id": "426",
+      "grade": 6,
+      "subject": "romanian",
+      "subjectRaw": "Limba si Literatura romana",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba si Literatura romana (a. 2020, alolingvi).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=426"
+    },
+    {
+      "id": "365",
+      "grade": 6,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba si literatura romana (a.2020).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=365"
+    },
+    {
+      "id": "162",
+      "grade": 6,
+      "subject": "russian",
+      "subjectRaw": "Limba si literatura rusa",
+      "language": "unknown",
+      "year": 2017,
+      "filename": "Limba si literatura rusa (a. 2017).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=162"
+    },
+    {
+      "id": "632",
+      "grade": 6,
+      "subject": "other",
+      "subjectRaw": "Limba si Literatura Ucraineana",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Limba si Literatura Ucraineana (a. 2024, limba ucraineana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=632"
+    },
+    {
+      "id": "430",
+      "grade": 6,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Matematica (a. 2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=430"
+    },
+    {
+      "id": "405",
+      "grade": 6,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Matematica (a.2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=405"
+    },
+    {
+      "id": "383",
+      "grade": 7,
+      "subject": "biology",
+      "subjectRaw": "Biologie",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Biologie (a. 2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=383"
+    },
+    {
+      "id": "384",
+      "grade": 7,
+      "subject": "biology",
+      "subjectRaw": "Biologie",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Biologie (a. 2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=384"
+    },
+    {
+      "id": "344",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Chimia",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Chimia (a.2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=344"
+    },
+    {
+      "id": "343",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Chimia",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Chimia (a.2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=343"
+    },
+    {
+      "id": "527",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Educatia plastica",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Educatia plastica (a. 2023, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=527"
+    },
+    {
+      "id": "572",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Educatia tehnologica",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Educatia tehnologica (a. 2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=572"
+    },
+    {
+      "id": "573",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Educatia tehnologica",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Educatia tehnologica (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=573"
+    },
+    {
+      "id": "633",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Educatie Muzicala",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Educatie Muzicala (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=633"
+    },
+    {
+      "id": "596",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Educatie Muzicala",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Educatie Muzicala (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=596"
+    },
+    {
+      "id": "617",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Educatie plastica",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Educatie plastica (a. 2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=617"
+    },
+    {
+      "id": "366",
+      "grade": 7,
+      "subject": "physics",
+      "subjectRaw": "Fizica",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Fizica (a.2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=366"
+    },
+    {
+      "id": "367",
+      "grade": 7,
+      "subject": "physics",
+      "subjectRaw": "Fizica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Fizica (a.2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=367"
+    },
+    {
+      "id": "493",
+      "grade": 7,
+      "subject": "geography",
+      "subjectRaw": "Geografia",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Geografia (a. 2023, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=493"
+    },
+    {
+      "id": "494",
+      "grade": 7,
+      "subject": "geography",
+      "subjectRaw": "Geografia",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Geografia (a. 2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=494"
+    },
+    {
+      "id": "443",
+      "grade": 7,
+      "subject": "informatics",
+      "subjectRaw": "Informatica",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Informatica (a. 2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=443"
+    },
+    {
+      "id": "444",
+      "grade": 7,
+      "subject": "informatics",
+      "subjectRaw": "Informatica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Informatica (a. 2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=444"
+    },
+    {
+      "id": "597",
+      "grade": 7,
+      "subject": "history",
+      "subjectRaw": "Istoria Romanilor si Universala",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Istoria Romanilor si Universala (a. 2024, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=597"
+    },
+    {
+      "id": "676",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Limba Engleza, nivelul A1",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Limba Engleza, nivelul A1 (a. 2025).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=676"
+    },
+    {
+      "id": "406",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Limba Engleza, nivelul A2.3",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba Engleza, nivelul A2.3 (a.2020).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=406"
+    },
+    {
+      "id": "677",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Limba Franceza A1, limba a doua de studiu",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Limba Franceza A1, limba a doua de studiu (a.2025).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=677"
+    },
+    {
+      "id": "424",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Limba Franceza, nivelul A2.3",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba Franceza, nivelul A2.3 (a. 2020).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=424"
+    },
+    {
+      "id": "648",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Limba găgăuză",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Limba găgăuză (a.2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=648"
+    },
+    {
+      "id": "512",
+      "grade": 7,
+      "subject": "russian-as-foreign-language",
+      "subjectRaw": "Limba rusa",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Limba rusa (a. 2023, pentru institutiile cu predare in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=512"
+    },
+    {
+      "id": "615",
+      "grade": 7,
+      "subject": "russian-as-foreign-language",
+      "subjectRaw": "Limba Rusa",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Limba Rusa (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=615"
+    },
+    {
+      "id": "502",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Limba si literatura bulgara",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Limba si literatura bulgara (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=502"
+    },
+    {
+      "id": "503",
+      "grade": 7,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Limba si literatura romana (a. 2023, alolingvi).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=503"
+    },
+    {
+      "id": "528",
+      "grade": 7,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Limba si literatura romana (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=528"
+    },
+    {
+      "id": "475",
+      "grade": 7,
+      "subject": "russian",
+      "subjectRaw": "Limba si literatura rusa",
+      "language": "unknown",
+      "year": 2018,
+      "filename": "Limba si literatura rusa (a.2018).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=475"
+    },
+    {
+      "id": "513",
+      "grade": 7,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Matematica (a. 2023, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=513"
+    },
+    {
+      "id": "514",
+      "grade": 7,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Matematica (a. 2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=514"
+    },
+    {
+      "id": "622",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "История румын и всеобщая история",
+      "language": "ru",
+      "year": 2024,
+      "filename": "История румын и всеобщая история (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=622"
+    },
+    {
+      "id": "598",
+      "grade": 7,
+      "subject": "other",
+      "subjectRaw": "Українська мова i літературa",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Українська мова i літературa (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=598"
+    },
+    {
+      "id": "651",
+      "grade": 8,
+      "subject": "biology",
+      "subjectRaw": "Biologia",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Biologia (a.2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=651"
+    },
+    {
+      "id": "643",
+      "grade": 8,
+      "subject": "biology",
+      "subjectRaw": "Biologia",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Biologia (a.2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=643"
+    },
+    {
+      "id": "386",
+      "grade": 8,
+      "subject": "other",
+      "subjectRaw": "Chimia",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Chimia (a. 2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=386"
+    },
+    {
+      "id": "387",
+      "grade": 8,
+      "subject": "other",
+      "subjectRaw": "Chimia",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Chimia (a. 2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=387"
+    },
+    {
+      "id": "574",
+      "grade": 8,
+      "subject": "other",
+      "subjectRaw": "Educatia tehnologica",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Educatia tehnologica (a. 2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=574"
+    },
+    {
+      "id": "582",
+      "grade": 8,
+      "subject": "other",
+      "subjectRaw": "Educatia tehnologica",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Educatia tehnologica (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=582"
+    },
+    {
+      "id": "649",
+      "grade": 8,
+      "subject": "other",
+      "subjectRaw": "Educație muzicală",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Educație muzicală (a.2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=649"
+    },
+    {
+      "id": "650",
+      "grade": 8,
+      "subject": "other",
+      "subjectRaw": "Educație muzicală",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Educație muzicală (a.2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=650"
+    },
+    {
+      "id": "577",
+      "grade": 8,
+      "subject": "physics",
+      "subjectRaw": "Fizica",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Fizica (a.2024, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=577"
+    },
+    {
+      "id": "578",
+      "grade": 8,
+      "subject": "physics",
+      "subjectRaw": "Fizica",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Fizica (a.2024, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=578"
+    },
+    {
+      "id": "625",
+      "grade": 8,
+      "subject": "geography",
+      "subjectRaw": "Geografie",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Geografie (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=625"
+    },
+    {
+      "id": "599",
+      "grade": 8,
+      "subject": "geography",
+      "subjectRaw": "Geografie",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Geografie (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=599"
+    },
+    {
+      "id": "421",
+      "grade": 8,
+      "subject": "informatics",
+      "subjectRaw": "Informatica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Informatica (a. 2020 in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=421"
+    },
+    {
+      "id": "385",
+      "grade": 8,
+      "subject": "informatics",
+      "subjectRaw": "Informatica",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Informatica (a. 2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=385"
+    },
+    {
+      "id": "472",
+      "grade": 8,
+      "subject": "history",
+      "subjectRaw": "Istoria contemporana",
+      "language": "ru",
+      "year": 2004,
+      "filename": "Istoria contemporana(a. 2004 in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=472"
+    },
+    {
+      "id": "605",
+      "grade": 8,
+      "subject": "history",
+      "subjectRaw": "Istoria Romanilor si Universala",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Istoria Romanilor si Universala (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=605"
+    },
+    {
+      "id": "679",
+      "grade": 8,
+      "subject": "history",
+      "subjectRaw": "Istoria românilor și universală",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Istoria românilor și universală (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=679"
+    },
+    {
+      "id": "618",
+      "grade": 8,
+      "subject": "other",
+      "subjectRaw": "Le Francais A 2.1. 8e classe",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Le Francais A 2.1. 8e classe (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=618"
+    },
+    {
+      "id": "629",
+      "grade": 8,
+      "subject": "other",
+      "subjectRaw": "Le Francais A 2.1. 8e classe",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Le Francais A 2.1. 8e classe (audio, a.2024).zip",
+      "url": "https://ctice.md:1443/public/download.php?id=629"
+    },
+    {
+      "id": "7",
+      "grade": 8,
+      "subject": "other",
+      "subjectRaw": "Limba engleza",
+      "language": "unknown",
+      "filename": "Limba engleza.pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=7"
+    },
+    {
+      "id": "548",
+      "grade": 8,
+      "subject": "other",
+      "subjectRaw": "Limba Franceză, nivelul A 2.4",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Limba Franceză, nivelul A 2.4 (a.2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=548"
+    },
+    {
+      "id": "694",
+      "grade": 8,
+      "subject": "other",
+      "subjectRaw": "Limba găgăuză",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Limba găgăuză (a.2025).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=694"
+    },
+    {
+      "id": "583",
+      "grade": 8,
+      "subject": "russian-as-foreign-language",
+      "subjectRaw": "Limba rusa",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Limba rusa (a.2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=583"
+    },
+    {
+      "id": "698",
+      "grade": 8,
+      "subject": "other",
+      "subjectRaw": "Limba si literatura bulgara",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Limba si literatura bulgara (a.2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=698"
+    },
+    {
+      "id": "600",
+      "grade": 8,
+      "subject": "romanian",
+      "subjectRaw": "Limba si Literatura romana",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Limba si Literatura romana (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=600"
+    },
+    {
+      "id": "640",
+      "grade": 8,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Limba si literatura romana (a. 2025, alolingvi).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=640"
+    },
+    {
+      "id": "515",
+      "grade": 8,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Matematica (a. 2023, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=515"
+    },
+    {
+      "id": "616",
+      "grade": 8,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Matematica (a. 2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=616"
+    },
+    {
+      "id": "601",
+      "grade": 8,
+      "subject": "other",
+      "subjectRaw": "Українська мова i літературa",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Українська мова i літературa (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=601"
+    },
+    {
+      "id": "603",
+      "grade": 9,
+      "subject": "biology",
+      "subjectRaw": "Biologia",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Biologia (a. 2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=603"
+    },
+    {
+      "id": "645",
+      "grade": 9,
+      "subject": "biology",
+      "subjectRaw": "Biologia",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Biologia (a.2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=645"
+    },
+    {
+      "id": "499",
+      "grade": 9,
+      "subject": "chemistry",
+      "subjectRaw": "Chimie",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Chimie (a. 2023, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=499"
+    },
+    {
+      "id": "488",
+      "grade": 9,
+      "subject": "chemistry",
+      "subjectRaw": "Chimie",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Chimie (a. 2023, în limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=488"
+    },
+    {
+      "id": "19",
+      "grade": 9,
+      "subject": "other",
+      "subjectRaw": "Educatia civica",
+      "language": "ro",
+      "filename": "Educatia civica (in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=19"
+    },
+    {
+      "id": "112",
+      "grade": 9,
+      "subject": "other",
+      "subjectRaw": "Educatia civica",
+      "language": "ru",
+      "filename": "Educatia civica (in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=112"
+    },
+    {
+      "id": "575",
+      "grade": 9,
+      "subject": "other",
+      "subjectRaw": "Educatia tehnologica",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Educatia tehnologica (a. 2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=575"
+    },
+    {
+      "id": "576",
+      "grade": 9,
+      "subject": "other",
+      "subjectRaw": "Educatia tehnologica",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Educatia tehnologica (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=576"
+    },
+    {
+      "id": "295",
+      "grade": 9,
+      "subject": "physics",
+      "subjectRaw": "Fizica",
+      "language": "ro",
+      "year": 2018,
+      "filename": "Fizica (in limba romana, a. 2018).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=295"
+    },
+    {
+      "id": "296",
+      "grade": 9,
+      "subject": "physics",
+      "subjectRaw": "Fizica",
+      "language": "ru",
+      "year": 2018,
+      "filename": "Fizica (in limba rusa, a. 2018).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=296"
+    },
+    {
+      "id": "562",
+      "grade": 9,
+      "subject": "geography",
+      "subjectRaw": "Geografia",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Geografia (a. 2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=562"
+    },
+    {
+      "id": "563",
+      "grade": 9,
+      "subject": "geography",
+      "subjectRaw": "Geografia",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Geografia (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=563"
+    },
+    {
+      "id": "17",
+      "grade": 9,
+      "subject": "informatics",
+      "subjectRaw": "Informatica",
+      "language": "ro",
+      "filename": "Informatica (in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=17"
+    },
+    {
+      "id": "64",
+      "grade": 9,
+      "subject": "informatics",
+      "subjectRaw": "Informatica",
+      "language": "ru",
+      "filename": "Informatica (in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=64"
+    },
+    {
+      "id": "555",
+      "grade": 9,
+      "subject": "history",
+      "subjectRaw": "Istoria romanilor si universala",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Istoria romanilor si universala (a. 2023, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=555"
+    },
+    {
+      "id": "608",
+      "grade": 9,
+      "subject": "history",
+      "subjectRaw": "Istoria romanilor si universala",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Istoria romanilor si universala (a. 2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=608"
+    },
+    {
+      "id": "612",
+      "grade": 9,
+      "subject": "other",
+      "subjectRaw": "Limba Engleza, nivelul A 2+",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Limba Engleza, nivelul A 2+ (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=612"
+    },
+    {
+      "id": "610",
+      "grade": 9,
+      "subject": "other",
+      "subjectRaw": "Limba Franceza",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Limba Franceza (a. 2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=610"
+    },
+    {
+      "id": "674",
+      "grade": 9,
+      "subject": "other",
+      "subjectRaw": "Limba Franceza A2.2",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Limba Franceza A2.2 (a.2025).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=674"
+    },
+    {
+      "id": "646",
+      "grade": 9,
+      "subject": "other",
+      "subjectRaw": "Limba găgăuză",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Limba găgăuză (a.2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=646"
+    },
+    {
+      "id": "564",
+      "grade": 9,
+      "subject": "other",
+      "subjectRaw": "Limba romana scoli minoritati nationale",
+      "language": "ro",
+      "filename": "Limba romana scoli minoritati nationale.pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=564"
+    },
+    {
+      "id": "652",
+      "grade": 9,
+      "subject": "russian-as-foreign-language",
+      "subjectRaw": "Limba rusa",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Limba rusa (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=652"
+    },
+    {
+      "id": "580",
+      "grade": 9,
+      "subject": "other",
+      "subjectRaw": "Limba si literatura bulgara",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Limba si literatura bulgara (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=580"
+    },
+    {
+      "id": "581",
+      "grade": 9,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Limba si literatura romana (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=581"
+    },
+    {
+      "id": "67",
+      "grade": 9,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "filename": "Limba si literatura romana (alolingvi).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=67"
+    },
+    {
+      "id": "561",
+      "grade": 9,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Matematica (a.2024, limba romina).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=561"
+    },
+    {
+      "id": "654",
+      "grade": 9,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Matematica (a.2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=654"
+    },
+    {
+      "id": "593",
+      "grade": 9,
+      "subject": "other",
+      "subjectRaw": "Українська мова i літературa",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Українська мова i літературa (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=593"
+    },
+    {
+      "id": "388",
+      "grade": 10,
+      "subject": "biology",
+      "subjectRaw": "Biologia",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Biologia (a. 2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=388"
+    },
+    {
+      "id": "389",
+      "grade": 10,
+      "subject": "biology",
+      "subjectRaw": "Biologia",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Biologia (a. 2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=389"
+    },
+    {
+      "id": "390",
+      "grade": 10,
+      "subject": "other",
+      "subjectRaw": "Chimia",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Chimia (a. 2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=390"
+    },
+    {
+      "id": "391",
+      "grade": 10,
+      "subject": "other",
+      "subjectRaw": "Chimia",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Chimia (a. 2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=391"
+    },
+    {
+      "id": "57",
+      "grade": 10,
+      "subject": "other",
+      "subjectRaw": "Educatie Civica",
+      "language": "ro",
+      "filename": "Educatie Civica (in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=57"
+    },
+    {
+      "id": "89",
+      "grade": 10,
+      "subject": "other",
+      "subjectRaw": "Educatie Civica",
+      "language": "ru",
+      "filename": "Educatie Civica (in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=89"
+    },
+    {
+      "id": "373",
+      "grade": 10,
+      "subject": "other",
+      "subjectRaw": "Educatie pentru societate",
+      "language": "ro",
+      "year": 2019,
+      "filename": "Educatie pentru societate (a. 2019, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=373"
+    },
+    {
+      "id": "374",
+      "grade": 10,
+      "subject": "other",
+      "subjectRaw": "Educatie pentru societate",
+      "language": "ru",
+      "year": 2019,
+      "filename": "Educatie pentru societate (a. 2019, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=374"
+    },
+    {
+      "id": "27",
+      "grade": 10,
+      "subject": "physics",
+      "subjectRaw": "Fizica",
+      "language": "ro",
+      "filename": "Fizica (in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=27"
+    },
+    {
+      "id": "90",
+      "grade": 10,
+      "subject": "physics",
+      "subjectRaw": "Fizica",
+      "language": "ru",
+      "filename": "Fizica (in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=90"
+    },
+    {
+      "id": "433",
+      "grade": 10,
+      "subject": "geography",
+      "subjectRaw": "Geografie",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Geografie (a. 2020 in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=433"
+    },
+    {
+      "id": "434",
+      "grade": 10,
+      "subject": "geography",
+      "subjectRaw": "Geografie",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Geografie (a. 2020 in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=434"
+    },
+    {
+      "id": "427",
+      "grade": 10,
+      "subject": "informatics",
+      "subjectRaw": "Informatica",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Informatica (a. 2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=427"
+    },
+    {
+      "id": "428",
+      "grade": 10,
+      "subject": "informatics",
+      "subjectRaw": "Informatica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Informatica (a. 2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=428"
+    },
+    {
+      "id": "653",
+      "grade": 10,
+      "subject": "history",
+      "subjectRaw": "Istoria românilor și universală",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Istoria românilor și universală (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=653"
+    },
+    {
+      "id": "620",
+      "grade": 10,
+      "subject": "history",
+      "subjectRaw": "Istoria ROMÂNILOR ȘI UNIVERSALĂ",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Istoria ROMÂNILOR ȘI UNIVERSALĂ (a.2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=620"
+    },
+    {
+      "id": "664",
+      "grade": 10,
+      "subject": "other",
+      "subjectRaw": "Limba Engleza, nivelul A2.3",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Limba Engleza, nivelul A2.3 (a. 2025).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=664"
+    },
+    {
+      "id": "425",
+      "grade": 10,
+      "subject": "other",
+      "subjectRaw": "Limba Franceza, nivel A1",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba Franceza, nivel A1 (a. 2020 limba II).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=425"
+    },
+    {
+      "id": "407",
+      "grade": 10,
+      "subject": "other",
+      "subjectRaw": "Limba Franceza, nivelul B1.1",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba Franceza, nivelul B1.1 (a.2020).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=407"
+    },
+    {
+      "id": "12",
+      "grade": 10,
+      "subject": "other",
+      "subjectRaw": "Limba si literatura Engleza",
+      "language": "unknown",
+      "filename": "Limba si literatura Engleza (limba I).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=12"
+    },
+    {
+      "id": "584",
+      "grade": 10,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Limba si literatura romana (a. 2024).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=584"
+    },
+    {
+      "id": "91",
+      "grade": 10,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "filename": "Limba si literatura romana (rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=91"
+    },
+    {
+      "id": "711",
+      "grade": 10,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana alolingvi",
+      "language": "unknown",
+      "year": 2026,
+      "filename": "Limba si literatura romana alolingvi (a.2026).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=711"
+    },
+    {
+      "id": "695",
+      "grade": 10,
+      "subject": "other",
+      "subjectRaw": "Literatura universala",
+      "language": "ru",
+      "year": 2025,
+      "filename": "Literatura universala (a.2025, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=695"
+    },
+    {
+      "id": "678",
+      "grade": 10,
+      "subject": "other",
+      "subjectRaw": "Literatura Universala",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Literatura Universala (a.2025).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=678"
+    },
+    {
+      "id": "642",
+      "grade": 10,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ro",
+      "year": 2025,
+      "filename": "Matematica (a. 2025, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=642"
+    },
+    {
+      "id": "675",
+      "grade": 10,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ru",
+      "year": 2025,
+      "filename": "Matematica (a. 2025, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=675"
+    },
+    {
+      "id": "15",
+      "grade": 10,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ru",
+      "filename": "Matematica (in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=15"
+    },
+    {
+      "id": "710",
+      "grade": 10,
+      "subject": "russian",
+      "subjectRaw": "Русский язык и литература",
+      "language": "unknown",
+      "year": 2026,
+      "filename": "Русский язык и литература (a.2026).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=710"
+    },
+    {
+      "id": "392",
+      "grade": 11,
+      "subject": "biology",
+      "subjectRaw": "Biologia",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Biologia (a. 2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=392"
+    },
+    {
+      "id": "393",
+      "grade": 11,
+      "subject": "biology",
+      "subjectRaw": "Biologia",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Biologia (a. 2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=393"
+    },
+    {
+      "id": "411",
+      "grade": 11,
+      "subject": "other",
+      "subjectRaw": "Chimia",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Chimia (a. 2020 in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=411"
+    },
+    {
+      "id": "432",
+      "grade": 11,
+      "subject": "chemistry",
+      "subjectRaw": "Chimie",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Chimie (a. 2020 in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=432"
+    },
+    {
+      "id": "35",
+      "grade": 11,
+      "subject": "other",
+      "subjectRaw": "Educatie Civica",
+      "language": "ro",
+      "filename": "Educatie Civica (in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=35"
+    },
+    {
+      "id": "48",
+      "grade": 11,
+      "subject": "other",
+      "subjectRaw": "Educatie Civica",
+      "language": "ru",
+      "filename": "Educatie Civica (in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=48"
+    },
+    {
+      "id": "375",
+      "grade": 11,
+      "subject": "other",
+      "subjectRaw": "Educatie pentru societate",
+      "language": "ro",
+      "year": 2019,
+      "filename": "Educatie pentru societate (a. 2019, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=375"
+    },
+    {
+      "id": "377",
+      "grade": 11,
+      "subject": "other",
+      "subjectRaw": "Educatie pentru societate",
+      "language": "ru",
+      "year": 2019,
+      "filename": "Educatie pentru societate (a. 2019, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=377"
+    },
+    {
+      "id": "416",
+      "grade": 11,
+      "subject": "physics",
+      "subjectRaw": "Fizica",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Fizica (a. 2020 in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=416"
+    },
+    {
+      "id": "417",
+      "grade": 11,
+      "subject": "physics",
+      "subjectRaw": "Fizica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Fizica (a. 2020 in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=417"
+    },
+    {
+      "id": "680",
+      "grade": 11,
+      "subject": "geography",
+      "subjectRaw": "Geografia",
+      "language": "ro",
+      "year": 2025,
+      "filename": "Geografia (a. 2025, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=680"
+    },
+    {
+      "id": "684",
+      "grade": 11,
+      "subject": "geography",
+      "subjectRaw": "Geografia",
+      "language": "ru",
+      "year": 2025,
+      "filename": "Geografia (a. 2025, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=684"
+    },
+    {
+      "id": "441",
+      "grade": 11,
+      "subject": "informatics",
+      "subjectRaw": "Informatica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Informatica (a. 2020 in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=441"
+    },
+    {
+      "id": "445",
+      "grade": 11,
+      "subject": "informatics",
+      "subjectRaw": "Informatica",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Informatica (a. 2020, limba in romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=445"
+    },
+    {
+      "id": "439",
+      "grade": 11,
+      "subject": "history",
+      "subjectRaw": "Istoria romana si universala",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Istoria romana si universala (a. 2020 in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=439"
+    },
+    {
+      "id": "440",
+      "grade": 11,
+      "subject": "history",
+      "subjectRaw": "Istoria romana si universala",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Istoria romana si universala (a. 2020 in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=440"
+    },
+    {
+      "id": "663",
+      "grade": 11,
+      "subject": "other",
+      "subjectRaw": "Limba Engleza, nivelul A2.4",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Limba Engleza, nivelul A2.4 (a. 2025).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=663"
+    },
+    {
+      "id": "662",
+      "grade": 11,
+      "subject": "other",
+      "subjectRaw": "Limba Engleza, nivelul B1.2",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Limba Engleza, nivelul B1.2 (a 2025).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=662"
+    },
+    {
+      "id": "435",
+      "grade": 11,
+      "subject": "other",
+      "subjectRaw": "Limba Franceza, nivelul A2.1",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba Franceza, nivelul A2.1 (a.2020).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=435"
+    },
+    {
+      "id": "438",
+      "grade": 11,
+      "subject": "other",
+      "subjectRaw": "Limba Franceza, nivelul B1.2",
+      "language": "unknown",
+      "year": 2020,
+      "filename": "Limba Franceza, nivelul B1.2 (a. 2020).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=438"
+    },
+    {
+      "id": "709",
+      "grade": 11,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2026,
+      "filename": "Limba si literatura romana (a. 2026, alolingvi).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=709"
+    },
+    {
+      "id": "687",
+      "grade": 11,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Limba si literatura romana (a.2025, editura PRUT).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=687"
+    },
+    {
+      "id": "634",
+      "grade": 11,
+      "subject": "russian",
+      "subjectRaw": "Limba si Literatura Rusa",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Limba si Literatura Rusa (a.2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=634"
+    },
+    {
+      "id": "701",
+      "grade": 11,
+      "subject": "romanian",
+      "subjectRaw": "Limba și literatura română",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Limba și literatura română(a. 2025).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=701"
+    },
+    {
+      "id": "171",
+      "grade": 11,
+      "subject": "other",
+      "subjectRaw": "Literatura Universala",
+      "language": "ru",
+      "year": 2017,
+      "filename": "Literatura Universala (a. 2017, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=171"
+    },
+    {
+      "id": "436",
+      "grade": 11,
+      "subject": "other",
+      "subjectRaw": "Literatura universala",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Literatura universala (a. 2020 in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=436"
+    },
+    {
+      "id": "437",
+      "grade": 11,
+      "subject": "other",
+      "subjectRaw": "Literatura universala",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Literatura universala (a. 2020 in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=437"
+    },
+    {
+      "id": "408",
+      "grade": 11,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ro",
+      "year": 2020,
+      "filename": "Matematica (a.2020, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=408"
+    },
+    {
+      "id": "409",
+      "grade": 11,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ru",
+      "year": 2020,
+      "filename": "Matematica (a.2020, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=409"
+    },
+    {
+      "id": "585",
+      "grade": 12,
+      "subject": "biology",
+      "subjectRaw": "Biologia",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Biologia (a. 2024, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=585"
+    },
+    {
+      "id": "606",
+      "grade": 12,
+      "subject": "biology",
+      "subjectRaw": "Biologia",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Biologia (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=606"
+    },
+    {
+      "id": "570",
+      "grade": 12,
+      "subject": "chemistry",
+      "subjectRaw": "Chimie",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Chimie (a. 2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=570"
+    },
+    {
+      "id": "571",
+      "grade": 12,
+      "subject": "chemistry",
+      "subjectRaw": "Chimie",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Chimie (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=571"
+    },
+    {
+      "id": "174",
+      "grade": 12,
+      "subject": "physics",
+      "subjectRaw": "Fizica - Astronomie",
+      "language": "ro",
+      "year": 2017,
+      "filename": "Fizica - Astronomie (a. 2017, in limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=174"
+    },
+    {
+      "id": "176",
+      "grade": 12,
+      "subject": "physics",
+      "subjectRaw": "Fizica - Astronomie",
+      "language": "ru",
+      "year": 2017,
+      "filename": "Fizica - Astronomie (a. 2017, in limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=176"
+    },
+    {
+      "id": "635",
+      "grade": 12,
+      "subject": "geography",
+      "subjectRaw": "Geografia",
+      "language": "unknown",
+      "year": 2024,
+      "filename": "Geografia (a. 2024, limaba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=635"
+    },
+    {
+      "id": "636",
+      "grade": 12,
+      "subject": "geography",
+      "subjectRaw": "Geografia",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Geografia (a. 2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=636"
+    },
+    {
+      "id": "657",
+      "grade": 12,
+      "subject": "informatics",
+      "subjectRaw": "Informatica",
+      "language": "ro",
+      "year": 2025,
+      "filename": "Informatica (a.2025, limba romana).zip",
+      "url": "https://ctice.md:1443/public/download.php?id=657"
+    },
+    {
+      "id": "658",
+      "grade": 12,
+      "subject": "informatics",
+      "subjectRaw": "Informatica",
+      "language": "ru",
+      "year": 2025,
+      "filename": "Informatica (a.2025, limba rusa).zip",
+      "url": "https://ctice.md:1443/public/download.php?id=658"
+    },
+    {
+      "id": "637",
+      "grade": 12,
+      "subject": "history",
+      "subjectRaw": "Istoria romanilor si universala",
+      "language": "ru",
+      "year": 2024,
+      "filename": "Istoria romanilor si universala (a. 2024, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=637"
+    },
+    {
+      "id": "621",
+      "grade": 12,
+      "subject": "history",
+      "subjectRaw": "Istoria românilor și universală",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Istoria românilor și universală (a. 2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=621"
+    },
+    {
+      "id": "660",
+      "grade": 12,
+      "subject": "other",
+      "subjectRaw": "Limba Engleza, nivelul A2+",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Limba Engleza, nivelul A2+(a. 2025).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=660"
+    },
+    {
+      "id": "545",
+      "grade": 12,
+      "subject": "other",
+      "subjectRaw": "Limba Engleza, nivelul B1.3",
+      "language": "unknown",
+      "year": 2023,
+      "filename": "Limba Engleza, nivelul B1.3 (a.2023).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=545"
+    },
+    {
+      "id": "661",
+      "grade": 12,
+      "subject": "other",
+      "subjectRaw": "Limba Franceza, nivelul A2+",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Limba Franceza, nivelul A2+(a. 2025).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=661"
+    },
+    {
+      "id": "712",
+      "grade": 12,
+      "subject": "other",
+      "subjectRaw": "Limba Franceza, nivelul B1.3",
+      "language": "unknown",
+      "year": 2026,
+      "filename": "Limba Franceza, nivelul B1.3 (a.2026).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=712"
+    },
+    {
+      "id": "624",
+      "grade": 12,
+      "subject": "other",
+      "subjectRaw": "Limba romana scoli minoritati nationale",
+      "language": "ro",
+      "year": 2024,
+      "filename": "Limba romana scoli minoritati nationale (a. 2024, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=624"
+    },
+    {
+      "id": "38",
+      "grade": 12,
+      "subject": "romanian",
+      "subjectRaw": "Limba si literatura romana",
+      "language": "unknown",
+      "filename": "Limba si literatura romana (alolingvi).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=38"
+    },
+    {
+      "id": "704",
+      "grade": 12,
+      "subject": "russian",
+      "subjectRaw": "Limba si literatura rusa",
+      "language": "unknown",
+      "year": 2026,
+      "filename": "Limba si literatura rusa(a.2026).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=704"
+    },
+    {
+      "id": "681",
+      "grade": 12,
+      "subject": "romanian",
+      "subjectRaw": "Limba și literatura română",
+      "language": "unknown",
+      "year": 2025,
+      "filename": "Limba și literatura română (a.2025).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=681"
+    },
+    {
+      "id": "516",
+      "grade": 12,
+      "subject": "other",
+      "subjectRaw": "Literatura universala",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Literatura universala (a. 2023, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=516"
+    },
+    {
+      "id": "517",
+      "grade": 12,
+      "subject": "other",
+      "subjectRaw": "Literatura universala",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Literatura universala (a. 2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=517"
+    },
+    {
+      "id": "518",
+      "grade": 12,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ro",
+      "year": 2023,
+      "filename": "Matematica (a. 2023, limba romana).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=518"
+    },
+    {
+      "id": "540",
+      "grade": 12,
+      "subject": "math",
+      "subjectRaw": "Matematica",
+      "language": "ru",
+      "year": 2023,
+      "filename": "Matematica (a.2023, limba rusa).pdf",
+      "url": "https://ctice.md:1443/public/download.php?id=540"
+    }
+  ]
+}

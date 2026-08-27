@@ -1,0 +1,93 @@
+{
+  "subjectId": "math",
+  "items": [
+    {
+      "id": "math-g-001",
+      "query": "Как вычислить степень и квадратный корень числа?",
+      "lang": "ru",
+      "expectedSubjectId": "math",
+      "expectedTopicId": "math-real-numbers",
+      "expectedChunkIds": [
+        "math-9-ru-067",
+        "math-9-ru-027",
+        "math-9-ru-035"
+      ],
+      "expectedAnswerRubricId": "math-answer-rubric",
+      "notes": "Section §3 covers roots (027), exponents (035/067) — all valid."
+    },
+    {
+      "id": "math-g-002",
+      "query": "Как выполнять арифметические действия над алгебраическими отношениями?",
+      "lang": "ru",
+      "expectedSubjectId": "math",
+      "expectedTopicId": "math-algebraic-expressions",
+      "expectedChunkIds": [
+        "math-9-ru-069"
+      ],
+      "expectedAnswerRubricId": "math-answer-rubric"
+    },
+    {
+      "id": "math-g-003",
+      "query": "Что такое функция второй степени и как выглядит её график?",
+      "lang": "ru",
+      "expectedSubjectId": "math",
+      "expectedTopicId": "math-functions",
+      "expectedChunkIds": [
+        "math-9-ru-138",
+        "math-9-ru-130",
+        "math-9-ru-149"
+      ],
+      "expectedAnswerRubricId": "math-answer-rubric",
+      "notes": "Same §3 section (Функция II степени), multiple valid sub-parts."
+    },
+    {
+      "id": "math-g-004",
+      "query": "Каковы основные свойства неопределённого интеграла?",
+      "lang": "ru",
+      "expectedSubjectId": "math",
+      "expectedTopicId": "math-calculus-antiderivative",
+      "expectedChunkIds": [
+        "math-12-ru-049"
+      ],
+      "expectedAnswerRubricId": "math-answer-rubric"
+    },
+    {
+      "id": "math-g-005",
+      "query": "В чём заключается геометрический смысл определённого интеграла?",
+      "lang": "ru",
+      "expectedSubjectId": "math",
+      "expectedTopicId": "math-calculus-applications",
+      "expectedChunkIds": [
+        "math-12-ru-097",
+        "math-12-ru-094",
+        "math-12-ru-102"
+      ],
+      "expectedAnswerRubricId": "math-answer-rubric",
+      "notes": "Same section (1.4 Геометрический смысл определённого интеграла)."
+    },
+    {
+      "id": "math-g-006",
+      "query": "Как решать интеграл методом замены переменной?",
+      "lang": "ru",
+      "expectedSubjectId": "math",
+      "expectedTopicId": "math-calculus-applications",
+      "expectedChunkIds": [
+        "math-12-ru-145",
+        "math-12-ru-134",
+        "math-12-ru-132"
+      ],
+      "expectedAnswerRubricId": "math-answer-rubric",
+      "notes": "Same section (3.2 Замена переменной или метод подстановки)."
+    },
+    {
+      "id": "math-g-007",
+      "query": "Как приготовить борщ по классическому рецепту?",
+      "lang": "ru",
+      "expectedSubjectId": "math",
+      "expectedTopicId": "math-exam-tasks",
+      "expectedChunkIds": [],
+      "expectInsufficient": true,
+      "notes": "Off-topic for the math course; retrieval should refuse."
+    }
+  ]
+}

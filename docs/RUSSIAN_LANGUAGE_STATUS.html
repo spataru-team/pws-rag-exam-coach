@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Русский язык в RAG — текущее состояние</title>
+    <style>
+      :root {
+        --bg: #f6f8fa; --surface: #fff; --surface2: #eef1f4; --text: #1b1f24;
+        --muted: #5a6573; --border: #d7dee6; --primary: #1f6feb; --accent: #1a7f37;
+        --warn: #9a6700; --danger: #cf222e; --code-bg: #f0f3f6; --radius: 10px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0d1117; --surface: #161b22; --surface2: #21262d; --text: #e6edf3;
+          --muted: #9aa7b4; --border: #30363d; --primary: #4493f8; --accent: #3fb950;
+          --warn: #d29922; --danger: #f85149; --code-bg: #1b222b;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; background: var(--bg); color: var(--text);
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+      }
+      .wrap { max-width: 980px; margin: 0 auto; padding: 1.5rem 1.1rem 5rem; }
+      header.hero {
+        background: linear-gradient(135deg, var(--primary), #6f42c1);
+        color: #fff; padding: 2.2rem 1.1rem; text-align: center;
+      }
+      header.hero h1 { margin: 0 0 .3rem; font-size: 1.9rem; }
+      header.hero p { margin: 0; opacity: .92; }
+      h2 {
+        margin-top: 2.4rem; padding-bottom: .3rem; border-bottom: 2px solid var(--border);
+        scroll-margin-top: 1rem;
+      }
+      h3 { margin-top: 1.6rem; }
+      a { color: var(--primary); }
+      code, pre {
+        font-family: ui-monospace, "Cascadia Code", "Fira Code", monospace;
+        font-size: .9em;
+      }
+      code { background: var(--code-bg); padding: .1rem .35rem; border-radius: 5px; }
+      pre {
+        background: var(--code-bg); border: 1px solid var(--border);
+        border-radius: var(--radius); padding: .9rem 1rem; overflow-x: auto; line-height: 1.45;
+      }
+      pre code { background: none; padding: 0; }
+      table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+      th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+      th { background: var(--surface2); }
+      .card {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: var(--radius); padding: 1rem 1.2rem; margin: 1rem 0;
+      }
+      .callout { border-left: 4px solid var(--primary); background: var(--surface2); padding: .8rem 1rem; border-radius: 8px; margin: 1rem 0; }
+      .callout.warn { border-left-color: var(--warn); }
+      .callout.ok { border-left-color: var(--accent); }
+      .callout.danger { border-left-color: var(--danger); }
+      .toc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.2rem; }
+      .toc ol { margin: .4rem 0 0; padding-left: 1.3rem; }
+      .toc a { text-decoration: none; }
+      .pill { display: inline-block; padding: .1rem .55rem; border-radius: 999px; background: var(--surface2); border: 1px solid var(--border); font-size: .82rem; }
+      .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      footer { color: var(--muted); font-size: .85rem; margin-top: 3rem; text-align: center; }
+      .q-list { padding-left: 1.3rem; }
+      .q-list li { margin: .7rem 0; }
+      .ok-mark { color: var(--accent); font-weight: 700; }
+      .bad-mark { color: var(--danger); font-weight: 700; }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <h1>Русский язык в RAG-поиске</h1>
+      <p>PWS RAG Exam Coach · что работает, что нет, и что с этим делать · 24.08.2026</p>
+    </header>
+
+    <div class="wrap">
+      <nav class="toc" aria-label="Оглавление">
+        <strong>Оглавление</strong>
+        <ol>
+          <li><a href="#summary">Краткая сводка</a></li>
+          <li><a href="#works">Что работает хорошо</a></li>
+          <li><a href="#broken">Что не работает: реранкер на кириллице</a></li>
+          <li><a href="#tested">Что уже проверено и отвергнуто</a></li>
+          <li><a href="#impact">Как это скажется на подготовке учащихся</a></li>
+          <li><a href="#questions">Вопросы для другой модели LLM</a></li>
+        </ol>
+      </nav>
+
+      <!-- 1. SUMMARY -->
+      <h2 id="summary">1. Краткая сводка</h2>
+      <p>В RAG-поиске этого проекта два независимых этапа: <strong>первый этап</strong> (векторный
+      поиск + BM25 + слияние RRF) находит кандидатов, <strong>второй этап</strong> (реранкер)
+      должен их переупорядочить точнее. Для русского языка:</p>
+      <div class="grid">
+        <div class="card">
+          <span class="ok-mark">✓ Первый этап — работает хорошо.</span><br />
+          Эмбеддинги <code>bge-m3</code> корректно понимают кириллицу (измеренный косинус
+          0.9995–1.0000 между разными бэкендами). Русскоязычный запрос против румынского корпуса:
+          recall@5 = <strong>0.940</strong>, MRR = <strong>0.829</strong> — против 0.625 / 0.358 у
+          прежней модели.
+        </div>
+        <div class="card">
+          <span class="bad-mark">✗ Второй этап — не работает.</span><br />
+          Кросс-энкодер реранкер (обе протестированные версии — локальный OVMS и облачный
+          Cloudflare Workers AI) не различает релевантность текста на кириллице. Для ro/en
+          работает идеально. Оба варианта протестированы и отклонены сегодня (раздел 4) —
+          выключен по умолчанию, приложение работает без него.
+        </div>
+      </div>
+      <div class="callout"><strong>Важно понимать разницу.</strong> Это не «поиск на русском не
+      работает» — первый этап и так делает основную работу и уже измерен как хороший. Отсутствие
+      реранкера — это отсутствие <em>дополнительной</em> точной настройки порядка результатов
+      внутри уже найденного правильного набора, а не отсутствие самого поиска.</div>
+
+      <!-- 2. WORKS -->
+      <h2 id="works">2. Что работает хорошо</h2>
+      <table>
+        <thead><tr><th>Этап миграции</th><th>ru recall@5</th><th>ru MRR</th><th>Все языки, recall@5</th><th>Все языки, MRR</th><th>refusalAccuracy</th></tr></thead>
+        <tbody>
+          <tr><td><code>nomic-embed-text</code>@768 (было)</td><td>0.625</td><td>0.358</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td><code>bge-m3</code>@1024 (миграция)</td><td>0.905</td><td>0.811</td><td>0.948</td><td>0.886</td><td>0.0 (баг)</td></tr>
+          <tr><td>+ исправлен gate обоснованности</td><td>0.905</td><td>0.811</td><td>0.948</td><td>0.886</td><td>0.8</td></tr>
+          <tr><td>+ кросс-языковое расширение запроса</td><td><strong>0.940</strong></td><td><strong>0.829</strong></td><td><strong>0.967</strong></td><td><strong>0.896</strong></td><td>0.8</td></tr>
+        </tbody>
+      </table>
+      <p>Источник — <code>docs/EVALUATION.md</code>, golden-набор 56 заданий (31 из них — ru-запросы).
+      Кросс-языковое расширение (<code>src/rag/queryExpansion.ts</code>) — детерминированный глоссарий
+      из заголовков тем каждого предмета на ru/ro/en, без LLM и внешних словарей.</p>
+      <div class="callout ok"><strong>Эмбеддинги проверены на согласованность между бэкендами.</strong>
+      Ollama vs OVMS (int8): косинус 0.9995 на 10 ru/ro/en пробах. Ollama vs Cloudflare Workers AI:
+      косинус 1.0000 (дважды измерено 24.08.2026, при пересеве всего корпуса). Один и тот же
+      <code>bge-m3</code> ведёт себя одинаково независимо от того, где он развёрнут — проблема
+      именно в реранкере, не в эмбеддингах.</div>
+
+      <!-- 3. BROKEN -->
+      <h2 id="broken">3. Что не работает: реранкер на кириллице</h2>
+      <p><code>CrossEncoderReranker</code> (<code>src/rag/crossEncoderReranker.ts</code>) и
+      <code>selectReranker()</code> (<code>src/rag/rerankRuntime.ts</code>) полностью реализованы и
+      покрыты юнит-тестами, но <strong>сознательно не подключены</strong> в
+      <code>src/services/ragService.ts</code> — приложение использует офлайновый
+      <code>LexicalReranker</code> по умолчанию.</p>
+      <h3>Исходное измерение (локальный OVMS, <code>bge-reranker-v2-m3</code>)</h3>
+      <table>
+        <thead><tr><th>Язык запроса</th><th>Релевантный документ</th><th>Нерелевантный документ</th><th>Различает?</th></tr></thead>
+        <tbody>
+          <tr><td>en</td><td>0.9995</td><td>0.000016</td><td class="ok-mark">✓</td></tr>
+          <tr><td>ro</td><td>0.9997</td><td>0.000016</td><td class="ok-mark">✓</td></tr>
+          <tr><td>ru</td><td>0.97–0.99</td><td>0.97–0.99 (иногда выше)</td><td class="bad-mark">✗</td></tr>
+        </tbody>
+      </table>
+      <p>Румынский (латиница, диакритики) — идеально; русский (кириллица) — вообще не различает.
+      То же семейство модели в эмбеддингах (<code>bge-m3</code>, тот же backbone XLM-RoBERTa-large)
+      кириллицу понимает прекрасно (раздел 2) — значит, проблема специфична именно для
+      реранкер-пути инференса, не для языка вообще и не для архитектуры модели как таковой.</p>
+
+      <!-- 4. TESTED -->
+      <h2 id="tested">4. Что уже проверено и отвергнуто</h2>
+      <p>Ниже — полный список гипотез, проверенных экспериментом (не рассуждением), в
+      хронологическом порядке. Каждая строка — тупик, задокументированный, чтобы не проверять
+      его повторно.</p>
+      <table>
+        <thead><tr><th>#</th><th>Гипотеза</th><th>Проверка</th><th>Результат</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Квантование (int8) режет точность на кириллице</td>
+          <td>Переэкспорт с <code>--weight-format fp16</code></td>
+          <td class="bad-mark">Отвергнуто — тот же результат на fp16</td></tr>
+          <tr><td>2</td><td>Токенизатор реранкера теряет границу query/doc — экспорт вызывает
+          <code>convert_tokenizer(..., add_special_tokens=False)</code>, путь эмбеддингов
+          использует дефолт (неявно True)</td>
+          <td>Патч <code>export_model.py</code> → <code>add_special_tokens=True</code>,
+          переэкспорт, повтор измерения</td>
+          <td class="bad-mark">Отвергнуто — ru-скор не сдвинулся ни на цифру
+          (0.9812 / 0.9765 — идентично до и после)</td></tr>
+          <tr><td>3</td><td><code>--max_doc_length</code> форсирует 16000 токенов на модель с
+          реальным лимитом позиций ~512, кириллица токенизируется гуще латиницы</td>
+          <td>Переэкспорт с <code>--max_doc_length 512</code> (поверх гипотезы 2)</td>
+          <td class="bad-mark">Отвергнуто — результат <strong>побитово идентичен</strong>
+          гипотезе 2 (те же 0.9812 / 0.9765)</td></tr>
+          <tr><td>4</td><td>Другая модель того же класса (<code>@cf/baai/bge-reranker-base</code>
+          через Cloudflare Workers AI) не унаследует баг конкретно этого OVMS-экспорта</td>
+          <td>Живой тест через прокси на 5 разных ru парах (фотосинтез, квадратное уравнение,
+          периодический закон, начало ВОВ, строение клетки)</td>
+          <td class="bad-mark">Отвергнуто и хуже: <strong>1 из 5</strong> правильно, остальные —
+          нерелевантный документ побеждает, иногда разгромно (0.00017 vs 0.61). Несколько скоров
+          побитово совпадают между разными по смыслу запросами — похоже на вырожденный вывод
+          модели на русском входе, а не на «слабее, но работает»</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><strong>Побочная находка.</strong> Тест гипотезы 4 вскрыл независимый
+      реальный баг: прокси (<code>src/server/openaiProxy.ts</code>) ожидал в ответе Workers AI поле
+      <code>index</code>, а реальный эндпоинт отдаёт <code>id</code> — из-за этого <em>любой</em>
+      настоящий rerank-запрос падал в 502, хотя апстрим отвечал корректно (баг существовал с самого
+      написания кода, но никогда не проявлялся — тесты были на моках по документации, реального
+      аккаунта Cloudflare не было до этой сессии). Исправлено и покрыто regression-тестом
+      независимо от решения про реранкер.</div>
+      <p>Полные детали и точные команды — <code>ovms/README.md</code>, секция «Known limitation».</p>
+
+      <!-- 5. IMPACT -->
+      <h2 id="impact">5. Как это скажется на подготовке учащихся по русскому языку</h2>
+      <p>Ответ разный для двух принципиально разных сценариев, и после расширения корпуса на
+      этой неделе один из них стал <strong>значительно менее частым</strong>, чем в начале
+      проекта:</p>
+      <div class="grid">
+        <div class="card">
+          <strong>Сценарий А — одноязычный (ru-запрос → ru-корпус)</strong><br />
+          Сейчас это <strong>6 из 7 предметов</strong>: биология, химия, история, математика,
+          русский язык и литература, английский — у всех есть настоящий русскоязычный учебный
+          корпус (раздел 8 <code>PROJECT_GUIDE.html</code>). Здесь нет кросс-языкового разрыва —
+          запрос и текст на одном языке, поэтому реранкер-пробел почти не заметен: первый этап
+          сам находит правильные фрагменты в правильном порядке чаще, а даже офлайновый
+          лексический реранкер (без эмбеддингов) даёт реальный сигнал, потому что слова
+          буквально совпадают.
+        </div>
+        <div class="card">
+          <strong>Сценарий Б — кросс-языковой (ru-запрос → ro-корпус)</strong><br />
+          Сейчас это практически только <strong>румынский (alolingvi)</strong> — флагманский
+          пилотный предмет (экзамен 15 июня, уже подтверждён на живых учениках). Именно для
+          этого сценария и был измерен recall@5 = 0.940 / MRR = 0.829 (раздел 2) — цифры уже
+          учитывают отсутствие реранкера, это не теоретическая оценка, а измеренное текущее
+          качество продакшена.
+        </div>
+      </div>
+      <p><strong>Практический эффект отсутствия реранкера — не «поиск не работает», а «упущенный
+      потолок качества» именно в сценарии Б:</strong> первый этап уже находит нужные фрагменты с
+      recall@5 0.940 (то есть в 94% случаев правильный фрагмент попадает хотя бы в топ-5), но
+      реранкер должен был бы дополнительно поднимать его ближе к позиции №1 внутри этой пятёрки.
+      Студент получает грундинг по одному из топ-5 фрагментов (LLM видит все топ-K, не только
+      первый), так что итоговый ответ обычно всё равно опирается на релевантный материал — но
+      без реранкера чуть выше шанс, что цитируемый фрагмент не самый удачный из пяти, а не то,
+      что материал вообще не найден. Для 6 предметов с ru-корпусом эффект ещё меньше, потому что
+      там нет исходного кросс-языкового разрыва, который реранкер вообще был призван компенсировать.</p>
+      <div class="callout warn"><strong>Честная граница уверенности.</strong> Метрики выше — на
+      golden-наборе (56 курируемых заданий, из них 16 по румынскому: 6 ru + 10 ro). Это не то же
+      самое, что полное распределение реальных вопросов живых учеников — golden-набор специально
+      подобран так, чтобы стрессовать именно эту кросс-языковую границу, поэтому 0.940 recall@5 —
+      осторожная, не оптимистичная оценка нижней планки, а не гарантия для каждого возможного
+      вопроса.</div>
+
+      <!-- 6. QUESTIONS -->
+      <h2 id="questions">6. Вопросы для другой модели LLM</h2>
+      <p>Список составлен так, чтобы его можно было напрямую передать другой модели (более
+      сильной общей LLM или специализированной ML-консультации) для второго мнения — каждый
+      вопрос содержит достаточно контекста и точные измеренные числа, без необходимости
+      пересказывать всю историю заново.</p>
+      <ol class="q-list">
+        <li><strong>Известна ли проблема совместимости <code>bge-reranker-v2-m3</code> с
+        OpenVINO-конвертацией именно для кириллицы?</strong> Модель — cross-encoder
+        sequence-classification на базе XLM-RoBERTa-large. При конвертации в OpenVINO IR через
+        <code>optimum-cli export openvino --task text-classification</code> (int8-квантование,
+        NNCF asymmetric per-channel) она перестаёт различать релевантность текста на кириллице
+        (score ≈0.97–0.99 у обоих документов пары, независимо от содержания), при том что ro/en
+        работают штатно (0.9997 vs 0.000016). Тот же backbone в эмбеддинг-варианте той же модели
+        кириллицу обрабатывает корректно (косинус 0.9995+ против неквантованной версии). Есть ли
+        задокументированные случаи похожего разрыва между эмбеддинг- и классификационным путём
+        экспорта для мультиязычных encoder-моделей?</li>
+        <li><strong>Могла ли схема квантования NNCF (int8_asym, per-channel, 100% параметров)
+        непропорционально повредить внимание модели именно на менее частых Unicode-диапазонах
+        (кириллица) по сравнению с латиницей?</strong> Мы уже исключили квантование как причину
+        через переэкспорт на fp16 с тем же результатом — но не проверяли другие схемы
+        квантования (symmetric, per-tensor, int4) или сам факт того, что int8/fp16 — не
+        единственные варианты, которые стоило перебрать.</li>
+        <li><strong>Мы протестировали две гипотезы про токенизатор (отсутствие спецтокенов
+        `&lt;s&gt;...&lt;/s&gt;&lt;/s&gt;...&lt;/s&gt;` и завышенный `max_doc_length`) — обе не
+        дали никакого измеримого эффекта, скор совпал побитово до и после.</strong> Какие ещё
+        механизмы токенизации/паддинга специфичны для cross-encoder пар (не для
+        одиночных-последовательностей эмбеддингов) и могли бы объяснить именно такой симптом —
+        не деградацию точности, а полное отсутствие дискриминации, стабильно воспроизводимое?</li>
+        <li><strong>Есть ли известные, реально хорошо работающие на кириллице альтернативные
+        мультиязычные реранкеры, готовые к OpenVINO-экспорту или к запуску на CPU/GPU без
+        облака</strong> — например, семейство BGE (<code>bge-reranker-v2-gemma</code>), Jina
+        (<code>jina-reranker-v2-base-multilingual</code>), mMiniLM-based Cohere-совместимые
+        модели? Нужна модель, реально протестированная на ru, не просто заявленная как
+        «multilingual» в карточке модели.</li>
+        <li><strong>Облачная модель Cloudflare Workers AI (<code>@cf/baai/bge-reranker-base</code>)
+        показала не просто слабую, а похожую на вырожденную работу на русском — несколько
+        числовых скоров совпали побитово между содержательно разными запросами (например,
+        <code>0.6063408851623535</code> — и для пары про фотосинтез, и для пары про начало
+        Великой Отечественной войны).</strong> Это больше похоже на баг в конкретном
+        API/раздел run-эндпоинта Workers AI (например, паддинг/усечение по длине токенов,
+        независимо от контента), чем на общее свойство модели <code>bge-reranker-base</code>?
+        Стоит ли проверить тот же вход через прямой HuggingFace inference той же модели
+        локально, чтобы отделить «модель плохая» от «Workers AI её плохо обслуживает»?</li>
+        <li><strong>Оправдано ли вместо дальнейшей отладки готовой модели дообучить лёгкий
+        ru-специфичный reranking-адаптер</strong> (например, LoRA поверх существующего
+        <code>bge-reranker-v2-m3</code>) на небольшом курируемом наборе пар
+        запрос/релевантный-нерелевантный-фрагмент на русском — и какого порядка размера датасета
+        для этого реалистично достаточно, учитывая, что задача узкая (один язык, один домен —
+        школьные учебники)?</li>
+      </ol>
+      <div class="callout"><strong>Контекст для передачи.</strong> Полные измерения, код и
+      команды переэкспорта — <code>ovms/README.md</code> (секция «Known limitation»), реализация
+      реранкера — <code>src/rag/crossEncoderReranker.ts</code> и
+      <code>src/rag/rerankRuntime.ts</code>, экспорт-скрипт OVMS —
+      <code>ovms/tools/export_model.py</code> (функции <code>export_rerank_tokenizer</code>,
+      <code>export_rerank_model_ov</code>).</div>
+
+      <footer>
+        PWS RAG Exam Coach · см. также <code>docs/PROJECT_GUIDE.html</code>,
+        <code>docs/EVALUATION.md</code>, <code>ovms/README.md</code>
+      </footer>
+    </div>
+  </body>
+</html>

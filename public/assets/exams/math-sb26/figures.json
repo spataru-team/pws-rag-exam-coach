@@ -1,0 +1,56 @@
+[
+  {
+    "id": "math-sb26-p3-1",
+    "kind": "figure",
+    "src": "/assets/exams/math-sb26/math-sb26-p3-1.png",
+    "width": 650,
+    "height": 336,
+    "alt": {},
+    "origin": {
+      "pdf": "12_mat_test_r_ru_sb26.pdf",
+      "page": 3,
+      "bbox": [
+        344.4,
+        406.29781539494815,
+        552.8400268554688,
+        510.19000244140625
+      ]
+    }
+  },
+  {
+    "id": "math-sb26-p3-2",
+    "kind": "figure",
+    "src": "/assets/exams/math-sb26/math-sb26-p3-2.png",
+    "width": 650,
+    "height": 373,
+    "alt": {},
+    "origin": {
+      "pdf": "12_mat_test_r_ru_sb26.pdf",
+      "page": 3,
+      "bbox": [
+        344.4,
+        697.418480255884,
+        552.8400268554688,
+        813.47998046875
+      ]
+    }
+  },
+  {
+    "id": "math-sb26-p4-2",
+    "kind": "figure",
+    "src": "/assets/exams/math-sb26/math-sb26-p4-2.png",
+    "width": 644,
+    "height": 477,
+    "alt": {},
+    "origin": {
+      "pdf": "12_mat_test_r_ru_sb26.pdf",
+      "page": 4,
+      "bbox": [
+        346.49997285680007,
+        662.6754352175009,
+        552.8400268554688,
+        813.47998046875
+      ]
+    }
+  }
+]

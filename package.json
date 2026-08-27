@@ -2,6 +2,9 @@
   "name": "pws-rag-edu",
   "private": true,
   "version": "0.0.0",
+  "description": "Local-first, multilingual, adaptive RAG PWA for exam preparation and subject-based learning.",
+  "license": "MIT",
+  "homepage": "https://pws-rag-edu.pages.dev/",
   "type": "module",
   "scripts": {
     "dev": "vite",

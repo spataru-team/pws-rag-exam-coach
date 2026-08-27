@@ -39,8 +39,10 @@ from Ministry-of-Education textbook PDFs:
    artifacts (running headers, decorative-font glyph noise, a verified CP1251↔
    Latin-1 encoding bug), chunks on detected section headings, and writes
    `ChunkDraft[]` JSON (`--max-chunks N` caps pack size via even sampling).
-   `corpus/out/*.chunks.json` **is** committed — it's the actual content, not
-   a build artifact.
+   `corpus/out/*.chunks.json` is the actual retrieval content, not a build
+   artifact. **It is not included in this public repository** (derived from
+   third-party copyrighted textbooks) — regenerate it locally with the step
+   above; `corpus/manifest.json` (the catalogue) is included.
 3. `npm run seed` picks up `corpus/out/<subjectId>-*.chunks.json` automatically
    alongside any hand-authored `src/data/chunks/<id>.chunks.ts` drafts for that
    subject (see `loadGeneratedChunks` in `scripts/seed-packs.ts`).

@@ -1,6 +1,6 @@
 # PWS RAG Exam Coach
 
-> **Bridging Moldova's Romanian exam language gap.** A local-first, multilingual,
+> **Turning existing skills into exam points.** A local-first, multilingual,
 > adaptive RAG coach that finds the rubric-scored skills currently costing a
 > student points and builds a short, explainable path back to the passing
 > threshold.

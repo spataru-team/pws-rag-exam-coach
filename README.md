@@ -10,6 +10,7 @@
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
 ![PWA](https://img.shields.io/badge/PWA-5A0FC8?style=flat-square&logo=pwa&logoColor=white)
 ![Vitest](https://img.shields.io/badge/tested%20with-Vitest-6E9F18?style=flat-square&logo=vitest&logoColor=white)
+![bge-m3](https://img.shields.io/badge/embeddings-bge--m3-FFD21E?style=flat-square&logo=huggingface&logoColor=black)
 ![Intel OpenVINO](https://img.shields.io/badge/Intel-OpenVINO-0071C5?style=flat-square&logo=intel&logoColor=white)
 ![Cloudflare Pages](https://img.shields.io/badge/Cloudflare-Pages-F38020?style=flat-square&logo=cloudflare&logoColor=white)
 ![License: MIT](https://img.shields.io/badge/License-MIT-3178C6?style=flat-square)

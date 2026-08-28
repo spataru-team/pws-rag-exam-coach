@@ -1,9 +1,9 @@
 # PWS RAG Exam Coach
 
-> **Turning existing skills into exam points.** A local-first, multilingual,
-> adaptive RAG coach that finds the rubric-scored skills currently costing a
-> student points and builds a short, explainable path back to the passing
-> threshold.
+> **Turning existing skills into exam points.** A local-first, multilingual RAG
+> coach that grades an exam answer against the official rubric, finds the
+> rubric-scored skills currently losing points, and builds a short, explainable
+> path back to a passing score.
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/React-149ECA?style=flat-square&logo=react&logoColor=white)
@@ -27,65 +27,151 @@ Built for the **Intel® AI Global Impact Festival 2026**
 Every student in Moldova must pass a Romanian exam to graduate. Students taught in
 another language sit a **separate paper — Romanian as a non-native language** —
 where the passing margin is often thin; **7,092 ninth-graders registered for it in
-2026**. They need targeted practice tied to the official marking scheme, not
-another general chatbot that answers plausibly but unverifiably.
+2026**. What they need is targeted practice tied to the official marking scheme —
+not another general chatbot that answers plausibly but unverifiably.
 
-## The solution
+## What makes this different
 
-PWS RAG Exam Coach combines:
+This is not a chatbot over a textbook. **RAG retrieves the evidence; the official
+exam rubric decides what matters.**
 
-- 📚 **RAG grounded in the real curriculum** — feedback retrieves from official
-  Ministry-of-Education textbooks (`bge-m3`, 1024-dim, multilingual ru/ro/en),
-  cites the chunk it used, and **refuses when local materials lack evidence**.
-- 📏 **Scored against the official rubric** — deterministic checks where a computer
-  can mark exactly, LLM feedback only where reasoning is needed.
-- 🎯 **Rescue Mode** — instead of "everything you should revise", it ranks the
-  2–4 partly-mastered skills that can realistically recover the missing points,
-  gives micro-drills, and forecasts attainable points rather than promising a score.
-- 🔒 **Local-first & private** — all learner data stays in the browser (IndexedDB),
-  no account, no real name, only an anonymous local id.
-- 🖥️ **Runs without the cloud** — the inference pipeline can run through **Intel
-  OpenVINO Model Server** with NNCF-quantized models, keeping student prompts and
-  AI responses on the school network.
-- 🌍 **EN / RU / RO** interface, light/dark themes, dyslexia-friendly mode,
-  keyboard navigation, correct Romanian diacritics.
-- 🧩 **Multi-subject by design** — subjects are data + config; adding one needs no
-  core code changes.
+```
+exam answer
+  → graded against the official ANCE marking scheme
+       (deterministic where a computer can mark exactly; LLM only for open-ended criteria)
+  → each criterion becomes a "scoring atom" tagged with the skill it tests
+  → skills sorted into  🟢 points you already earn reliably
+                        🟡 where more points are easiest to find
+                        🔴 higher-cost points, set aside for now
+  → Rescue Mode builds a route of 2–4 yellow-zone skills, ranked by
+       lost points × trainability × transfer reliability ÷ training cost,
+       stopping once the projected score clears a margin ABOVE the pass line
+  → each skill gets rubric-grounded micro-drills
+  → forecast: a conservative figure (counts a skill only after two strong,
+       confidently-graded drills in a row) and an expected figure — both capped
+       at the points actually lost
+```
 
-![Model Lab — compare providers, including local Intel OpenVINO](docs/screenshots/model-lab.png)
+The skill weights are hand-authored pedagogical estimates, not model output; the
+prerequisite ("builds on") graph is authored data. The coach can say *why* a
+topic is hard, not just restate it. Terminology and formulas:
+[`src/learning/rescueEngine.ts`](src/learning/rescueEngine.ts),
+[`rescueConfig.ts`](src/learning/rescueConfig.ts),
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-## Impact so far
+## Measured validation
 
-During real exam preparation, **112 students at our school had access** to PWS RAG
-Exam Coach; **106 passed** the grade-9 Romanian exam for non-native speakers
-(94.6%), against an **80.7% national pass rate after the main session** (89.32%
-nationally after the August retakes). This compares one school with a whole country
-and **cannot isolate the app's effect**: students also had continuous teacher
-support, and we deliberately kept equal access rather than create a control group
-during a real graduation exam. By design we do not track individual in-app use.
+`npm run eval` runs a retrieval harness over 56 hand-built golden items across all
+seven subjects — including off-topic items and Russian-query-against-Romanian-corpus
+items. It measures whether the expected curriculum passage is retrieved, at what
+rank, and whether off-topic questions are correctly refused.
 
-The six students who still needed a retake drove our next step, Rescue Mode: all
-six were offered it equally; the two who used it passed, the four who did not did
-not. **A promising real-world signal from an honest iteration cycle — not proof of
-causality.**
+| stage | RU-query Recall@5 | RU-query MRR | overall Recall@5 | overall MRR | refusal acc. |
+|---|---|---|---|---|---|
+| `nomic-embed-text` @768 (before) | 0.625 | 0.358 | — | — | — |
+| `bge-m3` @1024 (migration only) | 0.905 | 0.811 | 0.948 | 0.886 | 0.0 (broken) |
+| + fixed refusal gate + recalibrated threshold | 0.905 | 0.811 | 0.948 | 0.886 | 0.80 |
+| + cross-language query expansion | **0.940** | **0.829** | **0.967** | **0.896** | **0.80** |
+
+Method and the per-language breakdown: [docs/EVALUATION.md](docs/EVALUATION.md).
+
+**An experiment that was rejected.** A cross-encoder reranker
+(`bge-reranker-v2-m3` via OpenVINO) was added to sharpen ranking. Measured, it did
+not tell relevant from irrelevant text on Cyrillic queries — the exact case the
+embedding migration had just fixed. Two likely export-side causes were tested and
+ruled out by experiment; a hosted alternative scored worse. The component ships
+**disabled by default**. Measure → detect the regression → reject the component.
+Detail: [ovms/README.md](ovms/README.md).
+
+## Real-world deployment
+
+Used at one school with grade-9 students during the 2026 exam-preparation period:
+
+- **112 students had access**; **106 passed** the main-session Romanian exam for
+  non-native speakers (94.6%). National main-session pass rate for this exam was
+  80.7% (89.32% after the August retakes).
+- Six students needed the August retake. Rescue Mode — built *because* of that
+  feedback — was offered to all six equally; the **2** who used it (confirmed by
+  unique-visitor analytics) passed, the **4** who did not, did not.
+
+**What this is not:** no control group, students also had teacher support, and
+individual in-app usage is deliberately not tracked. This is evidence of real
+deployment and a promising signal — **not** proof the app caused any outcome.
+Full write-up, limitations and sources:
+[docs/FIELD_DEPLOYMENT.md](docs/FIELD_DEPLOYMENT.md).
+
+## Deployment and scale
+
+| | Clients | Inference | Data path |
+|---|---|---|---|
+| **Local** | existing PCs / laptops / phones, browser PWA | one server on the school LAN → Intel OpenVINO Model Server → quantized embedding + chat models | student answers stay on the school network |
+| **Cloud** (the live demo) | browser PWA | Cloudflare Pages Function proxy → Workers AI (`bge-m3` embeddings) + OpenAI (chat) | prompts leave the network; the UI warns first |
+
+The architecture already supports what matters for scale: clients are ordinary
+devices with nothing to install; local mode centralises the AI on one school
+server and avoids per-request cloud-API charges (hardware and electricity costs
+remain); adding a subject is a corpus-plus-configuration task, not a core-code
+change ([docs/SUBJECT_REGISTRY.md](docs/SUBJECT_REGISTRY.md)). Not yet measured:
+how many concurrent students one local server supports.
+
+**Privacy.** No account, no real name — identity is an anonymous local id. All
+learner data (answers, mastery, metrics) stays in the browser (IndexedDB) and is
+never sent anywhere unless the student exports it or opts into a cloud model,
+which shows a warning first. Details and the risk table:
+[docs/PRIVACY.md](docs/PRIVACY.md), [docs/RESPONSIBLE_AI.md](docs/RESPONSIBLE_AI.md).
+
+## Intel / OpenVINO
+
+OpenVINO is an engineering choice, not a logo. A state exam for students without
+reliable internet, in schools that may not want answers leaving the building,
+needs an inference path that is private, runs on a plain CPU, and carries no
+cloud subscription. That is what the local path is for.
+
+Present in this repository (verified):
+
+- **OpenVINO Model Server** — one container, one port, all three RAG stages
+  behind an OpenAI-/Cohere-compatible API.
+- **NNCF** — INT8 weight compression at export.
+- **OpenVINO IR** / **`optimum-intel`** — model conversion (`ovms/tools/`).
+
+### Validation status
+
+| Component | Status |
+|---|---|
+| OVMS serving all three stages, end to end | functionally validated — on **x86-64 CPU (AMD)**, the dev machine |
+| INT8 `bge-m3` vs FP baseline (10 ru/ro/en probes) | measured — worst-case cosine 0.9995 |
+| Qwen3 chat latency fix (`enable_thinking: false`) | measured — 12.2 s → 6.3 s |
+| Cross-encoder reranker on Cyrillic | measured — regression, not shipped |
+| Run on an available Intel CPU / Arc GPU machine | not yet run — CPU graph is portable; GPU needs a re-export |
+| Intel NPU | not applicable — no NPU on available hardware |
+| Concurrent-classroom load test | not done |
+
+**No Intel-hardware benchmark is claimed.** Full detail and reproduction:
+[docs/INTEL_OPENVINO.md](docs/INTEL_OPENVINO.md).
+
+## How the project evolved
+
+| Step | What it added |
+|---|---|
+| General educational RAG | grounded, cited feedback over curriculum text |
+| Exam-specific scoring | grading against the official ANCE marking scheme |
+| Explicit skill tags | every rubric criterion tagged with the skill it tests |
+| Diagnostic zones | 🟢 / 🟡 / 🔴 sorting of skills by recoverable value |
+| Rescue Mode | a ranked route of 2–4 skills to the points needed to pass |
+| Points forecast | conservative vs expected recovered-points estimate — capped, advisory |
+| Retake-driven iteration | Rescue Mode was built in response to six real retake cases (2026) |
+
+The innovation is not RAG. It is using the **official scoring rubric** to turn
+grounded AI feedback into a targeted path for recovering the exam points a student
+can realistically still earn.
 
 ## UN Sustainable Development Goals
 
 | SDG | Role | Why |
-|-----|------|-----|
+|---|---|---|
 | **SDG 4 — Quality Education** | Primary | Equal access to good preparation for a state graduation exam. |
-| **SDG 10 — Reduced Inequalities** | Secondary | Addresses a structural disadvantage of language-minority students; phone-browser access lowers another barrier. |
+| **SDG 10 — Reduced Inequalities** | Secondary | A structural disadvantage of language-minority students; phone-browser access lowers another barrier. |
 | **SDG 9 — Industry, Innovation & Infrastructure** | Secondary | Local AI inference for a school without reliable internet or a GPU. |
-
-## Intel technologies
-
-- **OpenVINO Model Server (OVMS)** 2025/2026 — one server, OpenAI/Cohere-compatible
-  API for embeddings, reranker, and chat.
-- **NNCF** — INT8 weight quantization at export.
-- **OpenVINO IR / `optimum-intel`** — HuggingFace → OpenVINO conversion.
-
-Local inference is a **privacy and cost-of-access** choice, not a benchmark claim —
-hardware measured so far is Intel CPU.
 
 ---
 
@@ -101,14 +187,11 @@ npm run dev      # http://localhost:5173
 > (`public/packs/*.pack.json` — chunk text + embeddings) and the derived textbook
 > chunks (`corpus/out/`) are built from third-party copyrighted textbook material
 > and are distributed separately. `npm run seed` regenerates them locally — see
-> [`docs/SUBJECT_REGISTRY.md`](docs/SUBJECT_REGISTRY.md). Without them the app runs
+> [docs/SUBJECT_REGISTRY.md](docs/SUBJECT_REGISTRY.md). Without them the app runs
 > but has no retrieval corpus.
 
-Build & preview:
-
 ```bash
-npm run build
-npm run preview
+npm run build && npm run preview
 ```
 
 ## Scripts
@@ -119,44 +202,56 @@ npm run preview
 | `npm run typecheck` | strict `tsc -b` |
 | `npm test` | Vitest unit tests |
 | `npm run seed` | (re)generate subject packs |
-| `npm run eval` | retrieval evaluation harness → `eval/results/` |
+| `npm run eval` / `eval:ci` | retrieval evaluation harness / deterministic CI gate |
+| `npm run verify:embeddings` | check two embedding backends share a vector space |
 
 ## Screens
 
 Onboarding · Subject Dashboard · Diagnostic Test · Practice Session · Mock Exam ·
 Rescue Mode · Topic Review · Model Lab · Stats · Export · Settings.
 
-## Documentation
-
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
-- [docs/SUBJECT_REGISTRY.md](docs/SUBJECT_REGISTRY.md)
-- [docs/EVALUATION.md](docs/EVALUATION.md)
-- [docs/PRIVACY.md](docs/PRIVACY.md)
-- [docs/LLM_PROVIDERS.md](docs/LLM_PROVIDERS.md)
-- [docs/DEPLOY_CLOUDFLARE.md](docs/DEPLOY_CLOUDFLARE.md)
-
 ## Tech stack
 
 TypeScript · React · Vite · `vite-plugin-pwa` · Dexie (IndexedDB) · i18next ·
-Zustand · Vitest. CSS variables for themes; OpenAI-compatible LLM adapter;
-`bge-m3` 1024-dim multilingual embeddings via Ollama / OpenVINO Model Server /
-Cloudflare Workers AI (with an offline fallback).
+Zustand · Vitest. `bge-m3` 1024-dim multilingual embeddings via Ollama /
+OpenVINO Model Server / Cloudflare Workers AI, with an offline fallback;
+OpenAI-compatible LLM adapter.
+
+## Evidence and technical documentation
+
+| | |
+|---|---|
+| Architecture | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
+| Evaluation & metrics | [docs/EVALUATION.md](docs/EVALUATION.md) |
+| Field deployment (2026) | [docs/FIELD_DEPLOYMENT.md](docs/FIELD_DEPLOYMENT.md) |
+| Responsible AI | [docs/RESPONSIBLE_AI.md](docs/RESPONSIBLE_AI.md) |
+| Intel OpenVINO deployment | [docs/INTEL_OPENVINO.md](docs/INTEL_OPENVINO.md) |
+| Local OVMS setup & the reranker limitation | [ovms/README.md](ovms/README.md) |
+| Privacy | [docs/PRIVACY.md](docs/PRIVACY.md) |
+| LLM providers | [docs/LLM_PROVIDERS.md](docs/LLM_PROVIDERS.md) |
+| Cloud deployment | [docs/DEPLOY_CLOUDFLARE.md](docs/DEPLOY_CLOUDFLARE.md) |
+| Adding a subject | [docs/SUBJECT_REGISTRY.md](docs/SUBJECT_REGISTRY.md) |
+| Russian-language retrieval status | [docs/RUSSIAN_LANGUAGE_STATUS.html](docs/RUSSIAN_LANGUAGE_STATUS.html) |
+| Corpus provenance | [`corpus/manifest.json`](corpus/manifest.json) |
+| Live demo | <https://pws-rag-edu.pages.dev/> |
+| Video | <https://youtu.be/8T5iniSu80c> |
 
 ## Sources
 
-Official 2026 statistics cited in the video and submission, from ANCE (Agenția
-Națională pentru Curriculum și Evaluare) and MEC (Ministry of Education and Research),
-Republic of Moldova:
+Official 2026 statistics cited above and in the video, from ANCE (Agenția
+Națională pentru Curriculum și Evaluare) and MEC (Ministry of Education and
+Research), Republic of Moldova:
 
-- **7,092** ninth-graders registered for the *Limba și literatura română (alolingvi)*
-  exam, session 2026 —
+- **7,092** ninth-graders registered for the *Limba și literatura română
+  (alolingvi)* exam, session 2026 —
   <https://ance.gov.md/content/încep-examenele-naționale-de-absolvire-gimnaziului-sesiunea-2026>
-- **5,996** papers written, **80.7%** pass rate for that exam (preliminary main-session
-  results; 82.7% in 2025) —
+- **5,996** papers written, **80.7%** pass rate (preliminary main-session; 82.7%
+  in 2025) —
   <https://mec.gov.md/ro/content/au-fost-anuntate-rezultatele-preliminare-ale-examenelor-de-absolvire-gimnaziului>
-- **89.32%** final pass rate for the same subject after the August retake session —
+- **89.32%** pass rate for the same subject after the August retake session —
   <https://ance.gov.md/content/au-fost-anunțate-rezultatele-sesiunii-din-august-examenelor-de-absolvire-clasei-ix>
-- **3,107** Bacalaureat candidates from minority-language classes, first paper 2 June 2026 —
+- **3,107** Bacalaureat candidates from minority-language classes, first paper
+  2 June 2026 —
   <https://ance.gov.md/content/prima-probă-examenului-național-de-bacalaureat-2026-are-loc-astăzi-2-iunie-în-55-de-centre>
 
 Curriculum textbooks: `ctice.gov.md` (Ministry of Education content centre) —
@@ -165,7 +260,7 @@ catalogue in [`corpus/manifest.json`](corpus/manifest.json). Embedding model:
 
 ## License
 
-[MIT](LICENSE) for the source code. Curriculum textbook content
-(`ctice.gov.md`) and ANCE examination materials are the property of their
-respective owners and are **not** covered by this license; the data packs built
-from them are distributed separately.
+[MIT](LICENSE) for the source code. Curriculum textbook content (`ctice.gov.md`)
+and ANCE examination materials are the property of their respective owners and are
+**not** covered by this license; the data packs built from them are distributed
+separately.

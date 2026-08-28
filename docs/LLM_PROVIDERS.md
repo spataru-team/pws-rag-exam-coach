@@ -38,8 +38,10 @@ This keeps the app fully functional offline and in tests.
 
 ## OpenVINO (optimized local inference)
 
-OpenVINO support is built in at the architecture level for fast local inference
-on Intel CPU/GPU/NPU, via **OpenVINO Model Server (OVMS)**:
+OpenVINO support is built in at the architecture level for local inference via
+**OpenVINO Model Server (OVMS)**, which can target Intel CPU, GPU or NPU. What has
+actually been run, and on which hardware, is in
+[INTEL_OPENVINO.md](./INTEL_OPENVINO.md):
 
 - **Chat:** OVMS exposes an OpenAI-compatible API (`/v3/chat/completions`), so the
   `openvino` preset reuses `OpenAICompatibleAdapter` with **no dedicated adapter

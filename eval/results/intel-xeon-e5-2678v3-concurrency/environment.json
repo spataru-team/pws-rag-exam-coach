@@ -1,26 +1,40 @@
-{
-  "cpu": "Intel Xeon E5-2678 v3",
-  "server_role": "OVMS inference server",
-  "load_generator_role": "separate LAN computer",
-  "model": "ov-llm",
-  "model_source": "OpenVINO/Qwen3-4B-int4-ov",
-  "quantization": "INT4 (pre-converted OpenVINO IR)",
-  "endpoint": "POST http://<XEON_IP>:8000/v3/chat/completions",
-  "api": "OpenAI-compatible",
-  "ovms_version": null,
-  "openvino_version": null,
-  "output_tokens": 30,
-  "temperature": 0.0,
-  "seed": 0,
-  "enable_thinking": false,
-  "prompt": "Briefly describe the water cycle in a few sentences.",
-  "test_type": "synthetic concurrency",
-  "concurrency_matrix": [
-    { "concurrency": 1, "measured_requests": 10 },
-    { "concurrency": 5, "measured_requests": 25 },
-    { "concurrency": 10, "measured_requests": 50 },
-    { "concurrency": 20, "measured_requests": 100 }
-  ],
-  "warmup_requests_per_level": 3,
-  "notes": "Not a physical 20-PC classroom test. Load is generated from a separate LAN machine; the Xeon runs OVMS inference only. The request mirrors src/llm/adapters/openaiCompatible.ts, including chat_template_kwargs.enable_thinking=false for the OVMS/Qwen3 path. The benchmark uses temperature=0 for reproducibility; the app default is 0.2. Fill ovms_version and openvino_version from the container (e.g. `docker logs pws-ovms` or `docker exec pws-ovms /ovms/bin/ovms --version`) before committing results."
+﻿{
+    "cpu":  "Intel Xeon E5-2678 v3",
+    "server_role":  "OVMS inference server",
+    "load_generator_role":  "separate LAN computer",
+    "model":  "qwen-test",
+    "model_source":  "OpenVINO/Qwen3-4B-int4-ov",
+    "quantization":  "INT4 (pre-converted OpenVINO IR)",
+    "endpoint":  "POST http://192.168.0.16:8000/v3/chat/completions",
+    "api":  "OpenAI-compatible",
+    "ovms_version":  "2026.3.0.6f3df706b",
+    "openvino_version":  "2026.3.0-22451-8a17657b995-releases/2026/3",
+    "output_tokens":  30,
+    "temperature":  0.0,
+    "seed":  0,
+    "enable_thinking":  false,
+    "prompt":  "Briefly describe the water cycle in a few sentences.",
+    "test_type":  "synthetic concurrency",
+    "concurrency_matrix":  [
+                               {
+                                   "concurrency":  1,
+                                   "measured_requests":  10
+                               },
+                               {
+                                   "concurrency":  5,
+                                   "measured_requests":  25
+                               },
+                               {
+                                   "concurrency":  10,
+                                   "measured_requests":  50
+                               },
+                               {
+                                   "concurrency":  20,
+                                   "measured_requests":  100
+                               }
+                           ],
+    "warmup_requests_per_level":  3,
+    "notes":  "Not a physical 20-PC classroom test. Load is generated from a separate LAN machine; the Xeon runs OVMS inference only. The request mirrors src/llm/adapters/openaiCompatible.ts, including chat_template_kwargs.enable_thinking=false for the OVMS/Qwen3 path. The benchmark uses temperature=0 for reproducibility; the app default is 0.2. OVMS, OpenVINO, OpenVINO GenAI, Docker image, and actual served model name were recorded from the running Xeon environment before committing the results.",
+    "openvino_genai_version":  "2026.3.0.0-3277-bd8d6542e3c",
+    "docker_image":  "openvino/model_server:latest"
 }

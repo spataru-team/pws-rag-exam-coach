@@ -1,0 +1,4 @@
+# Load generator for scripts/benchmark_ovms_concurrency.py
+# Install on the SEPARATE load-generator machine, not the Xeon inference server:
+#   python -m pip install -r scripts/requirements-benchmark.txt
+aiohttp>=3.9

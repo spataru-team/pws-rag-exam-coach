@@ -1,0 +1,26 @@
+{
+  "cpu": "Intel Xeon E5-2678 v3",
+  "server_role": "OVMS inference server",
+  "load_generator_role": "separate LAN computer",
+  "model": "ov-llm",
+  "model_source": "OpenVINO/Qwen3-4B-int4-ov",
+  "quantization": "INT4 (pre-converted OpenVINO IR)",
+  "endpoint": "POST http://<XEON_IP>:8000/v3/chat/completions",
+  "api": "OpenAI-compatible",
+  "ovms_version": null,
+  "openvino_version": null,
+  "output_tokens": 30,
+  "temperature": 0.0,
+  "seed": 0,
+  "enable_thinking": false,
+  "prompt": "Briefly describe the water cycle in a few sentences.",
+  "test_type": "synthetic concurrency",
+  "concurrency_matrix": [
+    { "concurrency": 1, "measured_requests": 10 },
+    { "concurrency": 5, "measured_requests": 25 },
+    { "concurrency": 10, "measured_requests": 50 },
+    { "concurrency": 20, "measured_requests": 100 }
+  ],
+  "warmup_requests_per_level": 3,
+  "notes": "Not a physical 20-PC classroom test. Load is generated from a separate LAN machine; the Xeon runs OVMS inference only. The request mirrors src/llm/adapters/openaiCompatible.ts, including chat_template_kwargs.enable_thinking=false for the OVMS/Qwen3 path. The benchmark uses temperature=0 for reproducibility; the app default is 0.2. Fill ovms_version and openvino_version from the container (e.g. `docker logs pws-ovms` or `docker exec pws-ovms /ovms/bin/ovms --version`) before committing results."
+}

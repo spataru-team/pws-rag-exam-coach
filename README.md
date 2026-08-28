@@ -111,14 +111,45 @@ The architecture already supports what matters for scale: clients are ordinary
 devices with nothing to install; local mode centralises the AI on one school
 server and avoids per-request cloud-API charges (hardware and electricity costs
 remain); adding a subject is a corpus-plus-configuration task, not a core-code
-change ([docs/SUBJECT_REGISTRY.md](docs/SUBJECT_REGISTRY.md)). Not yet measured:
-how many concurrent students one local server supports.
+change ([docs/SUBJECT_REGISTRY.md](docs/SUBJECT_REGISTRY.md)). Whether one modest
+server holds up under a full class's worth of simultaneous requests was measured
+with a synthetic concurrency benchmark — next section.
 
 **Privacy.** No account, no real name — identity is an anonymous local id. All
 learner data (answers, mastery, metrics) stays in the browser (IndexedDB) and is
 never sent anywhere unless the student exports it or opts into a cloud model,
 which shows a warning first. Details and the risk table:
 [docs/PRIVACY.md](docs/PRIVACY.md), [docs/RESPONSIBLE_AI.md](docs/RESPONSIBLE_AI.md).
+
+## Local inference under concurrent load
+
+To check whether one modest school server can support shared classroom use, we ran
+a **synthetic concurrency benchmark** against the actual OVMS deployment — the
+generation model (`OpenVINO/Qwen3-4B-int4-ov`, INT4) served over
+`/v3/chat/completions` — on an **Intel Xeon E5-2678 v3**, a 2014 Haswell-EP CPU
+with AVX2 but without AVX-512 or VNNI available on newer server CPUs. Load was
+generated from a **separate computer on the same LAN**; the Xeon did inference
+only. Every request asked for a fixed 30 completion tokens
+at `temperature 0`.
+
+| Concurrency | Success | p50 latency | p95 latency | Requests/s | Aggregate gen tok/s |
+|---:|---:|---:|---:|---:|---:|
+| 1  | 10 / 10  | 1.43 s | 1.86 s | 0.68 | 20.5 |
+| 5  | 25 / 25  | 3.47 s | 4.94 s | 1.35 | 40.5 |
+| 10 | 50 / 50  | 4.53 s | 5.34 s | 2.15 | 64.6 |
+| 20 | 100 / 100 | 5.91 s | 11.54 s | 2.58 | 77.3 |
+
+At **concurrency 20 all 100 measured requests completed** — zero failures, zero
+timeouts. Aggregate end-to-end generation throughput rises from ~20 to ~77
+tokens/s as concurrency goes 1 → 20; latency rises with it (p95 1.86 s → 11.54 s).
+That is an honest capacity/latency trade-off, not something to hide.
+
+This is a **synthetic infrastructure test, not a physical 20-PC classroom trial**,
+and it does not measure UX quality for 20 simultaneous students. It shows that the
+local OpenVINO / OVMS pipeline stays operational under classroom-scale concurrent
+load even on old, non-AI-optimised CPU hardware. Method, raw per-request records
+and the full environment:
+[`eval/results/intel-xeon-e5-2678v3-concurrency/summary.md`](eval/results/intel-xeon-e5-2678v3-concurrency/summary.md).
 
 ## Intel / OpenVINO
 
@@ -138,16 +169,18 @@ Present in this repository (verified):
 
 | Component | Status |
 |---|---|
-| OVMS serving all three stages, end to end | functionally validated — on **x86-64 CPU (AMD)**, the dev machine |
-| INT8 `bge-m3` vs FP baseline (10 ru/ro/en probes) | measured — worst-case cosine 0.9995 |
-| Qwen3 chat latency fix (`enable_thinking: false`) | measured — 12.2 s → 6.3 s |
+| OVMS serving all three stages (embeddings + rerank + chat), end to end | functionally validated — on **x86-64 CPU (AMD)**, the dev machine |
+| OVMS chat serving on an **Intel Xeon E5-2678 v3 (CPU)** | measured — 185 requests over a 1 → 20 concurrency sweep, 0 failures / 0 timeouts (see *Local inference under concurrent load*) |
+| INT8 `bge-m3` vs FP baseline (10 ru/ro/en probes) | measured — worst-case cosine 0.9995 (on AMD) |
+| Qwen3 chat latency fix (`enable_thinking: false`) | measured — 12.2 s → 6.3 s (on AMD, a separate single-request A/B) |
 | Cross-encoder reranker on Cyrillic | measured — regression, not shipped |
-| Run on an available Intel CPU / Arc GPU machine | not yet run — CPU graph is portable; GPU needs a re-export |
+| Intel Arc GPU | not yet run — needs a `--target_device GPU` re-export |
 | Intel NPU | not applicable — no NPU on available hardware |
-| Concurrent-classroom load test | not done |
+| Physical multi-PC classroom trial | not done — the concurrency numbers above are synthetic (one load generator) |
 
-**No Intel-hardware benchmark is claimed.** Full detail and reproduction:
-[docs/INTEL_OPENVINO.md](docs/INTEL_OPENVINO.md).
+The concurrency sweep is the one measurement taken on Intel silicon; the
+embedding-quality and thinking-mode figures were taken on an AMD CPU. Full detail
+and reproduction: [docs/INTEL_OPENVINO.md](docs/INTEL_OPENVINO.md).
 
 ## How the project evolved
 

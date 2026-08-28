@@ -10,9 +10,13 @@ does inference only.
 
 ## What is measured
 
-Target: `POST http://<XEON_IP>:8000/v3/chat/completions`, model **`ov-llm`**
-(`OpenVINO/Qwen3-4B-int4-ov`, INT4) — the generation model in
-`ovms/models/config.json`. No model, endpoint, or production setting is changed.
+Target: `POST http://<XEON_IP>:8000/v3/chat/completions`, the generation model
+**`OpenVINO/Qwen3-4B-int4-ov`** (INT4, pre-converted IR). On the Xeon's OVMS it
+was served under the local name **`qwen-test`** (see `environment.json`); the
+repo's `ovms/models/config.json` names the same model `ov-llm`. Same model,
+different local alias — no model, endpoint, or production setting was changed for
+the test. `scripts/run_xeon_concurrency_benchmark.ps1` defaults to `-Model ov-llm`
+(matching the repo config); this run passed `-Model qwen-test`.
 
 The request body mirrors what the app sends
 (`src/llm/adapters/openaiCompatible.ts`): `temperature` is forced to `0` for
@@ -61,17 +65,24 @@ python scripts/benchmark_ovms_concurrency.py \
 
 ## Files in this directory
 
-| file | committed now? | filled |
-|---|---|---|
-| `environment.json` | yes (template) | `ovms_version` / `openvino_version` are `null` until you fill them from the container before committing results |
-| `concurrency-01.json` … `concurrency-20.json` | no | written by the script on each run — one object per level with `metadata`, `summary`, and a `requests[]` array of per-request records |
-| `summary.csv`, `summary.md` | no | written by `--summarize` after all four levels |
+Populated from a run on 2026-08-28 (Xeon E5-2678 v3, OVMS `2026.3.0.6f3df706b`,
+OpenVINO `2026.3.0-22451`).
+
+| file | contents |
+|---|---|
+| `environment.json` | server, model, versions, prompt, matrix — the fixed conditions for this run |
+| `concurrency-01.json` … `concurrency-20.json` | one object per level: `metadata`, `summary`, and a `requests[]` array of per-request records |
+| `summary.csv`, `summary.md` | the four levels side by side (regenerate with `--summarize`) |
 
 Per-request records include: `request_id`, `concurrency_level`, start/end
 timestamps, `elapsed_seconds`, `http_status`, `success`, `timeout`,
 `prompt_tokens`, `completion_tokens`, `finish_reason`, and `error`. Metrics the
 endpoint does not return (e.g. a server-side processing time) are recorded as
 `null`, never estimated.
+
+The write-up for judges is [`docs/INTEL_OPENVINO.md`](../../../docs/INTEL_OPENVINO.md)
+§"Concurrency benchmark"; the README's *Local inference under concurrent load*
+section has the headline table.
 
 ## Reading the metrics honestly
 

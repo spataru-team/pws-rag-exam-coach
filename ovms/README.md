@@ -14,13 +14,18 @@ bespoke code:
 
 ## Hardware used for the tests below
 
-Everything in this document was verified against a **real OVMS 2026.3 container**,
-not read from docs. The machine was **x86-64 CPU, CPU plugin — an AMD processor**
-(the development machine). An Intel CPU machine and an Intel laptop with an Arc
-GPU are available but OVMS has **not** yet been re-run on them; see
-[`docs/INTEL_OPENVINO.md`](../docs/INTEL_OPENVINO.md) for the full hardware-status
-table. The OpenVINO / OVMS / NNCF / `optimum-intel` stack is Intel's regardless of
-CPU vendor, but no Intel-hardware latency figure is claimed here.
+Unless a section says otherwise, everything here was verified against a **real
+OVMS 2026.3 container** on the development machine — **x86-64 CPU, CPU plugin, an
+AMD processor**. That covers the model exports, the INT8 embedding-quality check,
+the Qwen3 thinking-mode A/B, and the reranker experiments.
+
+Separately, the **chat model has been served and load-tested on an Intel Xeon
+E5-2678 v3 (CPU)** — a synthetic 1 → 20 concurrency benchmark, results in
+[`eval/results/intel-xeon-e5-2678v3-concurrency/`](../eval/results/intel-xeon-e5-2678v3-concurrency/)
+and written up in [`docs/INTEL_OPENVINO.md`](../docs/INTEL_OPENVINO.md)
+§"Concurrency benchmark". An Intel Arc GPU laptop is also available; OVMS has not
+been run on it. The OpenVINO / OVMS / NNCF / `optimum-intel` stack is Intel's
+regardless of CPU vendor.
 
 ---
 
@@ -216,9 +221,12 @@ OVMS / `optimum-intel` release may fix the tokenizer conversion).
 
 ## Known limitations
 
-- **Hardware.** Everything here is measured on x86-64 CPU (AMD). No Intel-hardware
-  or GPU/NPU figure exists yet — see
-  [`docs/INTEL_OPENVINO.md`](../docs/INTEL_OPENVINO.md) §"Current hardware status".
+- **Hardware.** The exports and the embedding / thinking-mode / reranker figures
+  here are measured on x86-64 CPU (AMD). Chat serving is separately load-tested on
+  an Intel Xeon E5-2678 v3 (CPU) — see
+  [`docs/INTEL_OPENVINO.md`](../docs/INTEL_OPENVINO.md) §"Concurrency benchmark".
+  No Arc GPU / NPU figure exists.
+- **Concurrency benchmark is synthetic and chat-only** — one load generator, no
+  physical classroom trial, no embeddings/reranker throughput measurement.
 - **GPU / NPU** paths need Linux Docker or a native Windows 11 `ovms.exe`.
 - **Cross-encoder reranker** is disabled by default (Cyrillic regression above).
-- **No load / throughput / concurrency testing** has been done.

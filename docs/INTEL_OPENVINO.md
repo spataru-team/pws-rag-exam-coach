@@ -7,6 +7,14 @@ validation-status record.
 
 ## Why local inference
 
+This section describes an **optional deployment path** and its validation
+status. The 2026 field deployment (the 112-student June cohort) **did not use
+it** — students accessed the hosted browser/PWA application over the Internet;
+access did not require the school LAN, and AI checking ran on a cloud LLM
+through the application's API-backed proxy (see
+[FIELD_DEPLOYMENT.md](./FIELD_DEPLOYMENT.md)). What follows is the local-path
+rationale and what has been measured toward it.
+
 The tool is for a state exam taken by students who may not have reliable internet
 or a capable home PC, in schools that may not want student answers leaving the
 building. A local inference path addresses all three:

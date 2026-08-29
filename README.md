@@ -85,22 +85,36 @@ Detail: [ovms/README.md](ovms/README.md).
 
 ## Real-world deployment
 
-Used at one school with grade-9 students during the 2026 exam-preparation period:
+Used at one school with grade-9 students during the 2026 exam-preparation
+period. Students had access to the hosted browser / PWA application **over the
+Internet on their own devices** (no school-LAN connection required); after the
+preceding exam they had **roughly 3–4 days** before the Romanian exam, and how
+much each student used the app was **self-selected and not tracked**. **AI
+checking ran on a cloud LLM** through the application's API-backed cloud path
+(key held server-side, not exposed to the browser). The school's local OpenVINO
+server was not used for this cohort, and the deployed version **did not yet
+include Rescue Mode**.
 
 - **112 students had access**; **106 passed** the main-session Romanian exam for
   non-native speakers (94.6%). National main-session pass rate for this exam was
   80.7% (89.32% after the August retakes).
-- Six students needed the August retake. Rescue Mode — built *because* of that
-  feedback — was offered to all six equally; the **2** who used it (confirmed by
-  unique-visitor analytics) passed, the **4** who did not, did not.
+- Six students needed the August retake. Rescue Mode — **built afterwards, in
+  response to that feedback** — was offered to all six equally; the **2** who
+  used it (confirmed by unique-visitor analytics) passed, the **4** who did not,
+  did not.
 
 **What this is not:** no control group, students also had teacher support, and
-individual in-app usage is deliberately not tracked. This is evidence of real
-deployment and a promising signal — **not** proof the app caused any outcome.
-Full write-up, limitations and sources:
+individual in-app usage is deliberately not tracked. The field deployment also
+did **not** use the local Intel/OpenVINO inference path — that is validated
+separately (below). This is evidence of real deployment and a promising signal —
+**not** proof the app caused any outcome. Full write-up, limitations and sources:
 [docs/FIELD_DEPLOYMENT.md](docs/FIELD_DEPLOYMENT.md).
 
 ## Deployment and scale
+
+The two architectures below are **capability options**. The **June field
+deployment used the cloud path**; the local (Intel/OpenVINO) path is validated on
+its own — see *Local inference under concurrent load*.
 
 | | Clients | Inference | Data path |
 |---|---|---|---|
@@ -128,8 +142,8 @@ never the default on a local run. Details and the risk table:
 ## Local inference under concurrent load
 
 To check whether one modest school server can support shared classroom use, we ran
-a **synthetic concurrency benchmark** against the actual OVMS deployment — the
-generation model (`OpenVINO/Qwen3-4B-int4-ov`, INT4) served over
+a **synthetic concurrency benchmark** against a real OVMS server set up for this
+test — the generation model (`OpenVINO/Qwen3-4B-int4-ov`, INT4) served over
 `/v3/chat/completions` — on an **Intel Xeon E5-2678 v3**, a 2014 Haswell-EP CPU
 with AVX2 but without AVX-512 or VNNI available on newer server CPUs. Load was
 generated from a **separate computer on the same LAN**; the Xeon did inference
@@ -149,10 +163,12 @@ tokens/s as concurrency goes 1 → 20; latency rises with it (p95 1.86 s → 11.
 That is an honest capacity/latency trade-off, not something to hide.
 
 This is a **synthetic infrastructure test, not a physical 20-PC classroom trial**,
-and it does not measure UX quality for 20 simultaneous students. It shows that the
-local OpenVINO / OVMS pipeline stays operational under classroom-scale concurrent
-load even on old, non-AI-optimised CPU hardware. Method, raw per-request records
-and the full environment:
+and it does not measure UX quality for 20 simultaneous students. It validates an
+**optional local / private deployment path** — it is **not** the setup used in
+the June field deployment, which ran on a cloud LLM (see *Real-world
+deployment*). It shows that the local OpenVINO / OVMS pipeline stays operational
+under classroom-scale concurrent load even on old, non-AI-optimised CPU hardware.
+Method, raw per-request records and the full environment:
 [`eval/results/intel-xeon-e5-2678v3-concurrency/summary.md`](eval/results/intel-xeon-e5-2678v3-concurrency/summary.md).
 
 ## Intel / OpenVINO
@@ -161,6 +177,11 @@ OpenVINO is an engineering choice, not a logo. A state exam for students without
 reliable internet, in schools that may not want answers leaving the building,
 needs an inference path that is private, runs on a plain CPU, and carries no
 cloud subscription. That is what the local path is for.
+
+**The 2026 field deployment (previous section) did not use it — it ran on a
+cloud LLM through the application's API-backed proxy; the local Intel/OpenVINO
+path documented here is validated as an optional alternative for privacy and
+offline operation.**
 
 Present in this repository (verified):
 

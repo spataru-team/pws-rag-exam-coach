@@ -90,46 +90,15 @@ describe('retrieveRelevantChunks — subject filtering', () => {
     expect(res.results).toHaveLength(0)
     expect(res.insufficient).toBe(true)
   })
-})
 
-describe('corpusEmpty — empty knowledge base vs off-topic question', () => {
-  it('sets corpusEmpty when the subject has zero candidate chunks (clean-clone chemistry/math/russian)', async () => {
+  it('does not set corpusEmpty / synthetic — those are stamped by the service layer, not the pure functions', async () => {
     const source = new InMemoryChunkSource(chunks)
-    const res = await retrieveRelevantChunks('anything', embedder, source, {
-      subjectId: 'chemistry',
-    })
-    expect(res.corpusEmpty).toBe(true)
-    expect(res.insufficient).toBe(true)
-  })
-
-  it('does NOT set corpusEmpty when chunks exist but the query is off-topic', async () => {
-    const source = new InMemoryChunkSource(chunks)
-    const res = await retrieveRelevantChunks(
-      'How do I repair a diesel truck engine?',
-      embedder,
-      source,
-      { subjectId: 'romanian', minSimilarity: 0.99 },
-    )
-    expect(res.corpusEmpty).toBe(false)
-    expect(res.insufficient).toBe(true)
-  })
-
-  it('retrieveOrDegrade reports corpusEmpty for an empty subject', async () => {
-    const source = new InMemoryChunkSource(chunks)
-    const res = await retrieveOrDegrade('anything', embedder, source, {
-      subjectId: 'chemistry',
-    })
-    expect(res.corpusEmpty).toBe(true)
-    expect(res.unavailable).toBeUndefined()
-  })
-
-  it('retrieveOrDegrade reports corpusEmpty even when the embedder is also unavailable', async () => {
-    const source = new InMemoryChunkSource(chunks)
-    const res = await retrieveOrDegrade('anything', new FailingEmbeddingProvider(), source, {
-      subjectId: 'chemistry',
-    })
-    expect(res.unavailable).toBe(true)
-    expect(res.corpusEmpty).toBe(true)
+    const empty = await retrieveRelevantChunks('anything', embedder, source, { subjectId: 'history' })
+    const found = await retrieveRelevantChunks('Articolul hotărât în limba română', embedder, source, { subjectId: 'romanian' })
+    for (const res of [empty, found]) {
+      expect(res.corpusEmpty).toBeUndefined()
+      expect(res.synthetic).toBeUndefined()
+    }
   })
 })
 

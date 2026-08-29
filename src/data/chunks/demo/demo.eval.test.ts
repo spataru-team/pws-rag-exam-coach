@@ -65,7 +65,6 @@ describe('synthetic demo — exercises the real retrieval pipeline (same code as
       source,
       { subjectId: 'chemistry', topK: 3 },
     )
-    expect(res.corpusEmpty).toBe(false)
     expect(res.results.map((r) => r.chunk.id)).toContain('demo-chem-002')
   })
 
@@ -80,15 +79,15 @@ describe('synthetic demo — exercises the real retrieval pipeline (same code as
     expect(res.results.map((r) => r.chunk.id)).toContain('demo-math-003')
   })
 
-  it('an off-topic question is insufficient but NOT corpusEmpty (russian)', async () => {
+  it('an off-topic question against a populated demo corpus is flagged insufficient (russian)', async () => {
     const source = new InMemoryChunkSource(embed('russian'))
     const res = await retrieveRelevantChunks('How do I change a car tyre?', embedder, source, {
       subjectId: 'russian',
       topK: 3,
       minSimilarity: 0.5,
     })
-    expect(res.corpusEmpty).toBe(false)
-    expect(res.insufficient).toBe(true)
+    expect(res.results.length).toBeGreaterThan(0) // the corpus is NOT empty — chunks were ranked
+    expect(res.insufficient).toBe(true) // …they just don't clear the similarity gate
   })
 
   it('retrieval never crosses from a demo subject into another subject', async () => {

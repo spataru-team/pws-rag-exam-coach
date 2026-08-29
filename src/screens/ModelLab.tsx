@@ -169,6 +169,7 @@ function errorRow(providerId: string, model: string, message: string): TutorResp
     insufficient: true,
     embeddingUnavailable: false,
     corpusEmpty: false,
+    synthetic: false,
     groundednessScore: 0,
     formatCompliance: 0,
     metrics: {

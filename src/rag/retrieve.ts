@@ -32,17 +32,25 @@ export interface RetrievalResult {
    */
   unavailable?: boolean
   /**
-   * True when there were zero candidate chunks in scope — the subject (or the
-   * subject+grade) has no knowledge base at all in this build. Distinct from
-   * `insufficient` (candidates existed, none cleared the similarity gate): the
-   * UI must say "this subject ships no corpus here, regenerate it locally"
-   * rather than "your question isn't covered by the materials". See
-   * `public/packs/README.md` / `docs/JUDGE_REPRODUCIBILITY.md` — the public repo
-   * intentionally omits the copyrighted textbook packs for chemistry, math and
-   * russian, so a clean clone leaves those three empty until `npm run seed`
-   * (with a local corpus) or `npm run seed:demo` (synthetic) is run.
+   * True when the subject's *pack* holds zero chunks — its corpus is absent from
+   * this build and must be regenerated locally (chemistry / math / russian on a
+   * clean public clone — see `docs/JUDGE_REPRODUCIBILITY.md`). Distinct from
+   * `insufficient` (chunks exist, none matched this question / topic / grade).
+   *
+   * The pure retrieval functions here only see post-filter candidates, so they
+   * CANNOT tell "pack is empty" from "nothing matched this slice" — this field
+   * is left undefined by them and stamped by the retrieval service layer
+   * (`ragService.retrieve`) from authoritative pack metadata
+   * (`SubjectDataManager.getStatus().empty`, i.e. `pack.chunks.length === 0`).
    */
   corpusEmpty?: boolean
+  /**
+   * True when the subject pack was built from self-authored synthetic demo
+   * content (`npm run seed:demo`), not a real curriculum corpus. Also stamped by
+   * `ragService.retrieve` from `SubjectDataManager.getStatus().synthetic`; the
+   * pure functions leave it undefined.
+   */
+  synthetic?: boolean
 }
 
 /**
@@ -252,7 +260,6 @@ export async function retrieveRelevantChunks(
     results,
     insufficient,
     embeddingModelId: embedder.modelId,
-    corpusEmpty: candidates.length === 0,
   }
 }
 
@@ -281,7 +288,6 @@ export async function retrieveOrDegrade(
       insufficient: true,
       embeddingModelId: embedder.modelId,
       unavailable: true,
-      corpusEmpty: candidates.length === 0,
     }
   }
   const { results, insufficient } = await rankCandidates(queryVec, query, candidates, options)
@@ -292,6 +298,5 @@ export async function retrieveOrDegrade(
     results,
     insufficient,
     embeddingModelId: embedder.modelId,
-    corpusEmpty: candidates.length === 0,
   }
 }

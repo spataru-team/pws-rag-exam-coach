@@ -11,9 +11,18 @@ code. The registry (`src/data/subjectRegistry.ts`) maps `subjectId → Subject`.
 | English   | `english`   | ✅ yes  | — | 4 topics, written rubric, 9 hand-authored chunks, golden set |
 | Biology   | `biology`   | ✅ yes  | 7 | 3 topics, answer rubric, 8 hand-authored chunks, golden set |
 | History   | `history`   | ✅ yes  | — | 3 topics, answer rubric, 7 hand-authored chunks, golden set |
-| Chemistry | `chemistry` | ✅ yes  | 9, 12 | 11 topics, answer rubric, chunks auto-ingested from real textbooks (`scripts/ingest-pdf.ts`) **locally — not in the public repo**, golden set |
-| Mathematics | `math`    | ✅ yes  | 9, 12 | 9 topics, answer rubric, chunks auto-ingested **locally — not in the public repo**, golden set |
-| Russian language & literature | `russian` | ✅ yes | 12 (9 topics authored, no source PDF at 9 — see `src/data/subjects/russian.ts`) | 7 topics, written rubric, chunks auto-ingested **locally — not in the public repo**, golden set |
+| Chemistry | `chemistry` | ✅ yes  | 9, 12 | 11 topics, answer rubric, 600 chunks auto-ingested from real textbooks (`scripts/ingest-pdf.ts`), golden set |
+| Mathematics | `math`    | ✅ yes  | 9, 12 | 9 topics, answer rubric, 600 chunks auto-ingested, golden set |
+| Russian language & literature | `russian` | ✅ yes | 12 (9 topics authored, no source PDF at 9 — see `src/data/subjects/russian.ts`) | 7 topics, written rubric, 400 chunks auto-ingested, golden set |
+
+> The auto-ingested chunk counts above (chemistry/math/russian) describe a
+> **local** generation done from Ministry textbook PDFs; that content is **not
+> shipped in the public repository** (`corpus/out/` is gitignored — see
+> [JUDGE_REPRODUCIBILITY.md](JUDGE_REPRODUCIBILITY.md)). The figures are
+> historical and predate the 2026-08 multi-subject re-ingestion noted in
+> `eval/thresholds.json` (e.g. math grew well past 600), so treat them as
+> order-of-magnitude only. Re-measuring the current per-subject counts is
+> tracked as a separate follow-up, not part of this change.
 
 All seven subjects are active end-to-end flows (Practice/coach). Chemistry and
 math pack a mix of grades 9 and 12 in one pack — retrieval filters by the

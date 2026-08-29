@@ -31,12 +31,19 @@ export interface TutorResponse {
   /** True when the embedding service was unavailable (no LLM call was made). */
   embeddingUnavailable: boolean
   /**
-   * True when the subject has no knowledge base at all in this build (zero
-   * candidate chunks), as opposed to `insufficient` meaning "the materials
-   * don't cover this question". The public repo ships without the copyrighted
-   * chemistry/math/russian packs — see `docs/JUDGE_REPRODUCIBILITY.md`.
+   * True when the subject's pack holds zero chunks — its corpus is absent from
+   * this build (chemistry/math/russian on a clean public clone), as opposed to
+   * `insufficient` meaning "the materials don't cover this question". Derived
+   * from pack metadata via `ragService.retrieve`, not from empty retrieval
+   * results — see `docs/JUDGE_REPRODUCIBILITY.md`.
    */
   corpusEmpty: boolean
+  /**
+   * True when the grounded context came from a synthetic demo pack
+   * (`npm run seed:demo`), not the production curriculum corpus. The UI must
+   * surface this prominently. Propagated from `RetrievalResult.synthetic`.
+   */
+  synthetic: boolean
   groundednessScore: number
   formatCompliance: number
   metrics: ModelRunMetrics
@@ -78,17 +85,19 @@ export async function getTutorFeedback(req: TutorRequest): Promise<TutorResponse
       insufficient: true,
       embeddingUnavailable: true,
       corpusEmpty: retrieval.corpusEmpty ?? false,
+      synthetic: retrieval.synthetic ?? false,
       groundednessScore: 0,
       formatCompliance: 0,
       metrics: emptyMetrics(config, req, topK),
     }
   }
 
-  // Subject ships no knowledge base in this build (zero candidate chunks even
-  // subject-wide) — see docs/JUDGE_REPRODUCIBILITY.md. Return a clear status
-  // instead of calling the LLM to produce a confident but ungrounded answer;
-  // the UI must say "regenerate this subject's corpus locally", not "your
-  // question isn't in the materials".
+  // The subject's pack holds zero chunks — its corpus is absent from this build
+  // (see docs/JUDGE_REPRODUCIBILITY.md). Return a clear status instead of calling
+  // the LLM to produce a confident but ungrounded answer; the UI must say
+  // "regenerate this subject's corpus locally", not "your question isn't in the
+  // materials". (A populated subject that simply had no chunk match this
+  // topic/grade is NOT corpusEmpty and falls through to the ordinary flow.)
   if (retrieval.corpusEmpty) {
     return {
       answer: '',
@@ -97,6 +106,7 @@ export async function getTutorFeedback(req: TutorRequest): Promise<TutorResponse
       insufficient: true,
       embeddingUnavailable: false,
       corpusEmpty: true,
+      synthetic: retrieval.synthetic ?? false,
       groundednessScore: 0,
       formatCompliance: 0,
       metrics: emptyMetrics(config, req, topK),
@@ -165,6 +175,7 @@ export async function getTutorFeedback(req: TutorRequest): Promise<TutorResponse
     insufficient,
     embeddingUnavailable: false,
     corpusEmpty: retrieval.corpusEmpty ?? false,
+    synthetic: retrieval.synthetic ?? false,
     groundednessScore,
     formatCompliance,
     metrics,

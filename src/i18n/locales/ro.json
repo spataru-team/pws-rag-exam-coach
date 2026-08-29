@@ -116,6 +116,8 @@
     "foundations": "Se bazează pe",
     "insufficient": "Materialele locale nu conțin suficiente informații pentru această întrebare.",
     "corpusEmpty": "Această disciplină nu are o bază de cunoștințe în această versiune. Depozitul public nu include pachetele din manualele protejate de drepturi de autor pentru chimie, matematică și rusă — regenerează-le local cu npm run seed sau încarcă demonstrația sintetică cu npm run seed:demo. Vezi README și docs/JUDGE_REPRODUCIBILITY.md.",
+    "syntheticTitle": "DATE DEMO / SINTETICE",
+    "syntheticBody": "Acest răspuns folosește conținut demonstrativ propriu, nu corpusul curricular de producție.",
     "confidence": "Evaluează-ți încrederea",
     "reflectionTitle": "Reflecție scurtă",
     "reflectDifficult": "Ce a fost dificil?",

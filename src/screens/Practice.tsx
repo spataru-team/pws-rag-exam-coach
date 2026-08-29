@@ -168,6 +168,11 @@ export function Practice() {
               🔊 {t('practice.speak')}
             </button>
           </div>
+          {feedback.synthetic && (
+            <p className="warning" role="status">
+              🧪 <strong>{t('practice.syntheticTitle')}</strong> — {t('practice.syntheticBody')}
+            </p>
+          )}
           {feedback.embeddingUnavailable ? (
             <p className="warning" role="alert">⚠️ {t('embeddings.unavailable')}</p>
           ) : feedback.corpusEmpty ? (

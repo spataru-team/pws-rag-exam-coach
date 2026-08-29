@@ -134,4 +134,103 @@ describe('getTutorFeedback — groundedness gate', () => {
     expect(res.embeddingUnavailable).toBe(true)
     expect(chatMock).not.toHaveBeenCalled()
   })
+
+  it('short-circuits before the LLM and sets corpusEmpty when the subject ships no knowledge base (clean-clone chemistry/math/russian)', async () => {
+    retrieveMock.mockResolvedValue({
+      query: 'q',
+      subjectId: 'chemistry',
+      topicId: 't',
+      results: [],
+      insufficient: true,
+      corpusEmpty: true,
+      embeddingModelId: 'deterministic-stub',
+    })
+
+    const res = await getTutorFeedback(baseReq)
+
+    expect(res.corpusEmpty).toBe(true)
+    expect(res.insufficient).toBe(true)
+    expect(res.embeddingUnavailable).toBe(false)
+    expect(res.answer).toBe('')
+    expect(chatMock).not.toHaveBeenCalled()
+  })
+
+  it('leaves corpusEmpty false when the corpus has chunks but the question is off-topic', async () => {
+    retrieveMock.mockResolvedValue(retrieval([scored('a')], true))
+    chatMock.mockResolvedValue(chatResponse('Not enough grounded material.'))
+
+    const res = await getTutorFeedback(baseReq)
+
+    expect(res.corpusEmpty).toBe(false)
+    expect(res.insufficient).toBe(true)
+  })
+
+  // FIX 1 regression: a populated subject whose grade/topic filter matched
+  // nothing must NOT be reported as corpusEmpty (which would wrongly tell the
+  // student to regenerate the corpus). `corpusEmpty` now comes from pack
+  // metadata (chunkCount === 0), not from empty retrieval results.
+  it('populated subject + zero retrieval results (grade/topic miss) → corpusEmpty false, LLM still tried', async () => {
+    retrieveMock.mockResolvedValue({
+      query: 'q',
+      subjectId: 'chemistry',
+      topicId: 't',
+      results: [],
+      insufficient: true,
+      corpusEmpty: false, // pack has chunks — the pure results were just empty for this slice
+      embeddingModelId: 'bge-m3',
+    })
+    chatMock.mockResolvedValue(chatResponse('I could not find grounded material for that.'))
+
+    const res = await getTutorFeedback(baseReq)
+
+    expect(res.corpusEmpty).toBe(false)
+    expect(res.insufficient).toBe(true)
+    expect(chatMock).toHaveBeenCalled() // ordinary flow — NOT the empty-pack short-circuit
+  })
+})
+
+describe('getTutorFeedback — synthetic demo flag (npm run seed:demo)', () => {
+  it('flags the response synthetic when grounded in a synthetic demo pack, and still answers', async () => {
+    retrieveMock.mockResolvedValue({
+      query: 'q',
+      subjectId: 'chemistry',
+      topicId: 't',
+      results: [scored('demo-chem-002')],
+      insufficient: false,
+      synthetic: true,
+      embeddingModelId: 'deterministic-stub',
+    })
+    chatMock.mockResolvedValue(chatResponse('Ionic vs covalent, briefly. [#demo-chem-002]'))
+
+    const res = await getTutorFeedback(baseReq)
+
+    expect(res.synthetic).toBe(true)
+    expect(res.answer).toContain('Ionic vs covalent')
+  })
+
+  it('a normal production/fallback response is not flagged synthetic', async () => {
+    retrieveMock.mockResolvedValue(retrieval([scored('a')]))
+    chatMock.mockResolvedValue(chatResponse('Grounded answer [#a].'))
+
+    const res = await getTutorFeedback(baseReq)
+
+    expect(res.synthetic).toBe(false)
+  })
+
+  it('carries synthetic through the embedding-unavailable and empty-pack short-circuits too', async () => {
+    retrieveMock.mockResolvedValue({
+      query: 'q',
+      subjectId: 'chemistry',
+      results: [],
+      insufficient: true,
+      unavailable: true,
+      synthetic: true,
+      embeddingModelId: 'deterministic-stub',
+    })
+
+    const res = await getTutorFeedback(baseReq)
+
+    expect(res.embeddingUnavailable).toBe(true)
+    expect(res.synthetic).toBe(true)
+  })
 })

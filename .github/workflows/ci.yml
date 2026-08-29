@@ -30,7 +30,18 @@ jobs:
       - name: Test
         run: npm test
 
-      - name: Eval gate (retrieval quality)
+      # The public repo ships no data packs (copyrighted textbook material — see
+      # docs/JUDGE_REPRODUCIBILITY.md). Seed them offline so the eval gate has a
+      # corpus. Deterministic (bag-of-words stub) embeddings: this is a
+      # reproducibility / smoke check over the hand-authored public-fallback
+      # subjects, NOT the production bge-m3 benchmark in docs/EVALUATION.md.
+      # chemistry / math / russian have no public corpus and are reported as
+      # skipped; the gate still fails if any of romanian/english/biology/history
+      # was not actually evaluated.
+      - name: Seed packs (offline, deterministic — public-fallback subjects)
+        run: EMBED_MODE=deterministic npm run seed
+
+      - name: Eval gate (retrieval quality — partial public coverage)
         run: npm run eval:ci
 
       - name: Build

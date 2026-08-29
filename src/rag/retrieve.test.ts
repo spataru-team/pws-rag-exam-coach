@@ -90,6 +90,16 @@ describe('retrieveRelevantChunks — subject filtering', () => {
     expect(res.results).toHaveLength(0)
     expect(res.insufficient).toBe(true)
   })
+
+  it('does not set corpusEmpty / synthetic — those are stamped by the service layer, not the pure functions', async () => {
+    const source = new InMemoryChunkSource(chunks)
+    const empty = await retrieveRelevantChunks('anything', embedder, source, { subjectId: 'history' })
+    const found = await retrieveRelevantChunks('Articolul hotărât în limba română', embedder, source, { subjectId: 'romanian' })
+    for (const res of [empty, found]) {
+      expect(res.corpusEmpty).toBeUndefined()
+      expect(res.synthetic).toBeUndefined()
+    }
+  })
 })
 
 /** Embedder that always fails — simulates Ollama being unavailable. */

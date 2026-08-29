@@ -79,6 +79,12 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
-    include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    include: [
+      'src/**/*.{test,spec}.{ts,tsx}',
+      // Node-side tooling (run via tsx, transpile-only — same as the modules
+      // they test). Kept out of `tsc -b` like the rest of eval/ and scripts/.
+      'eval/**/*.{test,spec}.ts',
+      'scripts/**/*.{test,spec}.ts',
+    ],
   },
 })

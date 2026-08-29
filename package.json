@@ -17,6 +17,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "seed": "tsx scripts/seed-packs.ts",
+    "seed:demo": "tsx scripts/seed-demo.ts",
     "import:corpus": "tsx scripts/import-corpus.ts",
     "corpus:fetch": "tsx scripts/fetch-textbooks.ts",
     "corpus:ingest": "tsx scripts/ingest-pdf.ts",

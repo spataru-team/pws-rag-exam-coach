@@ -115,6 +115,9 @@
     "sources": "Sources",
     "foundations": "Builds on",
     "insufficient": "Local materials do not contain enough information for this question.",
+    "corpusEmpty": "This subject has no knowledge base in this build. The public repository ships without the copyrighted textbook packs for chemistry, mathematics and Russian — regenerate them locally with npm run seed, or load the synthetic demo with npm run seed:demo. See the README and docs/JUDGE_REPRODUCIBILITY.md.",
+    "syntheticTitle": "DEMO / SYNTHETIC DATA",
+    "syntheticBody": "This response uses self-authored demonstration content, not the production curriculum corpus.",
     "confidence": "Rate your confidence",
     "reflectionTitle": "Quick reflection",
     "reflectDifficult": "What was difficult?",
@@ -167,7 +170,10 @@
     "ollamaDetected": "Local Ollama detected. Use it for grading instead of the cloud?",
     "useOllamaForGrading": "Use local Ollama for grading",
     "ovmsDetected": "Local OpenVINO Model Server detected. Switch chat and embeddings to it?",
-    "useOvms": "Use local OpenVINO (OVMS)"
+    "useOvms": "Use local OpenVINO (OVMS)",
+    "packEmpty": "empty — regenerate locally",
+    "packSynthetic": "DEMO / SYNTHETIC",
+    "corpusRegenNote": "Chemistry, mathematics and Russian ship with no knowledge base in the public build (the source textbooks are copyrighted). Run npm run seed with a local corpus to regenerate them, or npm run seed:demo for a small synthetic demo. See docs/JUDGE_REPRODUCIBILITY.md."
   },
   "badges": {
     "firstSteps": "First steps",

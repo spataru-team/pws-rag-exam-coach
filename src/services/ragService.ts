@@ -10,7 +10,7 @@ import {
   type RetrievalResult,
 } from '@/rag'
 import { contentRepo, settingsRepo, SETTING_KEYS } from '@/storage'
-import { subjectDataManager } from '@/packs'
+import { subjectDataManager, type PackStatus } from '@/packs'
 import { getTopics } from '@/data/subjectRegistry'
 
 // selectReranker()/CrossEncoderReranker (src/rag/rerankRuntime.ts) are built and
@@ -59,12 +59,13 @@ function expansionGlossaryFor(subjectId: SubjectId): Map<string, Set<string>> {
  */
 export async function embedderForSubject(
   subjectId: SubjectId,
+  status?: PackStatus,
 ): Promise<EmbeddingProvider> {
-  const status = await subjectDataManager.getStatus(subjectId)
+  const s = status ?? (await subjectDataManager.getStatus(subjectId))
   const config =
     (await settingsRepo.get<EmbeddingRuntimeConfig>(SETTING_KEYS.embeddingConfig)) ??
     DEFAULT_EMBEDDING_CONFIG
-  return selectEmbedder(status.embeddingModel, config, status.embeddingDim)
+  return selectEmbedder(s.embeddingModel, config, s.embeddingDim)
 }
 
 /**
@@ -80,10 +81,11 @@ export async function retrieve(
   topK = 5,
   gradeLevel?: number,
 ): Promise<RetrievalResult> {
-  const embedder = await embedderForSubject(subjectId)
+  const status = await subjectDataManager.getStatus(subjectId)
+  const embedder = await embedderForSubject(subjectId, status)
   // Degrade gracefully: if the pack's embedding model (e.g. Ollama) is down,
   // this returns an `unavailable` result rather than throwing.
-  return retrieveOrDegrade(query, embedder, chunkSource, {
+  const result = await retrieveOrDegrade(query, embedder, chunkSource, {
     subjectId,
     topicId,
     topK,
@@ -92,4 +94,14 @@ export async function retrieve(
     // See the CrossEncoderReranker comment above for why.
     queryExpansionGlossary: expansionGlossaryFor(subjectId),
   })
+  // Stamp authoritative pack-level facts onto the result. The pure retrieval
+  // layer only sees post-filter candidates, so it can't tell "the subject's
+  // pack is empty" (regenerate it) from "nothing matched this topic/grade"
+  // (ordinary insufficient evidence). `getStatus().empty` is `chunkCount === 0`
+  // recorded from `pack.chunks.length` at download — see docs/JUDGE_REPRODUCIBILITY.md.
+  return {
+    ...result,
+    corpusEmpty: status.empty === true,
+    synthetic: status.synthetic === true,
+  }
 }

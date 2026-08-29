@@ -15,6 +15,15 @@ code. The registry (`src/data/subjectRegistry.ts`) maps `subjectId → Subject`.
 | Mathematics | `math`    | ✅ yes  | 9, 12 | 9 topics, answer rubric, 600 chunks auto-ingested, golden set |
 | Russian language & literature | `russian` | ✅ yes | 12 (9 topics authored, no source PDF at 9 — see `src/data/subjects/russian.ts`) | 7 topics, written rubric, 400 chunks auto-ingested, golden set |
 
+> The auto-ingested chunk counts above (chemistry/math/russian) describe a
+> **local** generation done from Ministry textbook PDFs; that content is **not
+> shipped in the public repository** (`corpus/out/` is gitignored — see
+> [JUDGE_REPRODUCIBILITY.md](JUDGE_REPRODUCIBILITY.md)). The figures are
+> historical and predate the 2026-08 multi-subject re-ingestion noted in
+> `eval/thresholds.json` (e.g. math grew well past 600), so treat them as
+> order-of-magnitude only. Re-measuring the current per-subject counts is
+> tracked as a separate follow-up, not part of this change.
+
 All seven subjects are active end-to-end flows (Practice/coach). Chemistry and
 math pack a mix of grades 9 and 12 in one pack — retrieval filters by the
 active topic's `gradeLevel` so a grade-9 question doesn't surface grade-12
@@ -46,6 +55,17 @@ from Ministry-of-Education textbook PDFs:
 3. `npm run seed` picks up `corpus/out/<subjectId>-*.chunks.json` automatically
    alongside any hand-authored `src/data/chunks/<id>.chunks.ts` drafts for that
    subject (see `loadGeneratedChunks` in `scripts/seed-packs.ts`).
+
+> **On a clean public clone `corpus/out/` is absent and these three subjects
+> have no hand-authored fallback**, so `npm run seed` writes `chemistry`,
+> `math` and `russian` packs with `chunks: []`. The app surfaces this
+> explicitly (an "no knowledge base in this build" notice in Practice, an
+> `⚠️ empty` badge in Settings) and `npm run eval` reports them as
+> `skippedSubjects`. To get a working corpus without the copyrighted PDFs, run
+> `npm run seed:demo` — it fills exactly these three with clearly-labelled
+> self-authored synthetic content (`src/data/chunks/demo/`, `synthetic: true`,
+> excluded from the retrieval benchmark). See
+> [JUDGE_REPRODUCIBILITY.md](JUDGE_REPRODUCIBILITY.md).
 
 ## The `Subject` shape
 

@@ -20,5 +20,11 @@ export interface SubjectPack {
   /** Vector length of every chunk's `embedding`; queries must match. */
   embeddingDim: number
   generatedAt: string
+  /**
+   * True when this pack was built from self-authored synthetic demo content
+   * (`npm run seed:demo`), not from a real curriculum corpus. Kept out of any
+   * benchmark or field-deployment claim. `npm run seed` never sets this.
+   */
+  synthetic?: boolean
   chunks: Chunk[]
 }

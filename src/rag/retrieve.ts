@@ -31,6 +31,26 @@ export interface RetrievalResult {
    * lacking. We never silently fall back to a different embedding space.
    */
   unavailable?: boolean
+  /**
+   * True when the subject's *pack* holds zero chunks — its corpus is absent from
+   * this build and must be regenerated locally (chemistry / math / russian on a
+   * clean public clone — see `docs/JUDGE_REPRODUCIBILITY.md`). Distinct from
+   * `insufficient` (chunks exist, none matched this question / topic / grade).
+   *
+   * The pure retrieval functions here only see post-filter candidates, so they
+   * CANNOT tell "pack is empty" from "nothing matched this slice" — this field
+   * is left undefined by them and stamped by the retrieval service layer
+   * (`ragService.retrieve`) from authoritative pack metadata
+   * (`SubjectDataManager.getStatus().empty`, i.e. `pack.chunks.length === 0`).
+   */
+  corpusEmpty?: boolean
+  /**
+   * True when the subject pack was built from self-authored synthetic demo
+   * content (`npm run seed:demo`), not a real curriculum corpus. Also stamped by
+   * `ragService.retrieve` from `SubjectDataManager.getStatus().synthetic`; the
+   * pure functions leave it undefined.
+   */
+  synthetic?: boolean
 }
 
 /**

@@ -18,6 +18,8 @@ export interface DownloadedPack {
   /** Vector length of this pack's chunks. Absent on pre-migration (schemaVersion 1) records. */
   embeddingDim?: number
   chunkCount: number
+  /** True when this pack came from `npm run seed:demo` (synthetic content), not a real corpus. */
+  synthetic?: boolean
   downloadedAt: string
 }
 

@@ -168,12 +168,19 @@ export function Practice() {
               🔊 {t('practice.speak')}
             </button>
           </div>
+          {feedback.synthetic && (
+            <p className="warning" role="status">
+              🧪 <strong>{t('practice.syntheticTitle')}</strong> — {t('practice.syntheticBody')}
+            </p>
+          )}
           {feedback.embeddingUnavailable ? (
             <p className="warning" role="alert">⚠️ {t('embeddings.unavailable')}</p>
+          ) : feedback.corpusEmpty ? (
+            <p className="warning" role="alert">⚠️ {t('practice.corpusEmpty')}</p>
           ) : (
             feedback.insufficient && <p className="warning">{t('practice.insufficient')}</p>
           )}
-          {!feedback.embeddingUnavailable && (
+          {!feedback.embeddingUnavailable && !feedback.corpusEmpty && (
             <p style={{ whiteSpace: 'pre-wrap' }}>{feedback.answer}</p>
           )}
           {feedback.retrieved.length > 0 && (

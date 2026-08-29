@@ -115,10 +115,14 @@ change ([docs/SUBJECT_REGISTRY.md](docs/SUBJECT_REGISTRY.md)). Whether one modes
 server holds up under a full class's worth of simultaneous requests was measured
 with a synthetic concurrency benchmark — next section.
 
-**Privacy.** No account, no real name — identity is an anonymous local id. All
-learner data (answers, mastery, metrics) stays in the browser (IndexedDB) and is
-never sent anywhere unless the student exports it or opts into a cloud model,
-which shows a warning first. Details and the risk table:
+**Privacy.** No account, no real name — identity is an anonymous local id.
+Stored learner data (answers, mastery, metrics) lives only in the browser
+(IndexedDB) and is never transmitted; the student can export it explicitly. What
+can leave is the AI prompt — the question, the student's answer and the
+retrieved study text: it stays **on the device** with the Mock provider, **on
+the school LAN** with a local OpenVINO/OVMS server, or goes **to an external
+service** with a cloud provider — cloud always behind a visible warning, and
+never the default on a local run. Details and the risk table:
 [docs/PRIVACY.md](docs/PRIVACY.md), [docs/RESPONSIBLE_AI.md](docs/RESPONSIBLE_AI.md).
 
 ## Local inference under concurrent load
@@ -198,6 +202,63 @@ The innovation is not RAG. It is using the **official scoring rubric** to turn
 grounded AI feedback into a targeted path for recovering the exam points a student
 can realistically still earn.
 
+### Relationship to prior work
+
+Not a from-scratch build, and not a repackaged earlier codebase. This grew out
+of **an earlier project with partial team continuity** — roughly half the 2026
+team also worked on it. The substantive carry-over is the **idea and hands-on
+experience of RAG over educational material**: material → retrieval → an answer
+grounded in the textbook. Direct code/platform reuse is secondary to that
+conceptual continuity; the repo-verifiable technical links are listed in the
+document below.
+
+The earlier system's **main pedagogical function was grounded question answering
+over the supplied educational material** — it did **not** implement the current
+competency / rubric-driven diagnostic and decision layer. It was also **hard to
+deploy** in new environments (substantial IT effort), and its content pipeline
+was **permissive**: uneven materials and several accumulated implementation
+approaches, closer to a heterogeneous collection than a standardized pedagogical
+platform. A general "validate a student against arbitrary material" competency
+layer was **impractical to scale** — it needs subject teachers to define
+competencies and maintain material↔competency mappings, outside their normal
+instructional load.
+
+**2026 changes it on two axes:**
+
+- **Pedagogical** — instead of a teacher-built competency framework, the coach
+  uses an **existing authoritative structure, the official ANCE exam marking
+  scheme (barem)**: student answer → rubric criteria / scoring atoms → skill
+  mapping → lost points → 🟢/🟡/🔴 recoverable-value zones → a ranked 2–4-skill
+  Rescue route → a conservative-vs-expected recovered-points forecast.
+- **Technological / access** — the product is now a **browser / PWA** for
+  ordinary phones and laptops, not a configured computer-lab machine.
+  School-local Intel / OpenVINO / OVMS inference is an **optional** privacy and
+  offline deployment path, not a requirement for using the app.
+
+**The continuity is RAG over educational material. The 2026 innovation is not
+RAG itself — it is using the official exam rubric as the decision layer that
+turns grounded evidence into an explainable, personalized path to recover exam
+points.**
+
+Repo-verifiable carry-overs vs. team-attested history:
+[docs/EVOLUTION_FROM_2025.md](docs/EVOLUTION_FROM_2025.md).
+
+## How this was built
+
+This project was built by the team with extensive use of **Claude and Claude
+Code**. The team owned the problem, the requirements, the interpretation of the
+official ANCE marking scheme, the product and pedagogical decisions, the
+acceptance decisions, the evaluation criteria, and the interpretation of
+results. **Claude Code generated a large share of the implementation patches**
+against those requirements and also assisted with planning and document
+drafting; the team reviewed, tested, accepted, rejected and iterated on the
+accepted changes. Claude did not choose the problem, define the official scoring
+criteria, decide the product concepts, set the evaluation criteria, or interpret
+the field-deployment results.
+
+Full disclosure of the development process and the human/AI division of
+responsibility, with evidence: [docs/AI_DEVELOPMENT.md](docs/AI_DEVELOPMENT.md).
+
 ## UN Sustainable Development Goals
 
 | SDG | Role | Why |
@@ -276,6 +337,8 @@ OpenAI-compatible LLM adapter.
 
 | | |
 |---|---|
+| How this was built (AI-assisted development) | [docs/AI_DEVELOPMENT.md](docs/AI_DEVELOPMENT.md) |
+| Evolution from the earlier foundation | [docs/EVOLUTION_FROM_2025.md](docs/EVOLUTION_FROM_2025.md) |
 | Architecture | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
 | Evaluation & metrics | [docs/EVALUATION.md](docs/EVALUATION.md) |
 | Field deployment (2026) | [docs/FIELD_DEPLOYMENT.md](docs/FIELD_DEPLOYMENT.md) |

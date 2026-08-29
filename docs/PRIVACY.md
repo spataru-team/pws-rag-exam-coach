@@ -1,13 +1,18 @@
 # Privacy
 
 PWS RAG Exam Coach is **local-first**. The design goal is that a student can use
-it without creating an account, giving a real name, or sending data anywhere.
+it fully without creating an account, giving a real name, or sending anything
+off their device or school network — by choosing a local provider (Mock, Ollama,
+LM Studio, or a school-network OpenVINO server). The hosted demo trades that for
+a real cloud LLM, behind a visible warning.
 
 ## What is stored, and where
 
 - All learner data — profile, learning events, topic mastery, model metrics,
-  settings — is stored in the browser via **IndexedDB** (Dexie). It never leaves
-  the device unless the student explicitly exports it or opts into a cloud LLM.
+  settings — is stored in the browser via **IndexedDB** (Dexie). This stored
+  data is **never transmitted**; it leaves the device only if the student
+  explicitly exports it. (What the AI coach sends — the prompt — is covered
+  under "Cloud LLM warning" below.)
 - Identity is an **anonymous local id** (`stu_…`) generated on the device. No
   name, email, or other personal identifier is requested or stored.
 
@@ -20,11 +25,27 @@ it without creating an account, giving a real name, or sending data anywhere.
 
 ## Cloud LLM warning
 
-- Local providers (Mock, Ollama, LM Studio) keep prompts on the device.
-- Cloud providers (OpenAI-compatible, OpenRouter) send prompts — including
-  retrieved chunk text — to an external service. Before such a provider is used,
-  the UI shows a clear warning (`llm.cloudWarning`) in onboarding, settings, and
-  the model lab.
+The AI prompt — the current question, the student's written answer, and the
+retrieved study text (not the stored learner data above) — goes to a different
+place depending on the selected provider:
+
+- **On the device** — the **Mock** provider (offline, deterministic) and a local
+  **Ollama** / **LM Studio** keep the prompt on the student's machine.
+- **On the school LAN** — a school-network **OpenVINO Model Server (OVMS)** runs
+  the models on one server on the school network. The prompt leaves the
+  student's device but stays inside the school network.
+- **To an external service** — **cloud** providers (the same-origin proxy /
+  OpenAI-compatible / OpenRouter) send the prompt off the local environment.
+  Before any cloud provider is used, the UI shows a clear warning
+  (`llm.cloudWarning`) in onboarding, settings, and the Model Lab.
+
+**First-run provider.** On a local run (`npm run dev` / `npm run preview`) the
+app starts on the offline **Mock** provider — no prompt leaves the device until
+the student picks another provider. On the hosted demo (or `npm run cf:dev` with
+a configured proxy) the app detects the same-origin cloud proxy and starts on it
+instead, still behind the warning above. Switching to a local provider in
+Settings keeps prompts on the device or the school network. See
+[LLM_PROVIDERS.md](./LLM_PROVIDERS.md).
 
 ## Export
 

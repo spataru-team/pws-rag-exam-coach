@@ -1,15 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { CurriculumProfile, InterfaceLanguage, StudyMode, SubjectId, ThemeMode } from '@/types'
 import { listSubjects } from '@/data/subjectRegistry'
-import { PROVIDER_PRESETS, DEFAULT_PROVIDER_ID, isCloudProvider, type LLMProviderConfig } from '@/llm'
+import {
+  PROVIDER_PRESETS,
+  isCloudProvider,
+  checkProxyCapability,
+  pickInitialProviderId,
+  type LLMProviderConfig,
+} from '@/llm'
 import { subjectDataManager } from '@/packs'
 import { applyAppearance } from '@/theme/applyAppearance'
 import { setLanguage, SUPPORTED_LANGUAGES } from '@/i18n'
 import { localize } from '@/i18n/localize'
 import { useAppStore } from '@/app/store'
 
-const PROVIDER_ORDER = ['worker', 'mock', 'ollama', 'lmstudio', 'openvino', 'openai', 'openrouter']
+// Mock first — it is the zero-setup default for `npm run dev` / `npm run preview`
+// and needs no running server or key.
+const PROVIDER_ORDER = ['mock', 'worker', 'ollama', 'lmstudio', 'openvino', 'openai', 'openrouter']
 
 export function Onboarding() {
   const { t } = useTranslation()
@@ -21,12 +29,36 @@ export function Onboarding() {
   const [studyMode, setStudyMode] = useState<StudyMode>('sprint')
   const [subjectId, setSubjectId] = useState<SubjectId>('romanian')
   const [curriculumProfile, setCurriculumProfile] = useState<CurriculumProfile | ''>('')
-  const [providerId, setProviderId] = useState(DEFAULT_PROVIDER_ID)
+  // Start synchronously on the offline Mock provider — the only one guaranteed
+  // to work under the documented `npm run dev` / `npm run preview`. An async
+  // capability probe (below) may upgrade this to the cloud proxy, but ONLY on a
+  // deployed / `cf:dev` build where a configured `/api/v1` actually answers.
+  const [providerId, setProviderId] = useState<string>('mock')
+  // Once the user picks a provider by hand, the probe must never override it.
+  const providerTouched = useRef(false)
   const [examDate, setExamDate] = useState('')
   const [busy, setBusy] = useState(false)
 
   const subjects = listSubjects()
   const provider = PROVIDER_PRESETS[providerId] as LLMProviderConfig
+
+  useEffect(() => {
+    let cancelled = false
+    void checkProxyCapability().then((cap) => {
+      if (cancelled || providerTouched.current) return
+      // Never downgrades a manual choice; only lifts the initial Mock to Worker
+      // when a configured same-origin proxy is present.
+      setProviderId((current) => (current === 'mock' ? pickInitialProviderId(cap) : current))
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  function selectProvider(id: string) {
+    providerTouched.current = true
+    setProviderId(id)
+  }
 
   function applyLang(l: InterfaceLanguage) {
     setLang(l)
@@ -155,11 +187,12 @@ export function Onboarding() {
 
       <section className="card" style={{ marginBottom: '1rem' }}>
         <h2>{t('onboarding.chooseLlm')}</h2>
+        <p className="muted">{t('onboarding.aiModeHint')}</p>
         <div className="grid cols-2">
           {PROVIDER_ORDER.map((id) => {
             const p = PROVIDER_PRESETS[id] as LLMProviderConfig
             return (
-              <button key={id} type="button" aria-pressed={providerId === id} className={providerId === id ? 'primary' : ''} onClick={() => setProviderId(id)} style={{ textAlign: 'left' }}>
+              <button key={id} type="button" aria-pressed={providerId === id} className={providerId === id ? 'primary' : ''} onClick={() => selectProvider(id)} style={{ textAlign: 'left' }}>
                 {p.name}
               </button>
             )

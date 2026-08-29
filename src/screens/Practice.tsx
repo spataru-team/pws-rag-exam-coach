@@ -175,12 +175,14 @@ export function Practice() {
           )}
           {feedback.embeddingUnavailable ? (
             <p className="warning" role="alert">⚠️ {t('embeddings.unavailable')}</p>
+          ) : feedback.providerError ? (
+            <p className="warning" role="alert">⚠️ {t('practice.providerError')}</p>
           ) : feedback.corpusEmpty ? (
             <p className="warning" role="alert">⚠️ {t('practice.corpusEmpty')}</p>
           ) : (
             feedback.insufficient && <p className="warning">{t('practice.insufficient')}</p>
           )}
-          {!feedback.embeddingUnavailable && !feedback.corpusEmpty && (
+          {!feedback.embeddingUnavailable && !feedback.providerError && !feedback.corpusEmpty && (
             <p style={{ whiteSpace: 'pre-wrap' }}>{feedback.answer}</p>
           )}
           {feedback.retrieved.length > 0 && (
@@ -200,7 +202,7 @@ export function Practice() {
         </section>
       )}
 
-      {feedback && !feedback.insufficient && (
+      {feedback && !feedback.insufficient && !feedback.providerError && (
         <section className="card">
           <h2>{t('practice.reflectionTitle')}</h2>
 

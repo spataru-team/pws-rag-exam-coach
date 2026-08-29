@@ -51,9 +51,20 @@ export async function handleOpenAiProxy(
   if (origin && origin !== new URL(request.url).origin) {
     return json({ error: 'Forbidden origin' }, 403)
   }
-  if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405)
 
   const path = new URL(request.url).pathname.replace(/^\/api\/v1/, '')
+
+  // Non-generative capability probe for the client's first-run provider
+  // auto-selection (src/llm/proxyProbe.ts). It NEVER calls the upstream LLM,
+  // creates no token usage, and echoes no secret value — only whether this
+  // proxy route exists (`available`) and whether the chat key is present
+  // (`configured`). A plain `npm run dev`/`preview` has no Function, so this
+  // 404s and the client stays on the offline Mock provider.
+  if (path === '/health') {
+    return json({ available: true, configured: Boolean(env.OPENAI_API_KEY) }, 200)
+  }
+
+  if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405)
   let body: Record<string, unknown>
   try {
     body = (await request.json()) as Record<string, unknown>

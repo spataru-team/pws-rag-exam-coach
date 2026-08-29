@@ -25,16 +25,40 @@ separate.
 | id | name | baseUrl | key mode | locality |
 |----|------|---------|----------|----------|
 | `mock` | Mock (offline demo) | — | none | local |
+| `worker` | OpenAI-compatible (cloud) | `/api/v1` (same-origin proxy) | proxy | cloud |
 | `ollama` | Ollama (local) | `http://localhost:11434/v1` | none | local |
 | `lmstudio` | LM Studio (local) | `http://localhost:1234/v1` | none | local |
 | `openvino` | OpenVINO (local, OVMS) | `http://localhost:8000/v3` | none | local |
-| `openai` | OpenAI-compatible (cloud) | `https://api.openai.com/v1` | user_key | cloud |
+| `openai` | OpenAI (your key) | `https://api.openai.com/v1` | user_key | cloud |
 | `openrouter` | OpenRouter (cloud) | `https://openrouter.ai/api/v1` | user_key | cloud |
 
-The **default** provider is `mock`, which produces deterministic, grounded
-answers that cite the chunk ids embedded in the prompt and refuses when no
-context is present — mirroring the grounding contract real providers must follow.
-This keeps the app fully functional offline and in tests.
+`worker` proxies to the Cloudflare Pages Function in `functions/api/` (chat →
+OpenAI, embeddings/rerank → Workers AI), which injects the server-side keys — so
+it only exists on the deployed site or under `npm run cf:dev`.
+
+### First-run default — capability-aware, not a single constant
+
+Onboarding does **not** hard-code one default. A fresh session starts on
+**`mock`** — deterministic, grounded, on-device (it cites the chunk ids in the
+prompt and refuses when no context is present), so the app is fully functional
+offline and in tests. `src/screens/Onboarding.tsx` then runs a lightweight
+non-generative probe (`src/llm/proxyProbe.ts` → `GET /api/v1/health`) and pulls
+the initial selection up to **`worker`** *only* when a configured same-origin
+proxy actually answers:
+
+| how it's run | `/api/v1/health` | initial provider |
+|---|---|---|
+| `npm run dev` / `npm run preview` (this repo) | no Function → 404 | **`mock`** |
+| `npm run build && npm run cf:dev` **without** `.dev.vars` | `{ available: true, configured: false }` | **`mock`** |
+| `npm run build && npm run cf:dev` **with** `.dev.vars`, or the deployed site | `{ available: true, configured: true }` | **`worker`** (cloud warning shown) |
+
+A provider the user selects by hand is never overridden by the probe. The
+`DEFAULT_PROVIDER_ID = 'worker'` constant is only the store's pre-onboarding
+fallback and the deployed default — not what a local first run lands on.
+
+If a selected provider can't be reached, Practice shows a clear
+"AI provider unavailable" notice (`TutorResponse.providerError`) — it never fails
+silently.
 
 ## OpenVINO (optimized local inference)
 
@@ -66,13 +90,26 @@ EMBED_MODEL=bge-m3 npm run seed   # seed packs with OVMS embeddings
 
 ## Embeddings vs chat
 
-These are independent:
+These are independent — the chat provider above has no effect on which embedder
+runs.
 
 - **Chat** uses the providers above (`/chat/completions`, or OVMS `/v3/...`).
-- **Embeddings** use `bge-m3` via Ollama's native `/api/embeddings`
-  (`src/rag/embeddings/ollama.ts`), with a deterministic offline fallback, or any
-  OpenAI-compatible `/embeddings` endpoint (OVMS / Workers AI / cloud) via
-  `OpenAICompatibleEmbeddingProvider`. See ARCHITECTURE.md.
+- **Embeddings** are chosen by `selectEmbedder` (`src/rag/embeddings/runtime.ts`)
+  from the pack's own `embeddingModel` plus the Settings "Embeddings" backend:
+  - a pack seeded with `deterministic-stub` (what `npm run seed` produces when no
+    embedding backend is reachable) **always** uses the offline deterministic
+    stub — no network, works for the Quick-Start clean-clone flow;
+  - a real (e.g. `bge-m3`) pack uses the configured backend. That backend
+    defaults to the **same-origin `/api/v1` proxy** (`DEFAULT_EMBEDDING_CONFIG`
+    in `src/rag/embeddings/runtime.ts` — `{ backend: 'openai-compatible',
+    baseUrl: '/api/v1' }`); Ollama's native `/api/embeddings` and any
+    OpenAI-compatible `/embeddings` endpoint (OVMS / Workers AI) are the
+    alternatives, selectable in Settings.
+
+  So on a plain `npm run dev` with stub-seeded packs, retrieval works fully
+  offline; a `bge-m3` pack there would need a reachable embeddings backend (it
+  degrades to an "embedding service unavailable" notice otherwise). See
+  ARCHITECTURE.md §RAG.
 
 ## Keys and safety
 

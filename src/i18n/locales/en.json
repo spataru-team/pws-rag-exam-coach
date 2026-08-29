@@ -66,6 +66,7 @@
     "intro": "Set up your local learning space. No account, no real name — your data stays on this device.",
     "chooseSubject": "Choose your first subject",
     "chooseLlm": "AI assistance mode",
+    "aiModeHint": "Mock = offline, deterministic, no setup — the default for a local run. Ollama / LM Studio / OpenVINO need that server running; the cloud proxy needs the deployed site or npm run cf:dev. Cloud options always warn first.",
     "examDate": "Exam date (optional)",
     "finish": "Start learning"
   },
@@ -118,6 +119,7 @@
     "corpusEmpty": "This subject has no knowledge base in this build. The public repository ships without the copyrighted textbook packs for chemistry, mathematics and Russian — regenerate them locally with npm run seed, or load the synthetic demo with npm run seed:demo. See the README and docs/JUDGE_REPRODUCIBILITY.md.",
     "syntheticTitle": "DEMO / SYNTHETIC DATA",
     "syntheticBody": "This response uses self-authored demonstration content, not the production curriculum corpus.",
+    "providerError": "The AI provider didn't respond. Pick a working provider in Settings — for a no-setup run choose Mock (offline demo). The retrieved sources below are still valid.",
     "confidence": "Rate your confidence",
     "reflectionTitle": "Quick reflection",
     "reflectDifficult": "What was difficult?",

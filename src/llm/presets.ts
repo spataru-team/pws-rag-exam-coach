@@ -87,4 +87,14 @@ export const PROVIDER_PRESETS: Record<string, LLMProviderConfig> = {
   },
 }
 
+/**
+ * Deployed / fallback default. It is what the store falls back to when no
+ * provider is persisted yet, and what the deployed site's onboarding lands on.
+ *
+ * NOTE: onboarding is capability-aware (see `src/screens/Onboarding.tsx` +
+ * `src/llm/proxyProbe.ts`): a fresh session starts on `mock` and only switches
+ * to `worker` when a *configured* same-origin `/api/v1` proxy is detected. So on
+ * a plain `npm run dev` / `npm run preview` the first-run provider is `mock`,
+ * not this constant. Do not treat this as "the default the user always sees".
+ */
 export const DEFAULT_PROVIDER_ID = 'worker'

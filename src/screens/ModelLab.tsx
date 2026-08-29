@@ -170,6 +170,8 @@ function errorRow(providerId: string, model: string, message: string): TutorResp
     embeddingUnavailable: false,
     corpusEmpty: false,
     synthetic: false,
+    providerError: true,
+    providerErrorMessage: message,
     groundednessScore: 0,
     formatCompliance: 0,
     metrics: {

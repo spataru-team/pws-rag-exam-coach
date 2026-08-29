@@ -97,6 +97,33 @@ describe('handleOpenAiProxy', () => {
     expect(res.status).toBe(404)
   })
 
+  describe('GET /api/v1/health (non-generative capability probe)', () => {
+    const get = () => new Request('https://app.pages.dev/api/v1/health', { method: 'GET' })
+
+    it('reports available + configured when the chat key is set, without calling upstream', async () => {
+      const fetchMock = vi.fn()
+      const res = await handleOpenAiProxy(get(), env, { fetch: fetchMock })
+      expect(res.status).toBe(200)
+      expect(await res.json()).toEqual({ available: true, configured: true })
+      expect(fetchMock).not.toHaveBeenCalled()
+    })
+
+    it('reports available but NOT configured when OPENAI_API_KEY is absent', async () => {
+      const fetchMock = vi.fn()
+      const res = await handleOpenAiProxy(get(), { CF_ACCOUNT_ID: 'a', CF_API_TOKEN: 'b' }, { fetch: fetchMock })
+      expect(await res.json()).toEqual({ available: true, configured: false })
+      expect(fetchMock).not.toHaveBeenCalled()
+    })
+
+    it('never echoes a secret value', async () => {
+      const res = await handleOpenAiProxy(get(), env, { fetch: vi.fn() })
+      const text = await res.text()
+      expect(text).not.toContain('sk-test')
+      expect(text).not.toContain('cf-test')
+      expect(text).not.toContain('acct-1')
+    })
+  })
+
   it('maps capped output to max_completion_tokens (GPT-5.x), strips max_tokens/stream, caps n=1', async () => {
     const fetchMock = okFetch()
     await handleOpenAiProxy(

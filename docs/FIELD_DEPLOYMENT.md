@@ -17,6 +17,30 @@ rose to **89.32%**. Sources are listed in the README.
 The tool was used at one school with grade-9 students taught in Russian, during
 the spring 2026 exam-preparation period, alongside their regular lessons.
 
+## How students used it, and what ran the AI (June 2026)
+
+During the June 2026 main-session preparation period, students had access to the
+hosted **browser / PWA application over the Internet on their own devices**; use
+of the application did **not** require a connection to the school LAN. After the
+preceding exam, students had **roughly 3–4 days** before the Romanian exam. **How
+much and when each student used the application was self-selected and was not
+individually tracked** (see *Limitations*).
+
+**AI checking used a cloud LLM through the application's API-backed cloud path.**
+Per the deployment configuration ([DEPLOY_CLOUDFLARE.md](./DEPLOY_CLOUDFLARE.md),
+and the June deploy plan in `docs/superpowers/plans/`), the API key was held
+server-side by the same-origin proxy and was not exposed to the browser.
+
+The **school-local OpenVINO Model Server was not used for this cohort**, and the
+deployed version **did not yet include Rescue Mode** (see *What changed after the
+main session*).
+
+The later Intel / OpenVINO / OVMS work — `ovms/`,
+[INTEL_OPENVINO.md](./INTEL_OPENVINO.md), and the Intel Xeon concurrency
+benchmark — is a **separate technical validation of an optional local / private
+inference path**. It was not the backend used for the June cohort and should not
+be read as one.
+
 ## Main exam session
 
 - **112 students had access** to the app during exam preparation.

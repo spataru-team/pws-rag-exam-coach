@@ -115,10 +115,14 @@ change ([docs/SUBJECT_REGISTRY.md](docs/SUBJECT_REGISTRY.md)). Whether one modes
 server holds up under a full class's worth of simultaneous requests was measured
 with a synthetic concurrency benchmark — next section.
 
-**Privacy.** No account, no real name — identity is an anonymous local id. All
-learner data (answers, mastery, metrics) stays in the browser (IndexedDB) and is
-never sent anywhere unless the student exports it or opts into a cloud model,
-which shows a warning first. Details and the risk table:
+**Privacy.** No account, no real name — identity is an anonymous local id.
+Stored learner data (answers, mastery, metrics) lives only in the browser
+(IndexedDB) and is never transmitted; the student can export it explicitly. What
+can leave is the AI prompt — the question, the student's answer and the
+retrieved study text: it stays **on the device** with the Mock provider, **on
+the school LAN** with a local OpenVINO/OVMS server, or goes **to an external
+service** with a cloud provider — cloud always behind a visible warning, and
+never the default on a local run. Details and the risk table:
 [docs/PRIVACY.md](docs/PRIVACY.md), [docs/RESPONSIBLE_AI.md](docs/RESPONSIBLE_AI.md).
 
 ## Local inference under concurrent load
@@ -198,6 +202,37 @@ The innovation is not RAG. It is using the **official scoring rubric** to turn
 grounded AI feedback into a targeted path for recovering the exam points a student
 can realistically still earn.
 
+### Relationship to prior work
+
+The 2026 project **reuses a foundation** the team identifies as its earlier
+multilingual, local-first RAG tutor (`edu-rag-mvp`): the retrieval architecture,
+embedding-based multilingual search, the corpus/chunk/pack data model, and the
+offline fallback. (The specific embedding model changed in 2026 —
+`nomic-embed-text` → `bge-m3` — as part of the Russian-query work.) The
+**materially new 2026 layer** is everything that
+turns grounded feedback into recovered exam points — rubric-driven scoring atoms
+→ skill mapping → 🟢/🟡/🔴 recoverable-value zones → a ranked 2–4-skill Rescue
+route → a conservative-vs-expected points forecast — plus the retake-driven
+iteration loop and the current Intel/OpenVINO deployment path. What the
+repository independently shows versus what the team states, and the reuse-vs-new
+breakdown: [docs/EVOLUTION_FROM_2025.md](docs/EVOLUTION_FROM_2025.md).
+
+## How this was built
+
+This project was built by the team with extensive use of **Claude and Claude
+Code**. The team owned the problem, the requirements, the interpretation of the
+official ANCE marking scheme, the product and pedagogical decisions, the
+acceptance decisions, the evaluation criteria, and the interpretation of
+results. **Claude Code generated a large share of the implementation patches**
+against those requirements and also assisted with planning and document
+drafting; the team reviewed, tested, accepted, rejected and iterated on the
+accepted changes. Claude did not choose the problem, define the official scoring
+criteria, decide the product concepts, set the evaluation criteria, or interpret
+the field-deployment results.
+
+Full disclosure of the development process and the human/AI division of
+responsibility, with evidence: [docs/AI_DEVELOPMENT.md](docs/AI_DEVELOPMENT.md).
+
 ## UN Sustainable Development Goals
 
 | SDG | Role | Why |
@@ -276,6 +311,8 @@ OpenAI-compatible LLM adapter.
 
 | | |
 |---|---|
+| How this was built (AI-assisted development) | [docs/AI_DEVELOPMENT.md](docs/AI_DEVELOPMENT.md) |
+| Evolution from the earlier foundation | [docs/EVOLUTION_FROM_2025.md](docs/EVOLUTION_FROM_2025.md) |
 | Architecture | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
 | Evaluation & metrics | [docs/EVALUATION.md](docs/EVALUATION.md) |
 | Field deployment (2026) | [docs/FIELD_DEPLOYMENT.md](docs/FIELD_DEPLOYMENT.md) |

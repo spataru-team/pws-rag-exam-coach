@@ -4,6 +4,10 @@ This document is for anyone doing a **clean clone** of the public repository and
 wanting to run the app, the tests and the retrieval evaluation without any
 private data or external accounts.
 
+> Development process and the human/AI division of responsibility:
+> [AI_DEVELOPMENT.md](AI_DEVELOPMENT.md). Relationship to the earlier
+> foundation: [EVOLUTION_FROM_2025.md](EVOLUTION_FROM_2025.md).
+
 ## TL;DR
 
 ```bash

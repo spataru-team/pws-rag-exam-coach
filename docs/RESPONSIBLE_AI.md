@@ -37,7 +37,7 @@ safeguard is partial or a risk is only mitigated by design intent, it says so.
 
 | | |
 |---|---|
-| **Mitigation** | Local providers (Ollama, LM Studio, OpenVINO Model Server) keep prompts on the device or the school network. A cloud provider sends prompts — including retrieved chunk text — to an external service, so the UI shows an explicit warning before any cloud provider is used, in onboarding, settings, and the Model Lab. The hosted demo's proxy keeps API keys server-side, enforces a model allowlist, clamps output tokens, and rejects cross-origin calls. |
+| **Mitigation** | Local providers keep the prompt in one of two places: the **Mock** provider and a local Ollama / LM Studio keep it **on the device**; a school-network **OpenVINO Model Server** keeps it **on the school LAN** (it leaves the student's device but not the school network). A **cloud** provider sends the prompt — including retrieved chunk text — to an external service, so the UI shows an explicit warning before any cloud provider is used, in onboarding, settings, and the Model Lab. On a local run (`npm run dev` / `npm run preview`) the app starts on the offline **Mock** provider — nothing leaves the device until the student picks another provider; on the hosted demo the app detects a configured same-origin cloud proxy and starts on it instead, behind the same warning. The hosted demo's proxy keeps API keys server-side, enforces a model allowlist, clamps output tokens, and rejects cross-origin calls. |
 | **Evidence** | [PRIVACY.md](./PRIVACY.md) §Cloud LLM warning (`llm.cloudWarning`); `src/server/openaiProxy.ts`; [DEPLOY_CLOUDFLARE.md](./DEPLOY_CLOUDFLARE.md). |
 
 ### 6. Overconfidence in the predicted points
@@ -67,12 +67,17 @@ Every piece of feedback shows the source passage it used, the rubric criterion
 in play, and the points involved. The prerequisite ("builds on") graph
 (`src/learning/prerequisites.ts`, authored data, not LLM-generated) lets the coach
 say *why* a topic is hard, not just restate it. Our use of AI-assisted
-development, and known failure cases, are disclosed in the README and in
-`ovms/README.md`. This document is part of that transparency.
+development, and the human/AI division of responsibility, is disclosed in
+[AI_DEVELOPMENT.md](./AI_DEVELOPMENT.md) (linked from the README); known
+model/component failure cases are documented in `ovms/README.md` and in risk 7
+below. This document is part of that transparency.
 
 ### Privacy
-Local-first, anonymous, no account. Learner data does not leave the device
-unless the student exports it or opts into a cloud model (with a warning). See
+Local-first, anonymous, no account. Stored learner data never leaves the device
+(the student can export it explicitly). The AI prompt stays on the device with
+the Mock provider, on the school LAN with a local OpenVINO/OVMS server, or goes
+to an external service with a cloud provider — cloud always behind a visible
+warning, and the default only on the hosted demo, never on a local run. See
 risks 4 and 5 and [PRIVACY.md](./PRIVACY.md).
 
 ### Security, safety and reliability

@@ -4,6 +4,7 @@ import {
   createAdapter,
   PROVIDER_PRESETS,
   ACTIVE_PROMPT_VERSION,
+  type ChatResponse,
   type LLMProviderConfig,
 } from '@/llm'
 import type { ScoredChunk } from '@/rag'
@@ -44,6 +45,17 @@ export interface TutorResponse {
    * surface this prominently. Propagated from `RetrievalResult.synthetic`.
    */
   synthetic: boolean
+  /**
+   * True when the LLM provider call itself failed (HTTP error, network,
+   * misconfigured proxy) AFTER retrieval succeeded. Distinct from
+   * `insufficient` (a retrieval verdict) and `embeddingUnavailable` (the query
+   * could not be embedded, so no LLM call was attempted): here retrieval was
+   * fine and `insufficient` keeps its real value — only the answer is missing.
+   * The UI must show a clear "provider unavailable" message, never fail silently.
+   */
+  providerError: boolean
+  /** Short diagnostic for `providerError` (adapter error text). Not shown verbatim to students. */
+  providerErrorMessage?: string
   groundednessScore: number
   formatCompliance: number
   metrics: ModelRunMetrics
@@ -86,6 +98,7 @@ export async function getTutorFeedback(req: TutorRequest): Promise<TutorResponse
       embeddingUnavailable: true,
       corpusEmpty: retrieval.corpusEmpty ?? false,
       synthetic: retrieval.synthetic ?? false,
+      providerError: false,
       groundednessScore: 0,
       formatCompliance: 0,
       metrics: emptyMetrics(config, req, topK),
@@ -107,6 +120,7 @@ export async function getTutorFeedback(req: TutorRequest): Promise<TutorResponse
       embeddingUnavailable: false,
       corpusEmpty: true,
       synthetic: retrieval.synthetic ?? false,
+      providerError: false,
       groundednessScore: 0,
       formatCompliance: 0,
       metrics: emptyMetrics(config, req, topK),
@@ -123,10 +137,29 @@ export async function getTutorFeedback(req: TutorRequest): Promise<TutorResponse
   })
 
   const adapter = createAdapter(config)
-  const chat = await adapter.chat(
-    { messages, temperature: 0.2, jsonMode: false },
-    req.apiKey,
-  )
+  let chat: ChatResponse
+  try {
+    chat = await adapter.chat({ messages, temperature: 0.2, jsonMode: false }, req.apiKey)
+  } catch (err) {
+    // The LLM provider itself failed (HTTP error / network / misconfigured
+    // proxy) — retrieval already succeeded, so keep its real `insufficient`
+    // verdict and the retrieved sources, and flag `providerError` so the UI
+    // shows a clear "provider unavailable" message rather than nothing.
+    return {
+      answer: '',
+      retrieved: retrieval.results,
+      citedChunkIds: [],
+      insufficient: retrieval.insufficient,
+      embeddingUnavailable: false,
+      corpusEmpty: retrieval.corpusEmpty ?? false,
+      synthetic: retrieval.synthetic ?? false,
+      providerError: true,
+      providerErrorMessage: err instanceof Error ? err.message : String(err),
+      groundednessScore: 0,
+      formatCompliance: 0,
+      metrics: emptyMetrics(config, req, topK),
+    }
+  }
 
   const citedChunkIds = Array.from(chat.content.matchAll(CITATION_RE), (m) => m[1] as string)
   const retrievedIds = new Set(retrieval.results.map((r) => r.chunk.id))
@@ -176,6 +209,7 @@ export async function getTutorFeedback(req: TutorRequest): Promise<TutorResponse
     embeddingUnavailable: false,
     corpusEmpty: retrieval.corpusEmpty ?? false,
     synthetic: retrieval.synthetic ?? false,
+    providerError: false,
     groundednessScore,
     formatCompliance,
     metrics,

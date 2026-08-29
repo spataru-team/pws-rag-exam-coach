@@ -234,3 +234,50 @@ describe('getTutorFeedback — synthetic demo flag (npm run seed:demo)', () => {
     expect(res.synthetic).toBe(true)
   })
 })
+
+describe('getTutorFeedback — provider failure is distinct from insufficient evidence', () => {
+  it('sufficient retrieval + provider throws → providerError true, insufficient stays FALSE, no exception', async () => {
+    retrieveMock.mockResolvedValue(retrieval([scored('a'), scored('b')], false)) // sufficient
+    chatMock.mockRejectedValue(new Error('OpenAI-compatible (cloud): HTTP 404 '))
+
+    const res = await getTutorFeedback(baseReq)
+
+    expect(res.providerError).toBe(true)
+    expect(res.providerErrorMessage).toContain('HTTP 404')
+    expect(res.insufficient).toBe(false) // retrieval was fine — only the answer is missing
+    expect(res.embeddingUnavailable).toBe(false)
+    expect(res.corpusEmpty).toBe(false)
+    expect(res.answer).toBe('')
+    expect(res.retrieved.map((r) => r.chunk.id)).toEqual(['a', 'b']) // sources preserved
+  })
+
+  it('genuinely insufficient retrieval + provider succeeds → insufficient true, providerError FALSE', async () => {
+    retrieveMock.mockResolvedValue(retrieval([scored('a')], true)) // insufficient
+    chatMock.mockResolvedValue(chatResponse('Not enough grounded material.'))
+
+    const res = await getTutorFeedback(baseReq)
+
+    expect(res.insufficient).toBe(true)
+    expect(res.providerError).toBe(false)
+  })
+
+  it('insufficient retrieval AND provider throws → both flags true (honest), still no exception', async () => {
+    retrieveMock.mockResolvedValue(retrieval([scored('a')], true))
+    chatMock.mockRejectedValue(new Error('network down'))
+
+    const res = await getTutorFeedback(baseReq)
+
+    expect(res.providerError).toBe(true)
+    expect(res.insufficient).toBe(true) // preserved from retrieval, independently
+  })
+
+  it('a successful answer never sets providerError', async () => {
+    retrieveMock.mockResolvedValue(retrieval([scored('a')]))
+    chatMock.mockResolvedValue(chatResponse('Grounded [#a].'))
+
+    const res = await getTutorFeedback(baseReq)
+
+    expect(res.providerError).toBe(false)
+    expect(res.providerErrorMessage).toBeUndefined()
+  })
+})

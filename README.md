@@ -237,6 +237,17 @@ npm run dev         # http://localhost:5173
 npm run build && npm run preview
 ```
 
+> **AI provider on the first run.** Onboarding starts on **Mock (offline demo)** —
+> deterministic, on-device, zero setup — for `npm run dev` and `npm run preview`.
+> It switches the initial pick to the same-origin **cloud proxy** only when a
+> *configured* `/api/v1` is actually detected (the deployed site, or
+> `npm run build && npm run cf:dev` with `.dev.vars` — see
+> [docs/DEPLOY_CLOUDFLARE.md](docs/DEPLOY_CLOUDFLARE.md)). You can pick any local
+> provider (Ollama / LM Studio / OpenVINO, if that server is running) or the
+> cloud proxy yourself in onboarding or Settings; cloud options always show a
+> data-egress warning first. Details:
+> [docs/LLM_PROVIDERS.md](docs/LLM_PROVIDERS.md).
+
 ## Scripts
 
 | script | purpose |

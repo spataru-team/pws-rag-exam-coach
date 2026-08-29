@@ -18,6 +18,29 @@ npm run dev                             # http://localhost:5173
 - `npm run eval` / `npm run eval:ci` need packs on disk — run a `seed` first
   (CI does `EMBED_MODE=deterministic npm run seed`).
 
+## AI provider on the first run
+
+The **first "Check answer" in Practice** is the first thing that needs an AI
+provider. There are two documented paths:
+
+| path | what onboarding pre-selects | first response |
+|---|---|---|
+| **Quick demo / clean clone** — `npm run dev` or `npm run build && npm run preview` (this repo, no Cloudflare Functions) | **Mock (offline demo)** — a `GET /api/v1/health` probe finds no configured proxy | a deterministic grounded answer that cites `[#chunk-id]`s, no network call, within ~1–2 s |
+| **Cloud / deployed** — the live site, or `npm run build && npm run cf:dev` with a populated `.dev.vars` (`docs/DEPLOY_CLOUDFLARE.md`) | **the cloud proxy** — the health probe reports it is configured; the cloud data-egress warning is shown | a real LLM answer via the same-origin `/api/v1` proxy |
+
+- The probe (`src/llm/proxyProbe.ts`) is **non-generative** — it never calls a
+  model and creates no token usage.
+- A provider you pick by hand in onboarding is **never** overridden by the probe.
+- Any local provider (Ollama / LM Studio / OpenVINO) is selectable but never
+  auto-selected — it needs that server running.
+- If a selected provider can't be reached, Practice shows an explicit
+  **"AI provider unavailable"** notice with the retrieved sources still listed —
+  it never fails silently.
+
+So: on a clean clone, follow the TL;DR, complete onboarding **without changing
+the AI-mode step**, open Practice for a seeded subject, and submit an answer —
+you get a predictable grounded first response with no extra setup.
+
 ## What ships in the public repo, and what does not
 
 The source code is MIT. The **retrieval corpora are not**: they are derived from

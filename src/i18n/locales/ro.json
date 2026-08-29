@@ -66,6 +66,7 @@
     "intro": "Configurează-ți spațiul local de învățare. Fără cont, fără nume real — datele rămân pe acest dispozitiv.",
     "chooseSubject": "Alege prima disciplină",
     "chooseLlm": "Mod de asistență AI",
+    "aiModeHint": "Mock = offline, determinist, fără configurare — opțiunea implicită pentru o rulare locală. Ollama / LM Studio / OpenVINO necesită serverul respectiv pornit; proxy-ul cloud funcționează doar pe site-ul publicat sau prin npm run cf:dev. Opțiunile cloud avertizează întotdeauna mai întâi.",
     "examDate": "Data examenului (opțional)",
     "finish": "Începe să înveți"
   },
@@ -118,6 +119,7 @@
     "corpusEmpty": "Această disciplină nu are o bază de cunoștințe în această versiune. Depozitul public nu include pachetele din manualele protejate de drepturi de autor pentru chimie, matematică și rusă — regenerează-le local cu npm run seed sau încarcă demonstrația sintetică cu npm run seed:demo. Vezi README și docs/JUDGE_REPRODUCIBILITY.md.",
     "syntheticTitle": "DATE DEMO / SINTETICE",
     "syntheticBody": "Acest răspuns folosește conținut demonstrativ propriu, nu corpusul curricular de producție.",
+    "providerError": "Furnizorul AI nu a răspuns. Alege un furnizor funcțional în Setări — pentru o rulare fără configurare alege Mock (demo offline). Sursele găsite mai jos rămân valide.",
     "confidence": "Evaluează-ți încrederea",
     "reflectionTitle": "Reflecție scurtă",
     "reflectDifficult": "Ce a fost dificil?",

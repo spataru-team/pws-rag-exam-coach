@@ -204,18 +204,44 @@ can realistically still earn.
 
 ### Relationship to prior work
 
-The 2026 project **reuses a foundation** the team identifies as its earlier
-multilingual, local-first RAG tutor (`edu-rag-mvp`): the retrieval architecture,
-embedding-based multilingual search, the corpus/chunk/pack data model, and the
-offline fallback. (The specific embedding model changed in 2026 —
-`nomic-embed-text` → `bge-m3` — as part of the Russian-query work.) The
-**materially new 2026 layer** is everything that
-turns grounded feedback into recovered exam points — rubric-driven scoring atoms
-→ skill mapping → 🟢/🟡/🔴 recoverable-value zones → a ranked 2–4-skill Rescue
-route → a conservative-vs-expected points forecast — plus the retake-driven
-iteration loop and the current Intel/OpenVINO deployment path. What the
-repository independently shows versus what the team states, and the reuse-vs-new
-breakdown: [docs/EVOLUTION_FROM_2025.md](docs/EVOLUTION_FROM_2025.md).
+Not a from-scratch build, and not a repackaged earlier codebase. This grew out
+of **an earlier project with partial team continuity** — roughly half the 2026
+team also worked on it. The substantive carry-over is the **idea and hands-on
+experience of RAG over educational material**: material → retrieval → an answer
+grounded in the textbook. Direct code/platform reuse is secondary to that
+conceptual continuity; the repo-verifiable technical links are listed in the
+document below.
+
+The earlier system's **main pedagogical function was grounded question answering
+over the supplied educational material** — it did **not** implement the current
+competency / rubric-driven diagnostic and decision layer. It was also **hard to
+deploy** in new environments (substantial IT effort), and its content pipeline
+was **permissive**: uneven materials and several accumulated implementation
+approaches, closer to a heterogeneous collection than a standardized pedagogical
+platform. A general "validate a student against arbitrary material" competency
+layer was **impractical to scale** — it needs subject teachers to define
+competencies and maintain material↔competency mappings, outside their normal
+instructional load.
+
+**2026 changes it on two axes:**
+
+- **Pedagogical** — instead of a teacher-built competency framework, the coach
+  uses an **existing authoritative structure, the official ANCE exam marking
+  scheme (barem)**: student answer → rubric criteria / scoring atoms → skill
+  mapping → lost points → 🟢/🟡/🔴 recoverable-value zones → a ranked 2–4-skill
+  Rescue route → a conservative-vs-expected recovered-points forecast.
+- **Technological / access** — the product is now a **browser / PWA** for
+  ordinary phones and laptops, not a configured computer-lab machine.
+  School-local Intel / OpenVINO / OVMS inference is an **optional** privacy and
+  offline deployment path, not a requirement for using the app.
+
+**The continuity is RAG over educational material. The 2026 innovation is not
+RAG itself — it is using the official exam rubric as the decision layer that
+turns grounded evidence into an explainable, personalized path to recover exam
+points.**
+
+Repo-verifiable carry-overs vs. team-attested history:
+[docs/EVOLUTION_FROM_2025.md](docs/EVOLUTION_FROM_2025.md).
 
 ## How this was built
 

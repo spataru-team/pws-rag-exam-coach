@@ -96,5 +96,6 @@ branch commits are preserved; history is never rewritten.
   implementation-plan artifacts (see its [README](superpowers/README.md); read
   them as history, not as current documentation).
 - The merge-commit bodies for the post-submission pull requests.
-- [RESPONSIBLE_AI.md](RESPONSIBLE_AI.md) cross-links here; the 2025→2026
-  relationship is covered in [EVOLUTION_FROM_2025.md](EVOLUTION_FROM_2025.md).
+- [RESPONSIBLE_AI.md](RESPONSIBLE_AI.md) cross-links here; the relationship to
+  the earlier project (partial team continuity, what carried over, what is new)
+  is covered in [EVOLUTION_FROM_2025.md](EVOLUTION_FROM_2025.md).

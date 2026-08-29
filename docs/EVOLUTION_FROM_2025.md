@@ -1,77 +1,121 @@
-# Evolution from the earlier foundation
+# Evolution from the earlier project
 
 > **Transparency note.** This document was added **after** the competition
 > submission to consolidate information already stated in the submitted
 > application and visible in the repository. It does not alter the
 > submission-state snapshot marked by the `intel-2026-submission` git tag.
 
-The 2026 competition project is **not** unrelated to prior work, and it is
-**not** a from-scratch build. It is a reused foundation plus a materially new
-decision layer. This document separates what the repository independently shows
-from what the team states.
+The 2026 competition project is **not** a from-scratch build, and it is **not**
+simply a repackaged earlier codebase. This document separates what the team
+states about that history from what this repository can independently show.
+
+Labels used below:
+
+- **[team-attested]** — stated by the team; not independently provable from this
+  repository (its own git history begins with the 2026 "Initial public release"
+  commit).
+- **[repo-verifiable]** — an artifact in this repository supports it.
 
 ---
 
-## A. Repo-verifiable continuity
+## Team continuity
 
-Evidence visible in this repository:
+**[team-attested]** The 2026 team is **only partially continuous** with the
+earlier project — roughly half the team changed. So this is not "the same team's
+previous project" without qualification; it is **an earlier project with partial
+team continuity**.
 
-| Continuity | Evidence in this repo |
+## What carried over
+
+**[team-attested]** The substantive carry-over is the **idea and hands-on
+experience of RAG over educational material**:
+
+> educational material → retrieval → an answer grounded in the textbook / material.
+
+Direct technical-platform reuse is **not** the centre of the story; the narrow,
+repo-verifiable technical carry-overs are listed near the end.
+
+## What the earlier project was, and its limits
+
+**[team-attested]**
+
+- Its **main pedagogical function was grounded question answering over the
+  supplied educational material**. It did **not** implement the current
+  exam-competency / rubric-driven diagnostic and decision layer.
+- **Difficult to transfer / deploy.** Moving it to another environment required
+  substantial IT expertise — a practical scalability limitation.
+- **A permissive content pipeline.** Many different educational materials could
+  be added, at uneven quality, and several implementation approaches
+  accumulated. The result was **a heterogeneous implementation-and-content
+  collection rather than a standardized pedagogical platform**.
+
+## Why the pedagogical architecture changed in 2026
+
+**[team-attested]** A **general** "validate a student's competencies against
+arbitrary material" layer was judged **impractical to scale**. It would require
+subject teachers to:
+
+- define the competencies,
+- map every material to those competencies,
+- create the assessment criteria,
+- maintain those mappings as materials change.
+
+That is work outside teachers' normal instructional load, so it was not a
+realistic scaling strategy.
+
+The 2026 answer is to **not** ask teachers to build a competency framework for
+arbitrary materials, and instead use an **existing authoritative structure**:
+the **official ANCE exam marking scheme (barem)**.
+
+---
+
+## A. Pedagogical evolution
+
+| | Earlier project | 2026 |
+|---|---|---|
+| What the AI produces | a grounded answer from the material | a grounded answer **plus** a scored diagnosis and a point-recovery route |
+| Where "what matters" comes from | the material itself | the **official ANCE rubric** |
+| Pipeline | material → retrieval → grounded answer | student answer → **official rubric criteria / scoring atoms** → skill mapping → lost points → 🟢/🟡/🔴 **recoverable-value zones** → ranked **2–4-skill Rescue route** → **conservative / expected** recovered-points forecast |
+
+**[repo-verifiable]** — the 2026 pipeline: barem grading
+(`src/learning/baremGrader.ts`, design spec 2026-06-10); Rescue Mode
+(`src/learning/rescueEngine.ts` / `rescueConfig.ts`, design 2026-08-11, built for
+a real retake cohort of six students); the hand-authored skill weights and
+prerequisite graph (`src/learning/prerequisites.ts`, "authored data, not built
+by an LLM").
+
+## B. Technological / access evolution
+
+| | Earlier project | 2026 |
+|---|---|---|
+| How a learner reaches it | technically demanding deployment; mainly controlled environments | a **browser / PWA** opened on an ordinary phone or laptop |
+| Inference | — | **multiple provider paths**: an offline / on-device demo (Mock), local providers (Ollama / LM Studio), a school-LAN **Intel / OpenVINO / OVMS** server, or cloud. **School-local OVMS is an optional privacy / offline deployment path, not a requirement for accessing the PWA.** |
+| Workflow | several accumulated implementation approaches | one standardized diagnostic → route → drill → forecast workflow |
+
+**[repo-verifiable]** — the PWA build (`vite-plugin-pwa`, `vite.config.ts`); the
+provider presets and the capability-aware first-run selection
+([LLM_PROVIDERS.md](LLM_PROVIDERS.md)); OVMS as one optional backend among
+several (`ovms/`, [INTEL_OPENVINO.md](INTEL_OPENVINO.md)).
+
+---
+
+## Repo-verifiable technical carry-overs (secondary)
+
+Narrower than the idea-level continuity above:
+
+| Carry-over | Evidence |
 |---|---|
-| A prior project **`edu-rag-mvp`** exists, with a Romanian textbook corpus (535 pre-embedded grade-9 chunks) in a Postgres/pgvector dump `ragdb_2026-02-09.sql` | `docs/superpowers/plans/2026-06-13-romanian-corpus-import.md` (goal, script header, source path) |
-| Corpus **import tooling** that reads that prior dump | `scripts/import-corpus.ts`, `npm run import:corpus` |
-| The current chunk/pack schema is **explicitly designed for continuity** with the prior corpus column layout | `src/packs/types.ts` — comment: chunk metadata "mirrors the existing `rag_chunks` columns … so a real corpus export can populate packs without type changes" |
-| The 2026 competition decision layer is **dated** | design specs: barem grading `2026-06-10`, Cloudflare deploy `2026-06-13`, Rescue Mode `2026-08-11` — in `docs/superpowers/specs/` and `plans/` |
+| The earlier project (`edu-rag-mvp`) had a Romanian textbook corpus (535 pre-embedded chunks) in a Postgres/pgvector dump `ragdb_2026-02-09.sql` | `docs/superpowers/plans/2026-06-13-romanian-corpus-import.md` |
+| Import tooling that reads that prior dump | `scripts/import-corpus.ts`, `npm run import:corpus` |
+| The chunk/pack schema is deliberately shaped for continuity with the prior corpus column layout | `src/packs/types.ts` — "mirrors the existing `rag_chunks` columns … so a real corpus export can populate packs without type changes" |
 
-## B. Team-attested continuity (stated by the team; not independently provable from this repo)
-
-- The earlier foundation dates to **2025**. *The team identifies `edu-rag-mvp`
-  as its 2025 work; this repository's own history begins with the
-  2026 "Initial public release" commit and does not independently prove the
-  year.*
-- The exact **authorship split** within that earlier project.
-- Architectural elements the team reports were **carried forward** but whose
-  earlier implementation is not contained in this repository:
-  - local-first, browser-only architecture (IndexedDB, no account);
-  - embedding-based multilingual retrieval (ru/ro/en) — note the *specific*
-    embedding model was migrated in 2026 (`nomic-embed-text` → `bge-m3`, see
-    [EVALUATION.md](EVALUATION.md));
-  - the offline deterministic-stub embedding fallback;
-  - the OpenAI-compatible LLM/embedding adapter pattern.
-
-  These patterns are all present in the current code, but this repo cannot show
-  whether they originated in 2025 or were rebuilt for 2026.
-
-## C. Materially new in the 2026 competition layer
-
-Everything that converts grounded feedback into **recovered official exam
-points** — designed and built in 2026:
-
-- **Barem grading** — an answer scored against the official ANCE marking
-  scheme: deterministic where the scheme applies exactly, LLM only for
-  open-ended criteria (`src/learning/baremGrader.ts`; design 2026-06-10).
-- **Scoring atoms** — each rubric criterion becomes an atom tagged with the
-  skill it tests.
-- **🟢 / 🟡 / 🔴 zones** — skills sorted by recoverable value, not by weakness.
-- **Rescue Mode** — a ranked route of 2–4 skills by
-  lost-points × trainability × transfer-reliability ÷ training-cost, stopping
-  once the projected score clears a margin **above** the pass line (design
-  2026-08-11, built for a real retake cohort of six students).
-- **Points forecast** — a conservative figure and an expected figure, both
-  capped at the points actually lost; drill performance is treated as evidence
-  of readiness, never converted directly into exam points.
-- **Retake-driven iteration** — Rescue Mode exists because six students needed
-  the August retake.
-- **Intel / OpenVINO deployment path** — the current OpenVINO Model Server
-  integration (all three RAG stages behind one OpenAI-compatible API, INT8/INT4
-  exports) and the synthetic concurrency benchmark on an Intel Xeon E5-2678 v3
-  are 2026 work ([INTEL_OPENVINO.md](INTEL_OPENVINO.md), `ovms/`). The
-  local-first / on-CPU principle itself is part of the carried-forward
-  foundation in section B.
+**Not carried over — the embedding model.** The earlier system used
+`nomic-embed-text`; `bge-m3` is a **2026 migration** made during the
+Russian-query work (see [EVALUATION.md](EVALUATION.md), "Measured validation").
 
 ## The innovation
 
-Not RAG, and not any single model choice — using the **official scoring rubric**
-as the thing that decides what matters, so grounded AI feedback becomes a
-targeted, explainable path to the exam points a student can still realistically
-earn.
+**The continuity is RAG over educational material. The 2026 innovation is not
+RAG itself — it is using the official exam rubric as the decision layer that
+turns grounded evidence into an explainable, personalized path to recover exam
+points.**

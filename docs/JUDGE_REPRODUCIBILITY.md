@@ -5,8 +5,9 @@ wanting to run the app, the tests and the retrieval evaluation without any
 private data or external accounts.
 
 > Development process and the human/AI division of responsibility:
-> [AI_DEVELOPMENT.md](AI_DEVELOPMENT.md). Relationship to the earlier
-> foundation: [EVOLUTION_FROM_2025.md](EVOLUTION_FROM_2025.md).
+> [AI_DEVELOPMENT.md](AI_DEVELOPMENT.md). Relationship to the earlier project
+> (partial team continuity, what carried over, what is new):
+> [EVOLUTION_FROM_2025.md](EVOLUTION_FROM_2025.md).
 
 ## TL;DR
 

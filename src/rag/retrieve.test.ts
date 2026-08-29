@@ -92,6 +92,47 @@ describe('retrieveRelevantChunks — subject filtering', () => {
   })
 })
 
+describe('corpusEmpty — empty knowledge base vs off-topic question', () => {
+  it('sets corpusEmpty when the subject has zero candidate chunks (clean-clone chemistry/math/russian)', async () => {
+    const source = new InMemoryChunkSource(chunks)
+    const res = await retrieveRelevantChunks('anything', embedder, source, {
+      subjectId: 'chemistry',
+    })
+    expect(res.corpusEmpty).toBe(true)
+    expect(res.insufficient).toBe(true)
+  })
+
+  it('does NOT set corpusEmpty when chunks exist but the query is off-topic', async () => {
+    const source = new InMemoryChunkSource(chunks)
+    const res = await retrieveRelevantChunks(
+      'How do I repair a diesel truck engine?',
+      embedder,
+      source,
+      { subjectId: 'romanian', minSimilarity: 0.99 },
+    )
+    expect(res.corpusEmpty).toBe(false)
+    expect(res.insufficient).toBe(true)
+  })
+
+  it('retrieveOrDegrade reports corpusEmpty for an empty subject', async () => {
+    const source = new InMemoryChunkSource(chunks)
+    const res = await retrieveOrDegrade('anything', embedder, source, {
+      subjectId: 'chemistry',
+    })
+    expect(res.corpusEmpty).toBe(true)
+    expect(res.unavailable).toBeUndefined()
+  })
+
+  it('retrieveOrDegrade reports corpusEmpty even when the embedder is also unavailable', async () => {
+    const source = new InMemoryChunkSource(chunks)
+    const res = await retrieveOrDegrade('anything', new FailingEmbeddingProvider(), source, {
+      subjectId: 'chemistry',
+    })
+    expect(res.unavailable).toBe(true)
+    expect(res.corpusEmpty).toBe(true)
+  })
+})
+
 /** Embedder that always fails — simulates Ollama being unavailable. */
 class FailingEmbeddingProvider implements EmbeddingProvider {
   readonly modelId = 'bge-m3'

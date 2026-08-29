@@ -137,7 +137,20 @@ export function Settings() {
                 <span>
                   {localize(s.interfaceTitleByLanguage, lang)}
                   {!s.enabled && <span className="muted"> · {t('common.comingSoon')}</span>}
-                  {downloaded && <span className="badge" style={{ marginLeft: '0.4rem' }}>{status?.chunkCount} · {status?.embeddingModel}</span>}
+                  {downloaded && status?.empty && (
+                    <span
+                      className="badge"
+                      style={{ marginLeft: '0.4rem', color: 'var(--color-warning)', borderColor: 'var(--color-warning)' }}
+                    >
+                      ⚠️ {t('settings.packEmpty')}
+                    </span>
+                  )}
+                  {downloaded && !status?.empty && (
+                    <span className="badge" style={{ marginLeft: '0.4rem' }}>
+                      {status?.chunkCount} · {status?.embeddingModel}
+                      {status?.synthetic ? ` · ${t('settings.packSynthetic')}` : ''}
+                    </span>
+                  )}
                 </span>
                 <button type="button" disabled={!s.enabled} onClick={() => void toggleSubject(s.id, downloaded)}>
                   {downloaded ? t('common.remove') : t('common.download')}
@@ -146,6 +159,7 @@ export function Settings() {
             )
           })}
         </ul>
+        <p className="muted" style={{ marginTop: '0.5rem' }}>{t('settings.corpusRegenNote')}</p>
       </section>
 
       <section className="card" style={{ marginBottom: '1rem' }}>

@@ -168,6 +168,7 @@ function errorRow(providerId: string, model: string, message: string): TutorResp
     citedChunkIds: [],
     insufficient: true,
     embeddingUnavailable: false,
+    corpusEmpty: false,
     groundednessScore: 0,
     formatCompliance: 0,
     metrics: {

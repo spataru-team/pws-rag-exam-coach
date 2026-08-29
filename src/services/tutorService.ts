@@ -30,6 +30,13 @@ export interface TutorResponse {
   insufficient: boolean
   /** True when the embedding service was unavailable (no LLM call was made). */
   embeddingUnavailable: boolean
+  /**
+   * True when the subject has no knowledge base at all in this build (zero
+   * candidate chunks), as opposed to `insufficient` meaning "the materials
+   * don't cover this question". The public repo ships without the copyrighted
+   * chemistry/math/russian packs — see `docs/JUDGE_REPRODUCIBILITY.md`.
+   */
+  corpusEmpty: boolean
   groundednessScore: number
   formatCompliance: number
   metrics: ModelRunMetrics
@@ -70,6 +77,26 @@ export async function getTutorFeedback(req: TutorRequest): Promise<TutorResponse
       citedChunkIds: [],
       insufficient: true,
       embeddingUnavailable: true,
+      corpusEmpty: retrieval.corpusEmpty ?? false,
+      groundednessScore: 0,
+      formatCompliance: 0,
+      metrics: emptyMetrics(config, req, topK),
+    }
+  }
+
+  // Subject ships no knowledge base in this build (zero candidate chunks even
+  // subject-wide) — see docs/JUDGE_REPRODUCIBILITY.md. Return a clear status
+  // instead of calling the LLM to produce a confident but ungrounded answer;
+  // the UI must say "regenerate this subject's corpus locally", not "your
+  // question isn't in the materials".
+  if (retrieval.corpusEmpty) {
+    return {
+      answer: '',
+      retrieved: [],
+      citedChunkIds: [],
+      insufficient: true,
+      embeddingUnavailable: false,
+      corpusEmpty: true,
       groundednessScore: 0,
       formatCompliance: 0,
       metrics: emptyMetrics(config, req, topK),
@@ -137,6 +164,7 @@ export async function getTutorFeedback(req: TutorRequest): Promise<TutorResponse
     citedChunkIds,
     insufficient,
     embeddingUnavailable: false,
+    corpusEmpty: retrieval.corpusEmpty ?? false,
     groundednessScore,
     formatCompliance,
     metrics,

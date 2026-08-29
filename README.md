@@ -212,16 +212,26 @@ can realistically still earn.
 
 ```bash
 npm install
-npm run seed     # generate subject packs (needs Ollama + bge-m3, else an offline stub)
-npm run dev      # http://localhost:5173
+npm run seed        # generate subject packs (needs Ollama + bge-m3, else an offline stub)
+npm run seed:demo   # optional: synthetic corpora for chemistry / math / russian
+npm run dev         # http://localhost:5173
 ```
 
 > **Data packs are not included in this repository.** The per-subject packs
 > (`public/packs/*.pack.json` — chunk text + embeddings) and the derived textbook
 > chunks (`corpus/out/`) are built from third-party copyrighted textbook material
-> and are distributed separately. `npm run seed` regenerates them locally — see
-> [docs/SUBJECT_REGISTRY.md](docs/SUBJECT_REGISTRY.md). Without them the app runs
-> but has no retrieval corpus.
+> and are distributed separately.
+>
+> `npm run seed` regenerates them locally. **Biology, English, History and
+> Romanian** ship with a small hand-authored fallback chunk set
+> (`src/data/chunks/*.chunks.ts`) and seed to a usable pack with no extra steps.
+> **Chemistry, Mathematics and Russian** have no public corpus — they are empty
+> after a clean clone until you either regenerate them from local textbook PDFs
+> (see [docs/SUBJECT_REGISTRY.md](docs/SUBJECT_REGISTRY.md)) or run
+> `npm run seed:demo`, which fills just those three with clearly-labelled
+> self-authored synthetic content. The app shows an explicit "no knowledge base
+> in this build" notice for an empty subject. Full walkthrough:
+> [docs/JUDGE_REPRODUCIBILITY.md](docs/JUDGE_REPRODUCIBILITY.md).
 
 ```bash
 npm run build && npm run preview
@@ -234,7 +244,8 @@ npm run build && npm run preview
 | `npm run dev` / `build` / `preview` | Vite + PWA |
 | `npm run typecheck` | strict `tsc -b` |
 | `npm test` | Vitest unit tests |
-| `npm run seed` | (re)generate subject packs |
+| `npm run seed` | (re)generate subject packs (public / production) |
+| `npm run seed:demo` | seed + synthetic demo corpora for the 3 empty subjects |
 | `npm run eval` / `eval:ci` | retrieval evaluation harness / deterministic CI gate |
 | `npm run verify:embeddings` | check two embedding backends share a vector space |
 
@@ -264,6 +275,7 @@ OpenAI-compatible LLM adapter.
 | LLM providers | [docs/LLM_PROVIDERS.md](docs/LLM_PROVIDERS.md) |
 | Cloud deployment | [docs/DEPLOY_CLOUDFLARE.md](docs/DEPLOY_CLOUDFLARE.md) |
 | Adding a subject | [docs/SUBJECT_REGISTRY.md](docs/SUBJECT_REGISTRY.md) |
+| Judge / clean-clone reproducibility | [docs/JUDGE_REPRODUCIBILITY.md](docs/JUDGE_REPRODUCIBILITY.md) |
 | Russian-language retrieval status | [docs/RUSSIAN_LANGUAGE_STATUS.html](docs/RUSSIAN_LANGUAGE_STATUS.html) |
 | Corpus provenance | [`corpus/manifest.json`](corpus/manifest.json) |
 | Live demo | <https://pws-rag-edu.pages.dev/> |

@@ -31,6 +31,18 @@ export interface RetrievalResult {
    * lacking. We never silently fall back to a different embedding space.
    */
   unavailable?: boolean
+  /**
+   * True when there were zero candidate chunks in scope — the subject (or the
+   * subject+grade) has no knowledge base at all in this build. Distinct from
+   * `insufficient` (candidates existed, none cleared the similarity gate): the
+   * UI must say "this subject ships no corpus here, regenerate it locally"
+   * rather than "your question isn't covered by the materials". See
+   * `public/packs/README.md` / `docs/JUDGE_REPRODUCIBILITY.md` — the public repo
+   * intentionally omits the copyrighted textbook packs for chemistry, math and
+   * russian, so a clean clone leaves those three empty until `npm run seed`
+   * (with a local corpus) or `npm run seed:demo` (synthetic) is run.
+   */
+  corpusEmpty?: boolean
 }
 
 /**
@@ -240,6 +252,7 @@ export async function retrieveRelevantChunks(
     results,
     insufficient,
     embeddingModelId: embedder.modelId,
+    corpusEmpty: candidates.length === 0,
   }
 }
 
@@ -268,6 +281,7 @@ export async function retrieveOrDegrade(
       insufficient: true,
       embeddingModelId: embedder.modelId,
       unavailable: true,
+      corpusEmpty: candidates.length === 0,
     }
   }
   const { results, insufficient } = await rankCandidates(queryVec, query, candidates, options)
@@ -278,5 +292,6 @@ export async function retrieveOrDegrade(
     results,
     insufficient,
     embeddingModelId: embedder.modelId,
+    corpusEmpty: candidates.length === 0,
   }
 }

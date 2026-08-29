@@ -6,12 +6,25 @@
  * Run: npm run eval                  # auto mode (Ollama if pack uses it), report only
  *      EVAL_MODE=deterministic ...   # reproducible offline (re-embeds with stub)
  *      npm run eval:ci               # deterministic + --gate (used in CI)
+ *
+ * Subjects whose pack is missing, empty (clean public clone without a local
+ * corpus) or synthetic (`npm run seed:demo`) are SKIPPED, not failed — but the
+ * report and this CLI mark the run as PARTIAL SUBJECT COVERAGE and never present
+ * it as the full seven-subject production benchmark. In `--gate` mode the run
+ * still fails if any expected public-fallback subject (romanian / english /
+ * biology / history) was not actually evaluated. See docs/JUDGE_REPRODUCIBILITY.md.
  */
 import { mkdir, writeFile, readFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 import { DEFAULT_TOP_K, DEFAULT_MIN_SIMILARITY } from '@/rag'
-import { runEvalHarness, type EvalConfig, type EvalMode } from './harness'
+import {
+  runEvalHarness,
+  EXPECTED_PUBLIC_FALLBACK_SUBJECTS,
+  PARTIAL_COVERAGE_LABEL,
+  type EvalConfig,
+  type EvalMode,
+} from './harness'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const RESULTS_DIR = join(__dirname, 'results')
@@ -42,6 +55,25 @@ async function main(): Promise<void> {
   const out = join(RESULTS_DIR, `eval-${Date.now()}.json`)
   await writeFile(out, JSON.stringify(report, null, 2), 'utf8')
 
+  if (report.partialCoverage) {
+    console.log(`[eval] *** ${PARTIAL_COVERAGE_LABEL} ***`)
+    if (mode === 'deterministic') {
+      console.log(
+        '[eval] deterministic mode is an offline reproducibility / smoke check ' +
+          '(bag-of-words stub embeddings) — NOT the production bge-m3 retrieval benchmark ' +
+          'reported in docs/EVALUATION.md.',
+      )
+    }
+    for (const s of report.skippedSubjects) {
+      console.log(`[eval]   skipped ${s.subjectId}: ${s.reason} (${s.itemCount} items)`)
+    }
+  }
+  console.log(
+    `[eval] evaluatedSubjects=[${report.evaluatedSubjects.join(', ')}] ` +
+      `skippedSubjects=[${report.skippedSubjects.map((s) => s.subjectId).join(', ') || '—'}] ` +
+      `evaluatedItems=${report.evaluatedItemCount} skippedItems=${report.skippedItemCount}`,
+  )
+
   console.log(
     `[eval] mode=${mode} items=${report.itemCount} ` +
       `recall@1=${report.recallAt1.toFixed(3)} recall@3=${report.recallAt3.toFixed(3)} ` +
@@ -57,6 +89,21 @@ async function main(): Promise<void> {
   console.log(`[eval] wrote ${out}`)
 
   if (gate) {
+    // Coverage gate: a clean clone must still actually evaluate every subject
+    // whose corpus ships in the public repo. "Pass by skipping everything" is a
+    // failure, not a pass.
+    const missing = EXPECTED_PUBLIC_FALLBACK_SUBJECTS.filter(
+      (s) => !report.evaluatedSubjects.includes(s),
+    )
+    if (missing.length > 0) {
+      console.error(
+        `[eval] GATE FAILED: expected public-fallback subject(s) not evaluated: ${missing.join(', ')}. ` +
+          `evaluatedSubjects=[${report.evaluatedSubjects.join(', ')}]. ` +
+          `Run \`npm run seed\` (or EMBED_MODE=deterministic npm run seed) before the eval gate.`,
+      )
+      process.exit(1)
+    }
+
     const thresholds = JSON.parse(await readFile(THRESHOLDS_FILE, 'utf8')) as Thresholds
     const t = thresholds[mode]
     if (!t) throw new Error(`No thresholds for mode "${mode}"`)
@@ -77,7 +124,11 @@ async function main(): Promise<void> {
       console.error(`[eval] GATE FAILED: ${failures.join('; ')}`)
       process.exit(1)
     }
-    console.log('[eval] gate passed.')
+    console.log(
+      report.partialCoverage
+        ? '[eval] gate passed (partial coverage — public-fallback subjects only).'
+        : '[eval] gate passed.',
+    )
   }
 }
 

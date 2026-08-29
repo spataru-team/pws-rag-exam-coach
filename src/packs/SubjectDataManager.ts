@@ -10,6 +10,12 @@ export interface PackStatus {
   embeddingModel?: string
   embeddingDim?: number
   chunkCount?: number
+  /** Downloaded but chunkCount === 0 — the subject's corpus is absent from this
+   * build and must be regenerated locally (chemistry / math / russian on a
+   * clean public clone — see docs/JUDGE_REPRODUCIBILITY.md). */
+  empty?: boolean
+  /** Built from `npm run seed:demo` synthetic content, not a real corpus. */
+  synthetic?: boolean
 }
 
 /**
@@ -42,6 +48,8 @@ export class SubjectDataManager {
       embeddingModel: record?.embeddingModel,
       embeddingDim: record?.embeddingDim,
       chunkCount: record?.chunkCount,
+      empty: record !== undefined && record.chunkCount === 0,
+      synthetic: record?.synthetic ?? false,
     }
   }
 
@@ -64,6 +72,7 @@ export class SubjectDataManager {
       embeddingModel: pack.embeddingModel,
       embeddingDim: pack.embeddingDim,
       chunkCount: pack.chunks.length,
+      ...(pack.synthetic ? { synthetic: true } : {}),
       downloadedAt: new Date().toISOString(),
     }
     await packRepo.record(record)

@@ -115,6 +115,7 @@
     "sources": "Surse",
     "foundations": "Se bazează pe",
     "insufficient": "Materialele locale nu conțin suficiente informații pentru această întrebare.",
+    "corpusEmpty": "Această disciplină nu are o bază de cunoștințe în această versiune. Depozitul public nu include pachetele din manualele protejate de drepturi de autor pentru chimie, matematică și rusă — regenerează-le local cu npm run seed sau încarcă demonstrația sintetică cu npm run seed:demo. Vezi README și docs/JUDGE_REPRODUCIBILITY.md.",
     "confidence": "Evaluează-ți încrederea",
     "reflectionTitle": "Reflecție scurtă",
     "reflectDifficult": "Ce a fost dificil?",
@@ -167,7 +168,10 @@
     "ollamaDetected": "Ollama locală detectată. O folosești pentru evaluare în loc de cloud?",
     "useOllamaForGrading": "Folosește Ollama locală pentru evaluare",
     "ovmsDetected": "Detectat OpenVINO Model Server local. Treci chat-ul și embeddings-urile pe el?",
-    "useOvms": "Folosește OpenVINO local (OVMS)"
+    "useOvms": "Folosește OpenVINO local (OVMS)",
+    "packEmpty": "gol — regenerează local",
+    "packSynthetic": "DEMO / SINTETIC",
+    "corpusRegenNote": "Chimia, matematica și rusa sunt livrate fără bază de cunoștințe în versiunea publică (manualele-sursă sunt protejate de drepturi de autor). Rulează npm run seed cu un corpus local pentru a le regenera, sau npm run seed:demo pentru o demonstrație sintetică mică. Vezi docs/JUDGE_REPRODUCIBILITY.md."
   },
   "badges": {
     "firstSteps": "Primii pași",

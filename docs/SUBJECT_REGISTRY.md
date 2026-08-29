@@ -11,9 +11,9 @@ code. The registry (`src/data/subjectRegistry.ts`) maps `subjectId → Subject`.
 | English   | `english`   | ✅ yes  | — | 4 topics, written rubric, 9 hand-authored chunks, golden set |
 | Biology   | `biology`   | ✅ yes  | 7 | 3 topics, answer rubric, 8 hand-authored chunks, golden set |
 | History   | `history`   | ✅ yes  | — | 3 topics, answer rubric, 7 hand-authored chunks, golden set |
-| Chemistry | `chemistry` | ✅ yes  | 9, 12 | 11 topics, answer rubric, 600 chunks auto-ingested from real textbooks (`scripts/ingest-pdf.ts`), golden set |
-| Mathematics | `math`    | ✅ yes  | 9, 12 | 9 topics, answer rubric, 600 chunks auto-ingested, golden set |
-| Russian language & literature | `russian` | ✅ yes | 12 (9 topics authored, no source PDF at 9 — see `src/data/subjects/russian.ts`) | 7 topics, written rubric, 400 chunks auto-ingested, golden set |
+| Chemistry | `chemistry` | ✅ yes  | 9, 12 | 11 topics, answer rubric, chunks auto-ingested from real textbooks (`scripts/ingest-pdf.ts`) **locally — not in the public repo**, golden set |
+| Mathematics | `math`    | ✅ yes  | 9, 12 | 9 topics, answer rubric, chunks auto-ingested **locally — not in the public repo**, golden set |
+| Russian language & literature | `russian` | ✅ yes | 12 (9 topics authored, no source PDF at 9 — see `src/data/subjects/russian.ts`) | 7 topics, written rubric, chunks auto-ingested **locally — not in the public repo**, golden set |
 
 All seven subjects are active end-to-end flows (Practice/coach). Chemistry and
 math pack a mix of grades 9 and 12 in one pack — retrieval filters by the
@@ -46,6 +46,17 @@ from Ministry-of-Education textbook PDFs:
 3. `npm run seed` picks up `corpus/out/<subjectId>-*.chunks.json` automatically
    alongside any hand-authored `src/data/chunks/<id>.chunks.ts` drafts for that
    subject (see `loadGeneratedChunks` in `scripts/seed-packs.ts`).
+
+> **On a clean public clone `corpus/out/` is absent and these three subjects
+> have no hand-authored fallback**, so `npm run seed` writes `chemistry`,
+> `math` and `russian` packs with `chunks: []`. The app surfaces this
+> explicitly (an "no knowledge base in this build" notice in Practice, an
+> `⚠️ empty` badge in Settings) and `npm run eval` reports them as
+> `skippedSubjects`. To get a working corpus without the copyrighted PDFs, run
+> `npm run seed:demo` — it fills exactly these three with clearly-labelled
+> self-authored synthetic content (`src/data/chunks/demo/`, `synthetic: true`,
+> excluded from the retrieval benchmark). See
+> [JUDGE_REPRODUCIBILITY.md](JUDGE_REPRODUCIBILITY.md).
 
 ## The `Subject` shape
 

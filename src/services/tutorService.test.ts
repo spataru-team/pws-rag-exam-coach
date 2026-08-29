@@ -134,4 +134,34 @@ describe('getTutorFeedback — groundedness gate', () => {
     expect(res.embeddingUnavailable).toBe(true)
     expect(chatMock).not.toHaveBeenCalled()
   })
+
+  it('short-circuits before the LLM and sets corpusEmpty when the subject ships no knowledge base (clean-clone chemistry/math/russian)', async () => {
+    retrieveMock.mockResolvedValue({
+      query: 'q',
+      subjectId: 'chemistry',
+      topicId: 't',
+      results: [],
+      insufficient: true,
+      corpusEmpty: true,
+      embeddingModelId: 'deterministic-stub',
+    })
+
+    const res = await getTutorFeedback(baseReq)
+
+    expect(res.corpusEmpty).toBe(true)
+    expect(res.insufficient).toBe(true)
+    expect(res.embeddingUnavailable).toBe(false)
+    expect(res.answer).toBe('')
+    expect(chatMock).not.toHaveBeenCalled()
+  })
+
+  it('leaves corpusEmpty false when the corpus has chunks but the question is off-topic', async () => {
+    retrieveMock.mockResolvedValue(retrieval([scored('a')], true))
+    chatMock.mockResolvedValue(chatResponse('Not enough grounded material.'))
+
+    const res = await getTutorFeedback(baseReq)
+
+    expect(res.corpusEmpty).toBe(false)
+    expect(res.insufficient).toBe(true)
+  })
 })

@@ -15,11 +15,18 @@
  *        #   EMBED_API_KEY   (optional bearer key for cloud endpoints)
  *        #   EMBED_DIMENSIONS (optional; positive integer — omit for bge-m3, it's 1024
  *        #                     natively and ignores OpenAI-style truncation)
+ *
+ * `npm run seed` is production / public-fallback only: it embeds the
+ * hand-authored `src/data/chunks/*.chunks.ts` drafts plus any locally-generated
+ * `corpus/out/*.chunks.json`. It NEVER pulls in synthetic demo content — that is
+ * `npm run seed:demo` (scripts/seed-demo.ts), which calls `seedPacks({
+ * includeDemo: true })`. See docs/JUDGE_REPRODUCIBILITY.md.
  */
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import { dirname, join } from 'node:path'
 import { chunkDraftsBySubject, type ChunkDraft } from '@/data/chunks'
+import { demoChunkDraftsBySubject } from '@/data/chunks/demo'
 import { listSubjects } from '@/data/subjectRegistry'
 import {
   resolveEmbeddingProvider,
@@ -138,24 +145,64 @@ function factoryOptions(mode: EmbeddingMode): EmbeddingFactoryOptions {
   return { mode }
 }
 
-async function main(): Promise<void> {
-  const mode = (process.env.EMBED_MODE as EmbeddingMode) || 'auto'
+export interface SeedOptions {
+  /** Subject-id filter. Empty / omitted = every registered subject. */
+  only?: string[]
+  /** Embedding mode. Defaults to `EMBED_MODE` env, then `'auto'`. */
+  mode?: EmbeddingMode
+  /**
+   * Fill subjects that would otherwise have ZERO chunks with the self-authored
+   * synthetic drafts from `src/data/chunks/demo/`, and tag those packs
+   * `synthetic: true`. Off by default — only `npm run seed:demo` sets this.
+   * Subjects that already have real (authored or corpus/out) chunks are never
+   * touched, so a regenerated real corpus is never clobbered by demo content.
+   */
+  includeDemo?: boolean
+  /** Output directory for `<subject>.pack.json`. Defaults to `public/packs/`. */
+  outDir?: string
+}
+
+export interface SeedResult {
+  subjectId: string
+  chunkCount: number
+  synthetic: boolean
+}
+
+/**
+ * Core seeding routine, shared by `npm run seed` and `npm run seed:demo`.
+ * Returns one row per seeded subject.
+ */
+export async function seedPacks(options: SeedOptions = {}): Promise<SeedResult[]> {
+  const mode = options.mode ?? ((process.env.EMBED_MODE as EmbeddingMode) || 'auto')
+  const outDir = options.outDir ?? OUT_DIR
   const embedder = await resolveEmbeddingProvider(factoryOptions(mode))
-  console.log(`[seed] embedding model: ${embedder.modelId} (mode=${mode})`)
+  console.log(`[seed] embedding model: ${embedder.modelId} (mode=${mode})${options.includeDemo ? ' — DEMO run (synthetic fallback enabled)' : ''}`)
 
-  await mkdir(OUT_DIR, { recursive: true })
+  await mkdir(outDir, { recursive: true })
 
-  // Optional subject-id filter from argv keeps unrelated packs untouched.
-  const only = new Set(process.argv.slice(2))
+  const only = new Set(options.only ?? [])
   const subjects = listSubjects().filter((s) => only.size === 0 || only.has(s.id))
+  const seeded: SeedResult[] = []
 
   for (const subject of subjects) {
     const authored = chunkDraftsBySubject[subject.id] ?? []
     const generated = await loadGeneratedChunks(subject.id)
-    const drafts = [...authored, ...generated]
+    let drafts: ChunkDraft[] = [...authored, ...generated]
+    let synthetic = false
+
+    if (drafts.length === 0 && options.includeDemo) {
+      const demo = demoChunkDraftsBySubject[subject.id] ?? []
+      if (demo.length > 0) {
+        drafts = demo
+        synthetic = true
+        console.log(`[seed] ${subject.id}: no real corpus — using ${demo.length} SYNTHETIC demo chunks`)
+      }
+    }
+
     if (generated.length > 0) {
       console.log(`[seed] ${subject.id}: ${authored.length} authored + ${generated.length} generated (corpus/out/)`)
     }
+
     const chunks = await embedAll(drafts, embedder)
     const pack: SubjectPack = {
       schemaVersion: PACK_SCHEMA_VERSION,
@@ -163,16 +210,37 @@ async function main(): Promise<void> {
       embeddingModel: embedder.modelId,
       embeddingDim: embedder.dim,
       generatedAt: new Date().toISOString(),
+      ...(synthetic ? { synthetic: true } : {}),
       chunks: chunks.map((c) => ({ ...c, embedding: roundEmbedding(c.embedding) })),
     }
-    const file = join(OUT_DIR, `${subject.id}.pack.json`)
+    const file = join(outDir, `${subject.id}.pack.json`)
     await writeFile(file, JSON.stringify(pack), 'utf8')
-    console.log(`[seed] wrote ${file} (${chunks.length} chunks)`)
+    console.log(`[seed] wrote ${file} (${chunks.length} chunks${synthetic ? ', SYNTHETIC' : ''})`)
+    seeded.push({ subjectId: subject.id, chunkCount: chunks.length, synthetic })
+  }
+
+  return seeded
+}
+
+async function main(): Promise<void> {
+  // Optional subject-id filter from argv keeps unrelated packs untouched.
+  const seeded = await seedPacks({ only: process.argv.slice(2) })
+  const empty = seeded.filter((s) => s.chunkCount === 0).map((s) => s.subjectId)
+  if (empty.length > 0) {
+    console.log(
+      `[seed] note: ${empty.join(', ')} produced empty packs (no public corpus). ` +
+        `Regenerate locally, or run \`npm run seed:demo\` for synthetic demo content. ` +
+        `See docs/JUDGE_REPRODUCIBILITY.md.`,
+    )
   }
   console.log('[seed] done.')
 }
 
-main().catch((err) => {
-  console.error('[seed] failed:', err)
-  process.exit(1)
-})
+// Only run the CLI when invoked directly (`tsx scripts/seed-packs.ts`), not when
+// imported by scripts/seed-demo.ts or a test.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((err) => {
+    console.error('[seed] failed:', err)
+    process.exit(1)
+  })
+}

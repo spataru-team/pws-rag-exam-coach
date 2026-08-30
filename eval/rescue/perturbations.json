@@ -1,0 +1,997 @@
+{
+  "note": "P1-2 Rescue route sensitivity — FROZEN before the first measured run. Primary headline: 9 non-boundary route-eligible skills x {trainability, transferReliability, trainingCost} x {-20,-10,+10,+20}% = 108 + 1 baseline. Boundary appendix (reported separately, NOT in headline): sinonime-antonime deltas (12) + policy configs (safetyTarget 17/19, sinonime transfer=0.4, sinonime cost=4.0) = 16. Perturbed configs are pure deep-frozen clones; RESCUE_CONFIG is never mutated. Do not edit after measurement.",
+  "perturbations": [
+    {
+      "id": "baseline",
+      "kind": "baseline"
+    },
+    {
+      "id": "primary/felicitare/trainability/-20",
+      "kind": "skill-param-delta",
+      "skill": "felicitare",
+      "param": "trainability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/felicitare/trainability/-10",
+      "kind": "skill-param-delta",
+      "skill": "felicitare",
+      "param": "trainability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/felicitare/trainability/+10",
+      "kind": "skill-param-delta",
+      "skill": "felicitare",
+      "param": "trainability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/felicitare/trainability/+20",
+      "kind": "skill-param-delta",
+      "skill": "felicitare",
+      "param": "trainability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/felicitare/transferReliability/-20",
+      "kind": "skill-param-delta",
+      "skill": "felicitare",
+      "param": "transferReliability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/felicitare/transferReliability/-10",
+      "kind": "skill-param-delta",
+      "skill": "felicitare",
+      "param": "transferReliability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/felicitare/transferReliability/+10",
+      "kind": "skill-param-delta",
+      "skill": "felicitare",
+      "param": "transferReliability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/felicitare/transferReliability/+20",
+      "kind": "skill-param-delta",
+      "skill": "felicitare",
+      "param": "transferReliability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/felicitare/trainingCost/-20",
+      "kind": "skill-param-delta",
+      "skill": "felicitare",
+      "param": "trainingCost",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/felicitare/trainingCost/-10",
+      "kind": "skill-param-delta",
+      "skill": "felicitare",
+      "param": "trainingCost",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/felicitare/trainingCost/+10",
+      "kind": "skill-param-delta",
+      "skill": "felicitare",
+      "param": "trainingCost",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/felicitare/trainingCost/+20",
+      "kind": "skill-param-delta",
+      "skill": "felicitare",
+      "param": "trainingCost",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-volum/trainability/-20",
+      "kind": "skill-param-delta",
+      "skill": "eseu-volum",
+      "param": "trainability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-volum/trainability/-10",
+      "kind": "skill-param-delta",
+      "skill": "eseu-volum",
+      "param": "trainability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-volum/trainability/+10",
+      "kind": "skill-param-delta",
+      "skill": "eseu-volum",
+      "param": "trainability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-volum/trainability/+20",
+      "kind": "skill-param-delta",
+      "skill": "eseu-volum",
+      "param": "trainability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-volum/transferReliability/-20",
+      "kind": "skill-param-delta",
+      "skill": "eseu-volum",
+      "param": "transferReliability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-volum/transferReliability/-10",
+      "kind": "skill-param-delta",
+      "skill": "eseu-volum",
+      "param": "transferReliability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-volum/transferReliability/+10",
+      "kind": "skill-param-delta",
+      "skill": "eseu-volum",
+      "param": "transferReliability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-volum/transferReliability/+20",
+      "kind": "skill-param-delta",
+      "skill": "eseu-volum",
+      "param": "transferReliability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-volum/trainingCost/-20",
+      "kind": "skill-param-delta",
+      "skill": "eseu-volum",
+      "param": "trainingCost",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-volum/trainingCost/-10",
+      "kind": "skill-param-delta",
+      "skill": "eseu-volum",
+      "param": "trainingCost",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-volum/trainingCost/+10",
+      "kind": "skill-param-delta",
+      "skill": "eseu-volum",
+      "param": "trainingCost",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-volum/trainingCost/+20",
+      "kind": "skill-param-delta",
+      "skill": "eseu-volum",
+      "param": "trainingCost",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/transformare-gramaticala/trainability/-20",
+      "kind": "skill-param-delta",
+      "skill": "transformare-gramaticala",
+      "param": "trainability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/transformare-gramaticala/trainability/-10",
+      "kind": "skill-param-delta",
+      "skill": "transformare-gramaticala",
+      "param": "trainability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/transformare-gramaticala/trainability/+10",
+      "kind": "skill-param-delta",
+      "skill": "transformare-gramaticala",
+      "param": "trainability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/transformare-gramaticala/trainability/+20",
+      "kind": "skill-param-delta",
+      "skill": "transformare-gramaticala",
+      "param": "trainability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/transformare-gramaticala/transferReliability/-20",
+      "kind": "skill-param-delta",
+      "skill": "transformare-gramaticala",
+      "param": "transferReliability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/transformare-gramaticala/transferReliability/-10",
+      "kind": "skill-param-delta",
+      "skill": "transformare-gramaticala",
+      "param": "transferReliability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/transformare-gramaticala/transferReliability/+10",
+      "kind": "skill-param-delta",
+      "skill": "transformare-gramaticala",
+      "param": "transferReliability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/transformare-gramaticala/transferReliability/+20",
+      "kind": "skill-param-delta",
+      "skill": "transformare-gramaticala",
+      "param": "transferReliability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/transformare-gramaticala/trainingCost/-20",
+      "kind": "skill-param-delta",
+      "skill": "transformare-gramaticala",
+      "param": "trainingCost",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/transformare-gramaticala/trainingCost/-10",
+      "kind": "skill-param-delta",
+      "skill": "transformare-gramaticala",
+      "param": "trainingCost",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/transformare-gramaticala/trainingCost/+10",
+      "kind": "skill-param-delta",
+      "skill": "transformare-gramaticala",
+      "param": "trainingCost",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/transformare-gramaticala/trainingCost/+20",
+      "kind": "skill-param-delta",
+      "skill": "transformare-gramaticala",
+      "param": "trainingCost",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/dialog/trainability/-20",
+      "kind": "skill-param-delta",
+      "skill": "dialog",
+      "param": "trainability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/dialog/trainability/-10",
+      "kind": "skill-param-delta",
+      "skill": "dialog",
+      "param": "trainability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/dialog/trainability/+10",
+      "kind": "skill-param-delta",
+      "skill": "dialog",
+      "param": "trainability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/dialog/trainability/+20",
+      "kind": "skill-param-delta",
+      "skill": "dialog",
+      "param": "trainability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/dialog/transferReliability/-20",
+      "kind": "skill-param-delta",
+      "skill": "dialog",
+      "param": "transferReliability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/dialog/transferReliability/-10",
+      "kind": "skill-param-delta",
+      "skill": "dialog",
+      "param": "transferReliability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/dialog/transferReliability/+10",
+      "kind": "skill-param-delta",
+      "skill": "dialog",
+      "param": "transferReliability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/dialog/transferReliability/+20",
+      "kind": "skill-param-delta",
+      "skill": "dialog",
+      "param": "transferReliability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/dialog/trainingCost/-20",
+      "kind": "skill-param-delta",
+      "skill": "dialog",
+      "param": "trainingCost",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/dialog/trainingCost/-10",
+      "kind": "skill-param-delta",
+      "skill": "dialog",
+      "param": "trainingCost",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/dialog/trainingCost/+10",
+      "kind": "skill-param-delta",
+      "skill": "dialog",
+      "param": "trainingCost",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/dialog/trainingCost/+20",
+      "kind": "skill-param-delta",
+      "skill": "dialog",
+      "param": "trainingCost",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/intrebari-directe/trainability/-20",
+      "kind": "skill-param-delta",
+      "skill": "intrebari-directe",
+      "param": "trainability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/intrebari-directe/trainability/-10",
+      "kind": "skill-param-delta",
+      "skill": "intrebari-directe",
+      "param": "trainability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/intrebari-directe/trainability/+10",
+      "kind": "skill-param-delta",
+      "skill": "intrebari-directe",
+      "param": "trainability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/intrebari-directe/trainability/+20",
+      "kind": "skill-param-delta",
+      "skill": "intrebari-directe",
+      "param": "trainability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/intrebari-directe/transferReliability/-20",
+      "kind": "skill-param-delta",
+      "skill": "intrebari-directe",
+      "param": "transferReliability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/intrebari-directe/transferReliability/-10",
+      "kind": "skill-param-delta",
+      "skill": "intrebari-directe",
+      "param": "transferReliability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/intrebari-directe/transferReliability/+10",
+      "kind": "skill-param-delta",
+      "skill": "intrebari-directe",
+      "param": "transferReliability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/intrebari-directe/transferReliability/+20",
+      "kind": "skill-param-delta",
+      "skill": "intrebari-directe",
+      "param": "transferReliability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/intrebari-directe/trainingCost/-20",
+      "kind": "skill-param-delta",
+      "skill": "intrebari-directe",
+      "param": "trainingCost",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/intrebari-directe/trainingCost/-10",
+      "kind": "skill-param-delta",
+      "skill": "intrebari-directe",
+      "param": "trainingCost",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/intrebari-directe/trainingCost/+10",
+      "kind": "skill-param-delta",
+      "skill": "intrebari-directe",
+      "param": "trainingCost",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/intrebari-directe/trainingCost/+20",
+      "kind": "skill-param-delta",
+      "skill": "intrebari-directe",
+      "param": "trainingCost",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/enunt-reflexiv/trainability/-20",
+      "kind": "skill-param-delta",
+      "skill": "enunt-reflexiv",
+      "param": "trainability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/enunt-reflexiv/trainability/-10",
+      "kind": "skill-param-delta",
+      "skill": "enunt-reflexiv",
+      "param": "trainability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/enunt-reflexiv/trainability/+10",
+      "kind": "skill-param-delta",
+      "skill": "enunt-reflexiv",
+      "param": "trainability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/enunt-reflexiv/trainability/+20",
+      "kind": "skill-param-delta",
+      "skill": "enunt-reflexiv",
+      "param": "trainability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/enunt-reflexiv/transferReliability/-20",
+      "kind": "skill-param-delta",
+      "skill": "enunt-reflexiv",
+      "param": "transferReliability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/enunt-reflexiv/transferReliability/-10",
+      "kind": "skill-param-delta",
+      "skill": "enunt-reflexiv",
+      "param": "transferReliability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/enunt-reflexiv/transferReliability/+10",
+      "kind": "skill-param-delta",
+      "skill": "enunt-reflexiv",
+      "param": "transferReliability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/enunt-reflexiv/transferReliability/+20",
+      "kind": "skill-param-delta",
+      "skill": "enunt-reflexiv",
+      "param": "transferReliability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/enunt-reflexiv/trainingCost/-20",
+      "kind": "skill-param-delta",
+      "skill": "enunt-reflexiv",
+      "param": "trainingCost",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/enunt-reflexiv/trainingCost/-10",
+      "kind": "skill-param-delta",
+      "skill": "enunt-reflexiv",
+      "param": "trainingCost",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/enunt-reflexiv/trainingCost/+10",
+      "kind": "skill-param-delta",
+      "skill": "enunt-reflexiv",
+      "param": "trainingCost",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/enunt-reflexiv/trainingCost/+20",
+      "kind": "skill-param-delta",
+      "skill": "enunt-reflexiv",
+      "param": "trainingCost",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-repere/trainability/-20",
+      "kind": "skill-param-delta",
+      "skill": "eseu-repere",
+      "param": "trainability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-repere/trainability/-10",
+      "kind": "skill-param-delta",
+      "skill": "eseu-repere",
+      "param": "trainability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-repere/trainability/+10",
+      "kind": "skill-param-delta",
+      "skill": "eseu-repere",
+      "param": "trainability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-repere/trainability/+20",
+      "kind": "skill-param-delta",
+      "skill": "eseu-repere",
+      "param": "trainability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-repere/transferReliability/-20",
+      "kind": "skill-param-delta",
+      "skill": "eseu-repere",
+      "param": "transferReliability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-repere/transferReliability/-10",
+      "kind": "skill-param-delta",
+      "skill": "eseu-repere",
+      "param": "transferReliability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-repere/transferReliability/+10",
+      "kind": "skill-param-delta",
+      "skill": "eseu-repere",
+      "param": "transferReliability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-repere/transferReliability/+20",
+      "kind": "skill-param-delta",
+      "skill": "eseu-repere",
+      "param": "transferReliability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-repere/trainingCost/-20",
+      "kind": "skill-param-delta",
+      "skill": "eseu-repere",
+      "param": "trainingCost",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-repere/trainingCost/-10",
+      "kind": "skill-param-delta",
+      "skill": "eseu-repere",
+      "param": "trainingCost",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-repere/trainingCost/+10",
+      "kind": "skill-param-delta",
+      "skill": "eseu-repere",
+      "param": "trainingCost",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/eseu-repere/trainingCost/+20",
+      "kind": "skill-param-delta",
+      "skill": "eseu-repere",
+      "param": "trainingCost",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/concluzii/trainability/-20",
+      "kind": "skill-param-delta",
+      "skill": "concluzii",
+      "param": "trainability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/concluzii/trainability/-10",
+      "kind": "skill-param-delta",
+      "skill": "concluzii",
+      "param": "trainability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/concluzii/trainability/+10",
+      "kind": "skill-param-delta",
+      "skill": "concluzii",
+      "param": "trainability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/concluzii/trainability/+20",
+      "kind": "skill-param-delta",
+      "skill": "concluzii",
+      "param": "trainability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/concluzii/transferReliability/-20",
+      "kind": "skill-param-delta",
+      "skill": "concluzii",
+      "param": "transferReliability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/concluzii/transferReliability/-10",
+      "kind": "skill-param-delta",
+      "skill": "concluzii",
+      "param": "transferReliability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/concluzii/transferReliability/+10",
+      "kind": "skill-param-delta",
+      "skill": "concluzii",
+      "param": "transferReliability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/concluzii/transferReliability/+20",
+      "kind": "skill-param-delta",
+      "skill": "concluzii",
+      "param": "transferReliability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/concluzii/trainingCost/-20",
+      "kind": "skill-param-delta",
+      "skill": "concluzii",
+      "param": "trainingCost",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/concluzii/trainingCost/-10",
+      "kind": "skill-param-delta",
+      "skill": "concluzii",
+      "param": "trainingCost",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/concluzii/trainingCost/+10",
+      "kind": "skill-param-delta",
+      "skill": "concluzii",
+      "param": "trainingCost",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/concluzii/trainingCost/+20",
+      "kind": "skill-param-delta",
+      "skill": "concluzii",
+      "param": "trainingCost",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/completare-text/trainability/-20",
+      "kind": "skill-param-delta",
+      "skill": "completare-text",
+      "param": "trainability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/completare-text/trainability/-10",
+      "kind": "skill-param-delta",
+      "skill": "completare-text",
+      "param": "trainability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/completare-text/trainability/+10",
+      "kind": "skill-param-delta",
+      "skill": "completare-text",
+      "param": "trainability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/completare-text/trainability/+20",
+      "kind": "skill-param-delta",
+      "skill": "completare-text",
+      "param": "trainability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/completare-text/transferReliability/-20",
+      "kind": "skill-param-delta",
+      "skill": "completare-text",
+      "param": "transferReliability",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/completare-text/transferReliability/-10",
+      "kind": "skill-param-delta",
+      "skill": "completare-text",
+      "param": "transferReliability",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/completare-text/transferReliability/+10",
+      "kind": "skill-param-delta",
+      "skill": "completare-text",
+      "param": "transferReliability",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/completare-text/transferReliability/+20",
+      "kind": "skill-param-delta",
+      "skill": "completare-text",
+      "param": "transferReliability",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/completare-text/trainingCost/-20",
+      "kind": "skill-param-delta",
+      "skill": "completare-text",
+      "param": "trainingCost",
+      "deltaPct": -20,
+      "group": "primary"
+    },
+    {
+      "id": "primary/completare-text/trainingCost/-10",
+      "kind": "skill-param-delta",
+      "skill": "completare-text",
+      "param": "trainingCost",
+      "deltaPct": -10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/completare-text/trainingCost/+10",
+      "kind": "skill-param-delta",
+      "skill": "completare-text",
+      "param": "trainingCost",
+      "deltaPct": 10,
+      "group": "primary"
+    },
+    {
+      "id": "primary/completare-text/trainingCost/+20",
+      "kind": "skill-param-delta",
+      "skill": "completare-text",
+      "param": "trainingCost",
+      "deltaPct": 20,
+      "group": "primary"
+    },
+    {
+      "id": "boundary/sinonime-antonime/trainability/-20",
+      "kind": "skill-param-delta",
+      "skill": "sinonime-antonime",
+      "param": "trainability",
+      "deltaPct": -20,
+      "group": "boundary"
+    },
+    {
+      "id": "boundary/sinonime-antonime/trainability/-10",
+      "kind": "skill-param-delta",
+      "skill": "sinonime-antonime",
+      "param": "trainability",
+      "deltaPct": -10,
+      "group": "boundary"
+    },
+    {
+      "id": "boundary/sinonime-antonime/trainability/+10",
+      "kind": "skill-param-delta",
+      "skill": "sinonime-antonime",
+      "param": "trainability",
+      "deltaPct": 10,
+      "group": "boundary"
+    },
+    {
+      "id": "boundary/sinonime-antonime/trainability/+20",
+      "kind": "skill-param-delta",
+      "skill": "sinonime-antonime",
+      "param": "trainability",
+      "deltaPct": 20,
+      "group": "boundary"
+    },
+    {
+      "id": "boundary/sinonime-antonime/transferReliability/-20",
+      "kind": "skill-param-delta",
+      "skill": "sinonime-antonime",
+      "param": "transferReliability",
+      "deltaPct": -20,
+      "group": "boundary"
+    },
+    {
+      "id": "boundary/sinonime-antonime/transferReliability/-10",
+      "kind": "skill-param-delta",
+      "skill": "sinonime-antonime",
+      "param": "transferReliability",
+      "deltaPct": -10,
+      "group": "boundary"
+    },
+    {
+      "id": "boundary/sinonime-antonime/transferReliability/+10",
+      "kind": "skill-param-delta",
+      "skill": "sinonime-antonime",
+      "param": "transferReliability",
+      "deltaPct": 10,
+      "group": "boundary"
+    },
+    {
+      "id": "boundary/sinonime-antonime/transferReliability/+20",
+      "kind": "skill-param-delta",
+      "skill": "sinonime-antonime",
+      "param": "transferReliability",
+      "deltaPct": 20,
+      "group": "boundary"
+    },
+    {
+      "id": "boundary/sinonime-antonime/trainingCost/-20",
+      "kind": "skill-param-delta",
+      "skill": "sinonime-antonime",
+      "param": "trainingCost",
+      "deltaPct": -20,
+      "group": "boundary"
+    },
+    {
+      "id": "boundary/sinonime-antonime/trainingCost/-10",
+      "kind": "skill-param-delta",
+      "skill": "sinonime-antonime",
+      "param": "trainingCost",
+      "deltaPct": -10,
+      "group": "boundary"
+    },
+    {
+      "id": "boundary/sinonime-antonime/trainingCost/+10",
+      "kind": "skill-param-delta",
+      "skill": "sinonime-antonime",
+      "param": "trainingCost",
+      "deltaPct": 10,
+      "group": "boundary"
+    },
+    {
+      "id": "boundary/sinonime-antonime/trainingCost/+20",
+      "kind": "skill-param-delta",
+      "skill": "sinonime-antonime",
+      "param": "trainingCost",
+      "deltaPct": 20,
+      "group": "boundary"
+    },
+    {
+      "id": "policy/safetyTarget/17",
+      "kind": "safety-target",
+      "value": 17,
+      "group": "boundary"
+    },
+    {
+      "id": "policy/safetyTarget/19",
+      "kind": "safety-target",
+      "value": 19,
+      "group": "boundary"
+    },
+    {
+      "id": "policy/sinonime-antonime/transferReliability=0.4",
+      "kind": "skill-param-absolute",
+      "skill": "sinonime-antonime",
+      "param": "transferReliability",
+      "value": 0.4,
+      "group": "boundary"
+    },
+    {
+      "id": "policy/sinonime-antonime/trainingCost=4.0",
+      "kind": "skill-param-absolute",
+      "skill": "sinonime-antonime",
+      "param": "trainingCost",
+      "value": 4,
+      "group": "boundary"
+    }
+  ]
+}

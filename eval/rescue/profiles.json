@@ -1,0 +1,1832 @@
+[
+  {
+    "id": "CS01",
+    "label": "single dominant demonstrated: felicitare 1/5",
+    "band": "clearly-separated",
+    "note": "one route-eligible demonstrated skill; route length 1",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "CS02",
+    "label": "single dominant demonstrated: transformare 2/5",
+    "band": "clearly-separated",
+    "note": "one demonstrated skill; route length 1",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "CS03",
+    "label": "single dominant demonstrated tier-2: dialog 2/6",
+    "band": "clearly-separated",
+    "note": "one demonstrated tier-2 skill; route length 1",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "dialog": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "felicitare": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 5,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "CS04",
+    "label": "obvious top: felicitare 1/5 >> transformare 3/5 > eseu-volum 3/4",
+    "band": "clearly-separated",
+    "note": "top-1 ahead by ~27%",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "corectitudine": {
+        "earned": 4,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "CS05",
+    "label": "obvious top: transformare 1/5 >> dialog 2/6 > completare-text 1/3",
+    "band": "clearly-separated",
+    "note": "tier-1 leader >> tier-2 >> tier-3",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "felicitare": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 4,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "CS06",
+    "label": "obvious top: felicitare 2/5 > dialog 3/6 > concluzii 1/2",
+    "band": "clearly-separated",
+    "note": "tier-1 leader clearly ahead (~63%)",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "transformare-gramaticala": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "dialog": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "felicitare": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 5,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "CS07",
+    "label": "W2-sparse: felicitare 2/5 vs transformare/eseu-volum/dialog attempted-0",
+    "band": "clearly-separated",
+    "note": "gate must hold: only felicitare eligible; route [felicitare]",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "transformare-gramaticala": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "felicitare": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "CS08",
+    "label": "W2-sparse: transformare 3/5 vs five other skills attempted-0",
+    "band": "clearly-separated",
+    "note": "only transformare demonstrated; route [transformare]",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "transformare-gramaticala": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "felicitare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "CS09",
+    "label": "W2-sparse: eseu-volum 2/4 vs everything else attempted-0",
+    "band": "clearly-separated",
+    "note": "only eseu-volum demonstrated; route [eseu-volum]",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "transformare-gramaticala": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "felicitare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "corectitudine": {
+        "earned": 2,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "CS10",
+    "label": "sparse: 2 demonstrated (felicitare 2/5, dialog 2/6)",
+    "band": "clearly-separated",
+    "note": "fewer than 4 demonstrated targets; route length 2",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "dialog": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "felicitare": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "CS11",
+    "label": "sparse: 4 demonstrated across tiers, unambiguous order",
+    "band": "clearly-separated",
+    "note": "transformare 2/5 > felicitare 3/5 > completare-text 1/3 > sinonime 1/4",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "sinonime-antonime": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "CS12",
+    "label": "sparse: 1 demonstrated (felicitare 3/5)",
+    "band": "clearly-separated",
+    "note": "route [felicitare] length 1",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "CS13",
+    "label": "near-pass score ~15, single tier-1 target",
+    "band": "clearly-separated",
+    "note": "one demonstrated skill near safetyTarget; route length 1",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 6,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "CS14",
+    "label": "score ~13, route length 3, clear top-1",
+    "band": "clearly-separated",
+    "note": "felicitare 1/5 (1.50) >> transformare 3/5 (1.10) > eseu-volum 2/4 (1.01)",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "CS15",
+    "label": "score ~10, route capped at 4, clear top-1 (~27%)",
+    "band": "clearly-separated",
+    "note": "felicitare 1/5 >> transformare 3/5 > eseu-volum 2/4 > dialog 2/6 (5th candidate present)",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "felicitare": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT01",
+    "label": "tier-1 exact kappa tie: felicitare 2/5 == transformare 2/5 (+ eseu-volum 1/4)",
+    "band": "near-tie",
+    "note": "exact priority tie broken by doc order; any single-skill perturbation flips top-1",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT02",
+    "label": "tier-1 exact tie: felicitare 3/5 == transformare 3/5 (+ dialog 2/6)",
+    "band": "near-tie",
+    "note": "lower-ERP tier-1 exact tie",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "felicitare": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 4,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT03",
+    "label": "tier-1 near cluster: felicitare 2/5 == transformare 2/5, eseu-volum 2/4 close",
+    "band": "near-tie",
+    "note": "exact pair + a close third",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT04",
+    "label": "tier-1 exact tie at high ERP: felicitare 1/5 == transformare 1/5",
+    "band": "near-tie",
+    "note": "exact tie ~1.50",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT05",
+    "label": "tier-2 near-tie: intrebari-directe 1/4 ~ dialog 4/6 (~3%)",
+    "band": "near-tie",
+    "note": "two tier-2 skills within a few percent",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "dialog": {
+        "earned": 4,
+        "form": "partial"
+      },
+      "felicitare": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-repere": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 4,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT06",
+    "label": "tier-2 near-tie: intrebari-directe 1/4 ~ dialog 4/6, eseu-repere 1/3 close",
+    "band": "near-tie",
+    "note": "tier-2 cluster",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "intrebari-directe": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "dialog": {
+        "earned": 4,
+        "form": "partial"
+      },
+      "felicitare": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-repere": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT07",
+    "label": "tier-2 near-tie: intrebari-directe 2/4 ~ eseu-repere 1/3 (~14%)",
+    "band": "near-tie",
+    "note": "lower tier-2 pair",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "intrebari-directe": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-repere": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT08",
+    "label": "cross-tier near-tie: completare-text 1/3 ~ eseu-repere 2/3 (~9%)",
+    "band": "near-tie",
+    "note": "tier-3 vs tier-2-low",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "transformare-gramaticala": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-repere": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 4,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT09",
+    "label": "cross-tier near-tie: enunt-reflexiv 1/2 ~ completare-text 2/3 ~ concluzii 1/2",
+    "band": "near-tie",
+    "note": "tier-2-low / tier-3 cluster",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "transformare-gramaticala": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 4,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT10",
+    "label": "cross-tier near-tie incl. boundary skill: completare-text 1/3 ~ eseu-repere 2/3, sinonime 1/4",
+    "band": "near-tie",
+    "note": "cross-tier cluster + sinonime-antonime (boundary skill) as tail candidate",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "sinonime-antonime": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "transformare-gramaticala": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-repere": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "corectitudine": {
+        "earned": 4,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT11",
+    "label": "greedy-stop 2<->3 boundary: score ~15, two tier-1 ERP ~1.50 => cumulative ~18.0",
+    "band": "near-tie",
+    "note": "route length 2 at baseline; a down-perturbation of either tier-1 skill lets a 3rd in",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "eseu-volum": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "corectitudine": {
+        "earned": 6,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT12",
+    "label": "greedy-stop 3<->2 boundary: score ~15, felicitare 1/5 + transformare 2/5 cumulative ~17.9",
+    "band": "near-tie",
+    "note": "route length 3 at baseline; an up-perturbation of a tier-1 skill stops it at 2",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "felicitare": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "eseu-volum": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "corectitudine": {
+        "earned": 5,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT13",
+    "label": "greedy-stop 3<->4 boundary: score ~13, three skills cumulative ~17.9",
+    "band": "near-tie",
+    "note": "route length 3 at baseline; a small change tips a 4th skill in/out",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "felicitare": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "corectitudine": {
+        "earned": 5,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT14",
+    "label": "route-length 3<->4 boundary (different skills): score ~13",
+    "band": "near-tie",
+    "note": "felicitare 2/5 + transformare 3/5 + dialog 3/6 cumulative near 18; 4th marginal",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "felicitare": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "corectitudine": {
+        "earned": 4,
+        "form": "partial"
+      }
+    }
+  },
+  {
+    "id": "NT15",
+    "label": "route capped at 4 with a 5th candidate present: score ~13",
+    "band": "near-tie",
+    "note": "cap invariant under perturbation; felicitare/transformare/eseu-volum/dialog/intrebari all demonstrated",
+    "source": "synthetic",
+    "skills": {
+      "completare-text": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "sinonime-antonime": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "enunt-reflexiv": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "intrebari-directe": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "portret-caracterizare": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "concluzii": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "transformare-gramaticala": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "dialog": {
+        "earned": 3,
+        "form": "partial"
+      },
+      "felicitare": {
+        "earned": 1,
+        "form": "partial"
+      },
+      "eseu-repere": {
+        "earned": 0,
+        "form": "blank"
+      },
+      "eseu-coerenta": {
+        "earned": 0,
+        "form": "attempt"
+      },
+      "eseu-volum": {
+        "earned": 2,
+        "form": "partial"
+      },
+      "corectitudine": {
+        "earned": 3,
+        "form": "partial"
+      }
+    }
+  }
+]

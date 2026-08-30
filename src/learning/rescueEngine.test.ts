@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { buildScoringAtoms, reviewStatus, classifyErrorType, evaluateSkillEvidence, selectRescueRoute, computeForecast } from './rescueEngine'
+import { RESCUE_CONFIG } from './rescueConfig'
 import { romanianSb26 } from '@/data/exams/romanian-sb26'
 import type { BaremResult, RescueSkillEvidence, ScoringAtom } from '@/types'
 
@@ -288,6 +289,51 @@ describe('selectRescueRoute — demonstrated-competence gate (route builds on ea
       atom({ skillTag: 'felicitare', earnedPoints: 2, maxPoints: 5, reviewStatus: 'partial' }),
     ]
     expect(selectRescueRoute(evaluateSkillEvidence(atoms), 6)).toEqual(['felicitare'])
+  })
+})
+
+// P1-2: the engine now takes an optional `config` (default RESCUE_CONFIG) so a
+// perturbed copy can be passed for sensitivity analysis. Production/default
+// behaviour must be byte-for-byte unchanged.
+describe('selectRescueRoute / evaluateSkillEvidence — optional config is default-compatible', () => {
+  const scenarios: ScoringAtom[][] = [
+    [atom({ skillTag: 'felicitare', earnedPoints: 2, maxPoints: 5, reviewStatus: 'partial' })],
+    [
+      atom({ skillTag: 'transformare-gramaticala', earnedPoints: 2, maxPoints: 5, reviewStatus: 'partial' }),
+      atom({ skillTag: 'felicitare', earnedPoints: 2, maxPoints: 5, reviewStatus: 'partial' }),
+      atom({ skillTag: 'eseu-volum', earnedPoints: 1, maxPoints: 4, reviewStatus: 'partial' }),
+      atom({ skillTag: 'dialog', earnedPoints: 0, maxPoints: 6, reviewStatus: 'incorrect' }),
+    ],
+    [
+      atom({ skillTag: 'portret-caracterizare', earnedPoints: 0, maxPoints: 3, reviewStatus: 'incorrect' }),
+      atom({ skillTag: 'sinonime-antonime', earnedPoints: 1, maxPoints: 4, reviewStatus: 'partial', gradingConfidence: 1 }),
+      atom({ skillTag: 'corectitudine', earnedPoints: 3, maxPoints: 7, reviewStatus: 'needs_review', gradingConfidence: 0.5 }),
+    ],
+  ]
+
+  it('evaluateSkillEvidence: no-arg === explicit RESCUE_CONFIG', () => {
+    for (const atoms of scenarios) {
+      expect(evaluateSkillEvidence(atoms)).toEqual(evaluateSkillEvidence(atoms, [], RESCUE_CONFIG))
+    }
+  })
+
+  it('selectRescueRoute: no-arg === explicit RESCUE_CONFIG, across scores', () => {
+    for (const atoms of scenarios) {
+      const ev = evaluateSkillEvidence(atoms)
+      for (const score of [0, 5, 10, 14, 17, 18, 25]) {
+        expect(selectRescueRoute(ev, score)).toEqual(selectRescueRoute(ev, score, RESCUE_CONFIG))
+      }
+    }
+  })
+
+  it('pins the pre-P1-2 default routes for a representative near-pass profile', () => {
+    const atoms = scenarios[1]!
+    const ev = evaluateSkillEvidence(atoms)
+    // felicitare/transformare are an exact priority tie -> doc order (transformare first);
+    // dialog has 0 earned -> gated out; eseu-volum third; greedy stop at safetyTarget.
+    expect(selectRescueRoute(ev, 16)).toEqual(['transformare-gramaticala', 'felicitare'])
+    expect(selectRescueRoute(ev, 15)).toEqual(['transformare-gramaticala', 'felicitare', 'eseu-volum'])
+    expect(selectRescueRoute(ev, 18)).toEqual([])
   })
 })
 

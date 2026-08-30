@@ -187,9 +187,14 @@ export function evaluateSkillEvidence(
   })
 }
 
-/** Greedy, priority-ranked selection of 2–4 (never forced) recoverable skills, stopping once
- * the plausible projected total reaches safetyTarget. Never selects 'expensive',
- * 'confirmedStrong', 'likelyStrong', or 'uncertain' skills — see the architecture plan §N. */
+/** Greedy, priority-ranked selection of up to `maxRescueSkills` recoverable skills the student
+ * has already earned points on (aggregate `earnedPoints > 0`) — a short Rescue route builds on
+ * demonstrated partial competence, not zero-evidence topics the student would have to learn
+ * from scratch. Stops once the plausible projected total reaches `safetyTarget`; the route may
+ * be shorter, or empty (student already at/above `safetyTarget`, or no demonstrated recoverable
+ * weakness). Never selects 'expensive', 'confirmedStrong', 'likelyStrong', or 'uncertain'
+ * skills — see the architecture plan §N. A zero-evidence skill still appears in the diagnostic
+ * zones; this gate is about route eligibility, not hiding a learning gap. */
 export function selectRescueRoute(
   evidence: RescueSkillEvidence[],
   currentScore: number,
@@ -197,7 +202,7 @@ export function selectRescueRoute(
   if (currentScore >= RESCUE_CONFIG.safetyTarget) return []
 
   const candidates = evidence
-    .filter((e) => e.state === 'recoverable' && e.priority > 0)
+    .filter((e) => e.state === 'recoverable' && e.priority > 0 && e.earnedPoints > 0)
     .sort((a, b) => b.priority - a.priority)
 
   const route: RescueSkillTag[] = []

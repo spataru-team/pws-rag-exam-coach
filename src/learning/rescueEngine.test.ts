@@ -134,8 +134,11 @@ describe('evaluateSkillEvidence', () => {
 
 function evidence(overrides: Partial<RescueSkillEvidence>): RescueSkillEvidence {
   return {
-    skillTag: 'felicitare', observations: 1, earnedPoints: 0, maxPoints: 5,
-    performanceRatio: 0, errorTypes: ['unknown'], evidenceConfidence: 0.5,
+    // A "normal" recoverable candidate has demonstrated some scorable competence
+    // (aggregate earnedPoints > 0) — that is the default here. Tests for the
+    // zero-competence route gate set earnedPoints: 0 explicitly.
+    skillTag: 'felicitare', observations: 1, earnedPoints: 1, maxPoints: 5,
+    performanceRatio: 0.2, errorTypes: ['unknown'], evidenceConfidence: 0.5,
     state: 'recoverable', estimatedRecoverablePoints: 1, trainingCost: 1,
     transferReliability: 0.8, priority: 1, ...overrides,
   }
@@ -178,6 +181,113 @@ describe('selectRescueRoute', () => {
   it('a single skill can be enough (route need not have a hard minimum)', () => {
     const route = selectRescueRoute([evidence({ priority: 5, estimatedRecoverablePoints: 10 })], 12)
     expect(route).toEqual(['felicitare'])
+  })
+})
+
+describe('selectRescueRoute — demonstrated-competence gate (route builds on earned points)', () => {
+  it('excludes a recoverable skill with zero demonstrated competence, even at higher priority', () => {
+    const zeroBase = evidence({
+      skillTag: 'felicitare', state: 'recoverable', priority: 5, earnedPoints: 0, estimatedRecoverablePoints: 3,
+    })
+    const demonstrated = evidence({
+      skillTag: 'dialog', state: 'recoverable', priority: 2, earnedPoints: 1, estimatedRecoverablePoints: 2,
+    })
+    expect(selectRescueRoute([zeroBase, demonstrated], 10)).toEqual(['dialog'])
+  })
+
+  // Regression for probe W2: a broadly weak student who attempted many items and
+  // scored 0 on almost all of them, with felicitare 2/5 the only skill showing
+  // any scorable competence. Before this gate the route pulled in transformare
+  // 0/5, eseu-volum 0/4 and dialog 0/6 (larger raw deficits). After: only the
+  // demonstrated skill is a route target.
+  it('W2: broadly weak student — route contains only the demonstrated skill (felicitare 2/5)', () => {
+    const atoms = [
+      atom({ skillTag: 'transformare-gramaticala', earnedPoints: 0, maxPoints: 5, reviewStatus: 'incorrect' }),
+      atom({ skillTag: 'eseu-volum', earnedPoints: 0, maxPoints: 4, reviewStatus: 'incorrect' }),
+      atom({ skillTag: 'dialog', earnedPoints: 0, maxPoints: 6, reviewStatus: 'incorrect' }),
+      atom({ skillTag: 'intrebari-directe', earnedPoints: 0, maxPoints: 4, reviewStatus: 'incorrect' }),
+      atom({ skillTag: 'completare-text', earnedPoints: 0, maxPoints: 3, reviewStatus: 'incorrect' }),
+      atom({ skillTag: 'felicitare', earnedPoints: 2, maxPoints: 5, reviewStatus: 'partial' }),
+    ]
+    const route = selectRescueRoute(evaluateSkillEvidence(atoms), 4)
+    expect(route).toEqual(['felicitare'])
+  })
+
+  it('A: several skills with positive credit — route ranks and selects normally', () => {
+    const atoms = [
+      atom({ skillTag: 'transformare-gramaticala', earnedPoints: 2, maxPoints: 5, reviewStatus: 'partial' }),
+      atom({ skillTag: 'felicitare', earnedPoints: 2, maxPoints: 5, reviewStatus: 'partial' }),
+      atom({ skillTag: 'eseu-volum', earnedPoints: 1, maxPoints: 4, reviewStatus: 'partial' }),
+    ]
+    const route = selectRescueRoute(evaluateSkillEvidence(atoms), 12)
+    expect(route.length).toBeGreaterThan(0)
+    expect(route.every((t) => ['transformare-gramaticala', 'felicitare', 'eseu-volum'].includes(t))).toBe(true)
+  })
+
+  it('B: a mixed multi-atom skill (one zero sub-criterion + one scored) stays eligible', () => {
+    const atoms = [
+      atom({ skillTag: 'dialog', subCriterionId: 'lexic', earnedPoints: 2, maxPoints: 2, reviewStatus: 'correct' }),
+      atom({ skillTag: 'dialog', subCriterionId: 'replici', earnedPoints: 0, maxPoints: 4, reviewStatus: 'incorrect' }),
+    ]
+    const ev = evaluateSkillEvidence(atoms)
+    expect(ev.find((e) => e.skillTag === 'dialog')!.earnedPoints).toBe(2)
+    expect(selectRescueRoute(ev, 12)).toContain('dialog')
+  })
+
+  it('C: an all-zero multi-atom skill is not route-eligible', () => {
+    const atoms = [
+      atom({ skillTag: 'dialog', subCriterionId: 'lexic', earnedPoints: 0, maxPoints: 2, reviewStatus: 'incorrect' }),
+      atom({ skillTag: 'dialog', subCriterionId: 'replici', earnedPoints: 0, maxPoints: 4, reviewStatus: 'incorrect' }),
+      atom({ skillTag: 'felicitare', earnedPoints: 3, maxPoints: 5, reviewStatus: 'partial' }),
+    ]
+    const route = selectRescueRoute(evaluateSkillEvidence(atoms), 10)
+    expect(route).not.toContain('dialog')
+    expect(route).toEqual(['felicitare'])
+  })
+
+  it('D: near-pass profile with all demonstrated skills is unchanged (greedy stop at safetyTarget)', () => {
+    const atoms = [
+      atom({ skillTag: 'transformare-gramaticala', earnedPoints: 2, maxPoints: 5, reviewStatus: 'partial' }),
+      atom({ skillTag: 'felicitare', earnedPoints: 2, maxPoints: 5, reviewStatus: 'partial' }),
+      atom({ skillTag: 'eseu-volum', earnedPoints: 1, maxPoints: 4, reviewStatus: 'partial' }),
+      atom({ skillTag: 'dialog', earnedPoints: 2, maxPoints: 6, reviewStatus: 'partial' }),
+    ]
+    const route = selectRescueRoute(evaluateSkillEvidence(atoms), 15)
+    expect(route).toEqual(['transformare-gramaticala', 'felicitare', 'eseu-volum'])
+  })
+
+  it('E: a student already at safetyTarget still gets an empty route, even with demonstrated recoverable skills', () => {
+    const atoms = [atom({ skillTag: 'felicitare', earnedPoints: 3, maxPoints: 5, reviewStatus: 'partial' })]
+    expect(selectRescueRoute(evaluateSkillEvidence(atoms), 18)).toEqual([])
+  })
+
+  it('F: the route is still capped at maxRescueSkills (4) with more demonstrated recoverable skills', () => {
+    const tags = [
+      'completare-text', 'transformare-gramaticala', 'felicitare', 'dialog', 'intrebari-directe', 'eseu-repere',
+    ] as const
+    const atoms = tags.map((t) => atom({ skillTag: t, earnedPoints: 1, maxPoints: 5, reviewStatus: 'partial' }))
+    expect(selectRescueRoute(evaluateSkillEvidence(atoms), 3).length).toBe(4)
+  })
+
+  it('G: a single demonstrated skill is a valid route — no hard minimum is introduced', () => {
+    const atoms = [
+      atom({ skillTag: 'felicitare', earnedPoints: 3, maxPoints: 5, reviewStatus: 'partial' }),
+      atom({ skillTag: 'transformare-gramaticala', earnedPoints: 0, maxPoints: 5, reviewStatus: 'incorrect' }),
+    ]
+    expect(selectRescueRoute(evaluateSkillEvidence(atoms), 16)).toEqual(['felicitare'])
+  })
+
+  // §4: a zero-point skill is out of the ROUTE regardless of HOW it scored zero —
+  // blank open (self / needs_review), blank short (deterministic / incorrect), or
+  // a nonblank attempt (incorrect). Internal diagnostic state may still differ.
+  it('excludes every zero-point form from the route (blank-open, blank-short, nonblank-attempt)', () => {
+    const atoms = [
+      atom({ skillTag: 'dialog', earnedPoints: 0, maxPoints: 6, errorType: 'blank', reviewStatus: 'needs_review', gradingConfidence: 0.5 }),
+      atom({ skillTag: 'sinonime-antonime', earnedPoints: 0, maxPoints: 4, errorType: 'blank', reviewStatus: 'incorrect', gradingConfidence: 1 }),
+      atom({ skillTag: 'transformare-gramaticala', earnedPoints: 0, maxPoints: 5, errorType: 'unknown', reviewStatus: 'incorrect', gradingConfidence: 1 }),
+      atom({ skillTag: 'felicitare', earnedPoints: 2, maxPoints: 5, reviewStatus: 'partial' }),
+    ]
+    expect(selectRescueRoute(evaluateSkillEvidence(atoms), 6)).toEqual(['felicitare'])
   })
 })
 

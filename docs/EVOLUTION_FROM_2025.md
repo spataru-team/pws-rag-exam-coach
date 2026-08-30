@@ -75,7 +75,7 @@ the **official ANCE exam marking scheme (barem)**.
 |---|---|---|
 | What the AI produces | a grounded answer from the material | a grounded answer **plus** a scored diagnosis and a point-recovery route |
 | Where "what matters" comes from | the material itself | the **official ANCE rubric** |
-| Pipeline | material → retrieval → grounded answer | student answer → **official rubric criteria / scoring atoms** → skill mapping → lost points → 🟢/🟡/🔴 **recoverable-value zones** → ranked **2–4-skill Rescue route** → **conservative / expected** recovered-points forecast |
+| Pipeline | material → retrieval → grounded answer | student answer → **official rubric criteria / scoring atoms** → skill mapping → lost points → 🟢/🟡/🔴 **recoverable-value zones** → a short **demonstrated-competence-first Rescue route** (up to four skills) → **conservative / expected** recovered-points forecast |
 
 **[repo-verifiable]** — the 2026 pipeline: barem grading
 (`src/learning/baremGrader.ts`, design spec 2026-06-10); Rescue Mode

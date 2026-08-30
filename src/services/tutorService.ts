@@ -11,6 +11,7 @@ import type { ScoredChunk } from '@/rag'
 import { metricsRepo } from '@/storage'
 import { getTopic } from '@/data/subjectRegistry'
 import { retrieve } from './ragService'
+import { citationCheck } from './citationCheck'
 
 export interface TutorRequest {
   subjectId: SubjectId
@@ -60,8 +61,6 @@ export interface TutorResponse {
   formatCompliance: number
   metrics: ModelRunMetrics
 }
-
-const CITATION_RE = /\[#([^\]]+)\]/g
 
 /**
  * End-to-end grounded tutoring: retrieve → build subject prompt → call provider
@@ -161,27 +160,25 @@ export async function getTutorFeedback(req: TutorRequest): Promise<TutorResponse
     }
   }
 
-  const citedChunkIds = Array.from(chat.content.matchAll(CITATION_RE), (m) => m[1] as string)
-  const retrievedIds = new Set(retrieval.results.map((r) => r.chunk.id))
-  const validCites = citedChunkIds.filter((id) => retrievedIds.has(id))
-
-  const groundednessScore =
-    citedChunkIds.length === 0
-      ? retrieval.insufficient
-        ? 1 // correctly refused / nothing to ground
-        : 0
-      : validCites.length / citedChunkIds.length
-  const formatCompliance = citedChunkIds.length > 0 || retrieval.insufficient ? 1 : 0
-
-  // Hard groundedness gate: a `[#id]` the model invented (never actually
-  // retrieved) is worse than no citation at all — a student can't tell a real
-  // source number from a fabricated one, so strip fabricated ones outright.
-  // If most of an answer's citations are fabricated, the prose around them is
-  // suspect too; fold that into `insufficient` so the UI's existing warning
-  // banner covers it, rather than serving a confident-looking but unverifiable
-  // explanation.
-  const answer = stripInvalidCitations(chat.content, retrievedIds)
-  const insufficient = retrieval.insufficient || (citedChunkIds.length > 0 && groundednessScore < 0.5)
+  // Mechanical citation-integrity pipeline (extract `[#id]` markers → membership
+  // check → strip fabricated ones → groundedness / format compliance → fold to
+  // `insufficient` when most citations are fabricated). Shared verbatim with the
+  // safety benchmark (`eval/safety/`). A `[#id]` the model invented is worse than
+  // no citation at all — a student can't tell a real source number from a
+  // fabricated one — so fabricated markers are stripped outright, and if most of
+  // an answer's citations are fabricated the prose around them is suspect too, so
+  // that folds into the same `insufficient` state the UI's warning banner covers.
+  const {
+    citedChunkIds,
+    groundednessScore,
+    formatCompliance,
+    insufficient,
+    sanitizedAnswer: answer,
+  } = citationCheck({
+    retrievedChunkIds: retrieval.results.map((r) => r.chunk.id),
+    modelAnswer: chat.content,
+    retrievalInsufficient: retrieval.insufficient,
+  })
 
   const metrics: ModelRunMetrics = {
     id: `mrm_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
@@ -214,13 +211,6 @@ export async function getTutorFeedback(req: TutorRequest): Promise<TutorResponse
     formatCompliance,
     metrics,
   }
-}
-
-/** Removes a `[#id]` citation marker for any id that wasn't actually retrieved
- * — the model invented it — while leaving valid citations and the rest of the
- * prose untouched. */
-function stripInvalidCitations(content: string, retrievedIds: Set<string>): string {
-  return content.replace(CITATION_RE, (match, id: string) => (retrievedIds.has(id) ? match : ''))
 }
 
 /** Zeroed metrics for the degraded path where no LLM call was made. */

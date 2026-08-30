@@ -10,7 +10,7 @@ safeguard is partial or a risk is only mitigated by design intent, it says so.
 | | |
 |---|---|
 | **Mitigation** | Feedback is generated only over retrieved curriculum passages and must cite them as `[#chunkId]`. A citation to an id that was never retrieved is stripped from the answer before the student sees it; if most of an answer's citations are fabricated, the whole response is folded into the same "insufficient evidence" state the UI already shows. Retrieval itself refuses when the best match among the final top-K is below a per-model similarity threshold. |
-| **Evidence** | Groundedness gate: `src/services/tutorService.ts`. Insufficient-evidence gate: `src/rag/retrieve.ts` (`DEFAULT_MIN_SIMILARITY`, 0.42 for `bge-m3`). Metrics — groundedness, format compliance, citation validity, refusal accuracy (**0.80** measured) — defined in [EVALUATION.md](./EVALUATION.md). |
+| **Evidence** | Groundedness gate: `src/services/tutorService.ts` (mechanical citation pipeline extracted to `src/services/citationCheck.ts`, shared with the safety benchmark). Insufficient-evidence gate: `src/rag/retrieve.ts` (`DEFAULT_MIN_SIMILARITY`, 0.42 for `bge-m3`). Metrics — groundedness, format compliance, citation validity, refusal accuracy (**0.80 = 4/5, n = 5**, `auto`/`bge-m3` mode) — defined in [EVALUATION.md](./EVALUATION.md). A deterministic `npm run eval:safety` benchmark characterizes refusal and citation-integrity behaviour (including known over-refusal on the offline stub and within-subject near-match under-refusals) without gating on it. |
 
 ### 2. Incorrect AI grading
 

@@ -126,7 +126,17 @@
     "lang": "ro",
     "category": "over-refusal-guard",
     "shouldRefuse": false,
-    "rationale": "A clean paraphrase of golden hist-g-001; hist-chr-001 answers it directly.",
+    "rationale": "A clean, well-formed paraphrase of golden hist-g-001; hist-chr-001 answers it directly.",
+    "source": "synthetic"
+  },
+  {
+    "id": "A-or-04",
+    "subjectId": "history",
+    "query": "ce inseamna un secol si cum ordonez evenimentele in timp",
+    "lang": "ro",
+    "category": "over-refusal-guard",
+    "shouldRefuse": false,
+    "rationale": "Same on-topic question as A-or-03 but in informal, no-diacritics phrasing typical of the L2 phone-typing audience; hist-chr-001 still answers it directly.",
     "source": "synthetic"
   }
 ]

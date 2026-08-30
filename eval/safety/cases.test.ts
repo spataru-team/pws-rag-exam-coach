@@ -33,12 +33,12 @@ describe('citation-fixtures.json', () => {
 })
 
 describe('refusal-cases.json', () => {
-  it('has 13 synthetic cases with unique ids and known categories', async () => {
+  it('has 14 synthetic cases with unique ids and known categories', async () => {
     const cases = JSON.parse(
       await readFile(join(HERE, 'refusal-cases.json'), 'utf8'),
     ) as RefusalCase[]
-    expect(cases).toHaveLength(13)
-    expect(new Set(cases.map((c) => c.id)).size).toBe(13)
+    expect(cases).toHaveLength(14)
+    expect(new Set(cases.map((c) => c.id)).size).toBe(14)
     for (const c of cases)
       expect([
         'no-evidence',

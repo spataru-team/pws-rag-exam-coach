@@ -73,12 +73,14 @@ rank, and whether off-topic questions are correctly refused.
 | + fixed refusal gate + recalibrated threshold | 0.905 | 0.811 | 0.948 | 0.886 | 0.80 |
 | + cross-language query expansion | **0.940** | **0.829** | **0.967** | **0.896** | **0.80** |
 
-Refusal accuracy is **0.80 = 4/5 (n = 5)**, measured in `auto`/`bge-m3` mode; the
-deterministic CI stub has no semantic discrimination and is not gated on it. A
-separate deterministic `npm run eval:safety` benchmark characterizes refusal and
-citation-integrity behaviour (it currently records both over-refusal on the
-offline stub and a within-subject near-match under-refusal) without a pass/fail
-gate. Method and the per-language breakdown: [docs/EVALUATION.md](docs/EVALUATION.md).
+Refusal accuracy is **0.80 = 4/5 (n = 5)**, measured in `auto`/`bge-m3` mode. A
+separate deterministic `npm run eval:safety` benchmark (report only, no gate)
+characterizes the reproducible public-fallback path — a lightweight hash-embedding
+stub whose similarity scores are not on the `bge-m3` scale `DEFAULT_MIN_SIMILARITY`
+is tuned for — for refusal and citation integrity. Its stub-path refusal numbers
+map the boundary of that judge-demo fallback; they are **not** a production
+semantic-refusal score, which is evaluated separately on `bge-m3`. Method and the
+per-language breakdown: [docs/EVALUATION.md](docs/EVALUATION.md).
 
 **An experiment that was rejected.** A cross-encoder reranker
 (`bge-reranker-v2-m3` via OpenVINO) was added to sharpen ranking. Measured, it did

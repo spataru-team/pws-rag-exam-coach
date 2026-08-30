@@ -140,6 +140,40 @@ describe('citationAggregate', () => {
     expect(agg.fabricatedCitationCatchRateMean).toBe(1)
     expect(agg.postSanitizationCitationValidityMean).toBe(1)
   })
+
+  it('pools exact marker micro-counts across the fixture set', () => {
+    const fixtures: CitationFixture[] = [
+      {
+        id: 'B-1',
+        category: 'fabricated',
+        retrievedChunkIds: ['a'],
+        modelAnswer: '[#a] [#x] [#y]', // 1 valid, 2 fabricated
+        retrievalInsufficient: false,
+        note: '',
+        source: 'synthetic',
+        expect: {},
+      },
+      {
+        id: 'B-2',
+        category: 'control',
+        retrievedChunkIds: ['a', 'b'],
+        modelAnswer: '[#a] [#b]', // 2 valid, 0 fabricated
+        retrievalInsufficient: false,
+        note: '',
+        source: 'synthetic',
+        expect: {},
+      },
+    ]
+    const mc = citationAggregate(fixtures).markerCounts
+    expect(mc).toEqual({
+      totalRawMarkers: 5,
+      rawValid: 3,
+      rawFabricated: 2,
+      fabricatedCaught: 2,
+      invalidRemainingAfterSanitization: 0,
+      postSanitizationMarkers: 3,
+    })
+  })
 })
 
 // --- integration: real retrieval against a temp packs dir -------------------

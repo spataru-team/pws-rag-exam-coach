@@ -121,28 +121,43 @@ is measured locally with `npm run eval` (Ollama up).
 
 ### Safety characterization benchmark (`npm run eval:safety`)
 A separate deterministic, offline benchmark (`eval/safety/`) that **characterizes**
-refusal and citation-integrity behaviour. **Report only** — no thresholds file,
-no `--gate`, no CI wiring. Its unit tests run in `npm test`; the benchmark run is
-manual.
+the reproducible public-fallback path for refusal and citation integrity.
+**Report only** — no thresholds file, no `--gate`, no CI wiring. Its unit tests
+run in `npm test`; the benchmark run is manual. `contentHash` over the
+deterministic payload is stable across runs.
 
-- **Subset A — refusal (13 synthetic cases).** Real `retrieveRelevantChunks` in
-  deterministic mode against the public-fallback packs. Each case carries a
-  **human-authored `shouldRefuse` label** — what a correct system ought to do,
-  set independently of current behaviour. The measured `insufficient` verdict is
-  classified `correct` / `under-refusal` / `over-refusal`. A mismatch is a
-  recorded finding, **not** a failure: the stub has no semantic discrimination
-  and `DEFAULT_MIN_SIMILARITY` is bge-m3-calibrated, so both under- and
-  over-refusals are expected here. Reported with refusal recall / precision / F1
-  and an over-refusal rate, plus a separate over-refusal **integration signal**
-  over the 34 on-topic golden items a clean public clone can evaluate
-  (`romanian` 15 + `english` 8 + `biology` 5 + `history` 6).
 - **Subset B — citation integrity (13 synthetic fixtures).** The extracted
   `src/services/citationCheck.ts` pipeline (shared verbatim with `tutorService`)
   run over fixtures that each carry one pathology — fabricated markers, the
   partial-grounding fold boundary (`groundednessScore < 0.5`, strict), malformed
-  markers, and controls. Every field is asserted exactly. Reports raw citation
-  validity (before sanitization), fabricated-citation catch rate, and
-  post-sanitization validity separately.
+  markers, and controls. Every field is asserted exactly. The fixture set holds
+  **29 `[#id]` markers, 15 of them deliberately fabricated**; the checker
+  **caught and stripped all 15**, leaving **0 invalid markers** in the sanitized
+  answers. Per-fixture mean ratios (`rawCitationValidity` etc.) are also reported
+  but are a **fixture-composition diagnostic** — their value depends on how many
+  fabricated markers the fixtures carry, not on system behaviour.
+
+- **Subset A — refusal (14 synthetic cases).** Real `retrieveRelevantChunks` in
+  deterministic mode against the public-fallback packs, which are embedded with a
+  lightweight **hash-embedding stub**. Each case carries a **human-authored
+  `shouldRefuse` label** — what a correct system ought to do, set independently of
+  current behaviour — across clean and informal / L2-style (no-diacritics)
+  student phrasing. The measured `insufficient` verdict is classified
+  `correct` / `under-refusal` / `over-refusal` and reported with refusal
+  recall / precision / F1 and an over-refusal rate.
+
+  `DEFAULT_MIN_SIMILARITY` (0.42) is calibrated for `bge-m3`, **not** for the
+  stub, so these numbers **characterize the boundary of the judge-demo fallback
+  path — they are not a production semantic-refusal score**. A `shouldRefuse`
+  mismatch here is a recorded scope-boundary finding, not a failure. Production
+  semantic-refusal quality is evaluated separately on `bge-m3` (see the refusal
+  accuracy metric above; deeper claim/faithfulness work is P1-1b).
+
+  A companion over-refusal figure over the 34 on-topic golden items a clean
+  public clone can evaluate (`romanian` 15 + `english` 8 + `biology` 5 +
+  `history` 6) is reported alongside — **deterministic stub path, not a
+  production figure** — and tracks the same `bge-m3`-vs-stub scale gap the
+  deterministic `eval:ci` note above describes.
 
 Cross-language refusal, claim-level faithfulness, and any gate decision are
 explicitly out of scope for this benchmark.

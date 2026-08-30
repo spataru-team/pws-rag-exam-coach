@@ -169,9 +169,31 @@ export function checkCitationFixture(fixture: CitationFixture): CitationFixtureR
   return { id: fixture.id, category: fixture.category, pass: mismatches.length === 0, mismatches }
 }
 
+/**
+ * Pooled marker counts across the whole adversarial fixture set. These are the
+ * mechanically meaningful numbers: how many `[#id]` markers the fixtures carry,
+ * how many were deliberately fabricated, and whether the checker stripped every
+ * one. The `*Mean` ratios below are per-fixture averages whose value depends on
+ * fixture composition (how many fabricated markers we authored) — diagnostic
+ * only, not a system citation-quality score.
+ */
+export interface CitationMarkerCounts {
+  totalRawMarkers: number
+  rawValid: number
+  /** Markers pointing at an id that was not retrieved — all authored by us. */
+  rawFabricated: number
+  /** Fabricated markers removed by sanitization. */
+  fabricatedCaught: number
+  /** Fabricated markers still present after sanitization (should be 0). */
+  invalidRemainingAfterSanitization: number
+  postSanitizationMarkers: number
+}
+
 export interface CitationAggregate {
   fixtureCount: number
   passCount: number
+  markerCounts: CitationMarkerCounts
+  /** Per-fixture mean of valid/cited (empty-citation fixtures count 1). Fixture-composition diagnostic. */
   rawCitationValidityMean: number
   fabricatedCitationCatchRateMean: number
   postSanitizationCitationValidityMean: number
@@ -190,9 +212,29 @@ export function citationAggregate(fixtures: CitationFixture[]): CitationAggregat
       retrievalInsufficient: f.retrievalInsufficient,
     }),
   }))
+  const retrievedSets = fixtures.map((f) => new Set(f.retrievedChunkIds))
+  const rawFabricated = checks.reduce((n, c) => n + c.a.fabricatedCitedChunkIds.length, 0)
+  const invalidRemaining = checks.reduce(
+    (n, c, i) =>
+      n + c.a.postSanitizationCitedChunkIds.filter((id) => !retrievedSets[i]!.has(id)).length,
+    0,
+  )
+  const markerCounts: CitationMarkerCounts = {
+    totalRawMarkers: checks.reduce((n, c) => n + c.a.citedChunkIds.length, 0),
+    rawValid: checks.reduce((n, c) => n + c.a.validCitedChunkIds.length, 0),
+    rawFabricated,
+    fabricatedCaught: rawFabricated - invalidRemaining,
+    invalidRemainingAfterSanitization: invalidRemaining,
+    postSanitizationMarkers: checks.reduce(
+      (n, c) => n + c.a.postSanitizationCitedChunkIds.length,
+      0,
+    ),
+  }
+
   return {
     fixtureCount: fixtures.length,
     passCount: results.filter((r) => r.pass).length,
+    markerCounts,
     rawCitationValidityMean: mean(checks.map((c) => c.a.rawCitationValidity)),
     fabricatedCitationCatchRateMean: mean(checks.map((c) => c.a.fabricatedCitationCatchRate)),
     postSanitizationCitationValidityMean: mean(

@@ -43,7 +43,8 @@ exam answer
   → skills sorted into  🟢 points you already earn reliably
                         🟡 where more points are easiest to find
                         🔴 higher-cost points, set aside for now
-  → Rescue Mode builds a route of 2–4 yellow-zone skills, ranked by
+  → Rescue Mode builds a short route (up to four) of yellow-zone skills the
+       student has already earned points on, ranked by
        lost points × trainability × transfer reliability ÷ training cost,
        stopping once the projected score clears a margin ABOVE the pass line
   → each skill gets rubric-grounded micro-drills
@@ -222,7 +223,7 @@ and reproduction: [docs/INTEL_OPENVINO.md](docs/INTEL_OPENVINO.md).
 | Exam-specific scoring | grading against the official ANCE marking scheme |
 | Explicit skill tags | every rubric criterion tagged with the skill it tests |
 | Diagnostic zones | 🟢 / 🟡 / 🔴 sorting of skills by recoverable value |
-| Rescue Mode | a ranked route of 2–4 skills to the points needed to pass |
+| Rescue Mode | builds on skills the student already earns points on — a short route of up to four high-value recoverable skills toward the points needed to pass |
 | Points forecast | conservative vs expected recovered-points estimate — capped, advisory |
 | Retake-driven iteration | Rescue Mode was built in response to six real retake cases (2026) |
 
@@ -256,8 +257,9 @@ instructional load.
 - **Pedagogical** — instead of a teacher-built competency framework, the coach
   uses an **existing authoritative structure, the official ANCE exam marking
   scheme (barem)**: student answer → rubric criteria / scoring atoms → skill
-  mapping → lost points → 🟢/🟡/🔴 recoverable-value zones → a ranked 2–4-skill
-  Rescue route → a conservative-vs-expected recovered-points forecast.
+  mapping → lost points → 🟢/🟡/🔴 recoverable-value zones → a short
+  demonstrated-competence-first Rescue route (up to four skills) → a
+  conservative-vs-expected recovered-points forecast.
 - **Technological / access** — the product is now a **browser / PWA** for
   ordinary phones and laptops, not a configured computer-lab machine.
   School-local Intel / OpenVINO / OVMS inference is an **optional** privacy and

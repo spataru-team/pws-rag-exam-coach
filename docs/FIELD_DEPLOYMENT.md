@@ -58,9 +58,9 @@ pattern of where points had been lost, pointed at a specific gap: existing
 practice told a student *what to revise* but not *which few skills would most
 efficiently recover the points needed to pass*. That gap is what
 **Rescue Mode** was built to close (skill-level diagnosis from the official
-rubric → a ranked route of 2–4 recoverable skills → targeted micro-training →
-an attainable-points forecast; see [ARCHITECTURE.md](./ARCHITECTURE.md) and
-`src/learning/rescueEngine.ts`).
+rubric → a short route, up to four, of skills the student already earns points
+on → targeted micro-training → an attainable-points forecast; see
+[ARCHITECTURE.md](./ARCHITECTURE.md) and `src/learning/rescueEngine.ts`).
 
 ## August retake
 

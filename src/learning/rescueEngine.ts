@@ -3,7 +3,7 @@ import type {
   RescueSkillTag, ReviewStatus, ScoringAtom, StrengthState,
 } from '@/types'
 import { criteriaSlots } from './baremGrader'
-import { RESCUE_CONFIG } from './rescueConfig'
+import { RESCUE_CONFIG, type RescueConfig } from './rescueConfig'
 
 /** 4-state credit/confidence status. Confidence (mode/lowConfidence) always wins over credit. */
 export function reviewStatus(
@@ -96,8 +96,12 @@ function clamp01(n: number): number {
   return Math.max(0, Math.min(1, n))
 }
 
-function partialCreditFactor(earned: number, max: number): number {
-  const { base, span } = RESCUE_CONFIG.partialCreditFormula
+function partialCreditFactor(
+  earned: number,
+  max: number,
+  formula: RescueConfig['partialCreditFormula'] = RESCUE_CONFIG.partialCreditFormula,
+): number {
+  const { base, span } = formula
   return max > 0 ? base + span * (earned / max) : base
 }
 
@@ -120,8 +124,9 @@ function classifyState(
   weights: { trainingCost: number; transferReliability: number; excludedFromRanking?: boolean },
   corroborated: boolean,
   allNeedsReview: boolean,
+  zoneThresholds: RescueConfig['zoneThresholds'] = RESCUE_CONFIG.zoneThresholds,
 ): StrengthState {
-  const { safeRatio, expensiveCostAbove, expensiveReliabilityBelow } = RESCUE_CONFIG.zoneThresholds
+  const { safeRatio, expensiveCostAbove, expensiveReliabilityBelow } = zoneThresholds
   if (allNeedsReview) return 'uncertain'
   if (ratio >= safeRatio) return corroborated ? 'confirmedStrong' : 'likelyStrong'
   if (weights.trainingCost >= expensiveCostAbove || weights.transferReliability <= expensiveReliabilityBelow) {
@@ -137,6 +142,7 @@ function classifyState(
 export function evaluateSkillEvidence(
   atoms: ScoringAtom[],
   corroboratingAtoms: ScoringAtom[] = [],
+  config: RescueConfig = RESCUE_CONFIG,
 ): RescueSkillEvidence[] {
   const bySkill = groupBySkill(atoms)
   const corroborationBySkill = groupBySkill(corroboratingAtoms)
@@ -146,22 +152,24 @@ export function evaluateSkillEvidence(
     const maxPoints = skillAtoms.reduce((s, a) => s + a.maxPoints, 0)
     const lostPoints = maxPoints - earnedPoints
     const ratio = maxPoints > 0 ? earnedPoints / maxPoints : 0
-    const weights = RESCUE_CONFIG.perSkill[skillTag]
+    const weights = config.perSkill[skillTag]
     const allNeedsReview = skillAtoms.every((a) => a.reviewStatus === 'needs_review')
 
     const avgGradingConfidence = skillAtoms.reduce((s, a) => s + a.gradingConfidence, 0) / skillAtoms.length
     const errorModifier = skillAtoms.length
-      ? skillAtoms.reduce((s, a) => s + RESCUE_CONFIG.errorTypeModifiers[a.errorType], 0) / skillAtoms.length
+      ? skillAtoms.reduce((s, a) => s + config.errorTypeModifiers[a.errorType], 0) / skillAtoms.length
       : 1
-    const evidenceConfidence = clamp01(avgGradingConfidence * partialCreditFactor(earnedPoints, maxPoints) * errorModifier)
+    const evidenceConfidence = clamp01(
+      avgGradingConfidence * partialCreditFactor(earnedPoints, maxPoints, config.partialCreditFormula) * errorModifier,
+    )
 
     const corroboration = corroborationBySkill.get(skillTag)
     const corroborationMax = corroboration?.reduce((s, a) => s + a.maxPoints, 0) ?? 0
     const corroborated = Boolean(
       corroboration && corroborationMax > 0 &&
-      corroboration.reduce((s, a) => s + a.earnedPoints, 0) / corroborationMax >= RESCUE_CONFIG.zoneThresholds.safeRatio,
+      corroboration.reduce((s, a) => s + a.earnedPoints, 0) / corroborationMax >= config.zoneThresholds.safeRatio,
     )
-    const state = classifyState(ratio, weights, corroborated, allNeedsReview)
+    const state = classifyState(ratio, weights, corroborated, allNeedsReview, config.zoneThresholds)
 
     const estimatedRecoverablePoints = weights.excludedFromRanking
       ? 0
@@ -198,8 +206,9 @@ export function evaluateSkillEvidence(
 export function selectRescueRoute(
   evidence: RescueSkillEvidence[],
   currentScore: number,
+  config: RescueConfig = RESCUE_CONFIG,
 ): RescueSkillTag[] {
-  if (currentScore >= RESCUE_CONFIG.safetyTarget) return []
+  if (currentScore >= config.safetyTarget) return []
 
   const candidates = evidence
     .filter((e) => e.state === 'recoverable' && e.priority > 0 && e.earnedPoints > 0)
@@ -208,8 +217,8 @@ export function selectRescueRoute(
   const route: RescueSkillTag[] = []
   let projected = currentScore
   for (const candidate of candidates) {
-    if (route.length >= RESCUE_CONFIG.maxRescueSkills) break
-    if (projected >= RESCUE_CONFIG.safetyTarget) break
+    if (route.length >= config.maxRescueSkills) break
+    if (projected >= config.safetyTarget) break
     route.push(candidate.skillTag)
     projected += candidate.estimatedRecoverablePoints
   }

@@ -27,6 +27,7 @@
     "eval": "tsx eval/runEval.ts",
     "eval:ci": "tsx eval/runEval.ts --gate --mode=deterministic",
     "eval:safety": "tsx eval/runSafetyEval.ts",
+    "eval:rescue": "tsx eval/runRescueSensitivity.ts",
     "eval:sweep": "tsx eval/sweep.ts"
   },
   "dependencies": {

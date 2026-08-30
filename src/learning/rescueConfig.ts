@@ -17,7 +17,7 @@ export const RO_GIMNAZIU_GRADING_SCALE: GradeBand[] = [
   { nota: 10, min: 48, max: 50 },
 ]
 
-interface SkillWeights {
+export interface SkillWeights {
   /** PEDAGOGICAL: how coachable this skill is in a few days, 0..1. */
   trainability: number
   /** PEDAGOGICAL: relative microdrill effort, 1 (cheap) .. 5 (expensive). */
@@ -26,6 +26,25 @@ interface SkillWeights {
   transferReliability: number
   /** true = never a route candidate (cross-cutting metric, see plan §F). */
   excludedFromRanking?: boolean
+}
+
+/**
+ * Widened, structural view of `RESCUE_CONFIG`. The Rescue engine reads its
+ * constants through this type so a *perturbed* copy (same shape, different
+ * numbers — see `eval/rescue/applyPerturbation.ts`) can be passed in for
+ * sensitivity analysis without touching the frozen production object. Nothing in
+ * `src/` ever constructs one of these except `RESCUE_CONFIG` itself.
+ */
+export interface RescueConfig {
+  passThreshold: number
+  safetyTarget: number
+  maxRescueSkills: number
+  minRescueSkills: number
+  zoneThresholds: { safeRatio: number; expensiveCostAbove: number; expensiveReliabilityBelow: number }
+  partialCreditFormula: { base: number; span: number }
+  gradingConfidenceWeights: { deterministicOrConfidentLlm: number; selfOrLowConfidence: number }
+  errorTypeModifiers: Record<RescueErrorType, number>
+  perSkill: Record<RescueSkillTag, SkillWeights>
 }
 
 /** Declared with an explicit Record type (not inline `satisfies`) so every entry is typed
@@ -78,4 +97,4 @@ export const RESCUE_CONFIG = {
     unknown: 1.0,
   } satisfies Record<RescueErrorType, number>,
   perSkill: PER_SKILL,
-} as const
+} as const satisfies RescueConfig

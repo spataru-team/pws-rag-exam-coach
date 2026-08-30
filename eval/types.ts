@@ -1,4 +1,4 @@
-import type { SubjectId } from '@/types'
+import type { RescueSkillTag, SubjectId } from '@/types'
 
 /** A teacher-approved evaluation item. */
 /** Language of the query text itself (not the corpus it's tested against). */
@@ -115,4 +115,53 @@ export interface CitationFixtureResult {
   category: CitationFixture['category']
   pass: boolean
   mismatches: string[]
+}
+
+// --- P1-2 Rescue route sensitivity (eval/rescue/) ---------------------------
+
+/** How one skill was answered/graded in a synthetic profile. */
+export type ProfileSkillForm = 'blank' | 'attempt' | 'partial' | 'self'
+
+/**
+ * A synthetic, public-safe student profile for the Rescue route sensitivity
+ * benchmark. Compact per-skill spec, expanded against `romanian-sb26` via the
+ * real `buildScoringAtoms` -> `evaluateSkillEvidence` -> `selectRescueRoute`
+ * path. Skills omitted default to full credit. `officialScore` is derived and
+ * MUST be `< safetyTarget` (the current Rescue population). No real student
+ * data, no answer-key text, no copyrighted exam-response text.
+ */
+export interface RescueProfileSpec {
+  id: string
+  label: string
+  band: 'clearly-separated' | 'near-tie'
+  note: string
+  skills: Partial<Record<RescueSkillTag, { earned: number; form: ProfileSkillForm }>>
+  source: 'synthetic'
+}
+
+/** One frozen perturbation of the pedagogical ranking parameters. */
+export type RescuePerturbationSpec =
+  | { id: string; kind: 'baseline' }
+  | {
+      id: string
+      kind: 'skill-param-delta'
+      skill: RescueSkillTag
+      param: 'trainability' | 'transferReliability' | 'trainingCost'
+      deltaPct: -20 | -10 | 10 | 20
+      /** headline aggregate membership: 'primary' or 'boundary-appendix'. */
+      group: 'primary' | 'boundary'
+    }
+  | {
+      id: string
+      kind: 'skill-param-absolute'
+      skill: RescueSkillTag
+      param: 'transferReliability' | 'trainingCost'
+      value: number
+      group: 'boundary'
+    }
+  | { id: string; kind: 'safety-target'; value: number; group: 'boundary' }
+
+export interface RescuePerturbationGrid {
+  note: string
+  perturbations: RescuePerturbationSpec[]
 }

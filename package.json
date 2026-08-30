@@ -26,6 +26,7 @@
     "verify:embeddings": "tsx scripts/verify-embedding-space.ts",
     "eval": "tsx eval/runEval.ts",
     "eval:ci": "tsx eval/runEval.ts --gate --mode=deterministic",
+    "eval:safety": "tsx eval/runSafetyEval.ts",
     "eval:sweep": "tsx eval/sweep.ts"
   },
   "dependencies": {

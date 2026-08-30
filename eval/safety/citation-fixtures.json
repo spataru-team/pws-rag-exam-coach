@@ -1,0 +1,186 @@
+[
+  {
+    "id": "B-fab-01",
+    "category": "fabricated",
+    "retrievedChunkIds": ["a"],
+    "modelAnswer": "Regula este clară [#a]. Vezi și [#zzz].",
+    "retrievalInsufficient": false,
+    "note": "One real citation, one fabricated. groundedness 0.5 is NOT < 0.5, so the answer is not folded to insufficient; the fabricated marker is stripped.",
+    "source": "synthetic",
+    "expect": {
+      "citedChunkIds": ["a", "zzz"],
+      "fabricatedCitedChunkIds": ["zzz"],
+      "groundednessScore": 0.5,
+      "insufficient": false,
+      "sanitizedAnswer": "Regula este clară [#a]. Vezi și .",
+      "fabricatedCitationCatchRate": 1,
+      "postSanitizationCitationValidity": 1
+    }
+  },
+  {
+    "id": "B-fab-02",
+    "category": "fabricated",
+    "retrievedChunkIds": ["a"],
+    "modelAnswer": "Explicație [#x] și [#y].",
+    "retrievalInsufficient": false,
+    "note": "Every citation fabricated. groundedness 0 < 0.5 folds the answer to insufficient even though retrieval itself was sufficient.",
+    "source": "synthetic",
+    "expect": {
+      "citedChunkIds": ["x", "y"],
+      "fabricatedCitedChunkIds": ["x", "y"],
+      "groundednessScore": 0,
+      "insufficient": true,
+      "sanitizedAnswer": "Explicație  și .",
+      "fabricatedCitationCatchRate": 1
+    }
+  },
+  {
+    "id": "B-fab-03",
+    "category": "fabricated",
+    "retrievedChunkIds": ["a", "b", "c"],
+    "modelAnswer": "Puncte cheie [#a][#b][#c] și încă unul [#q].",
+    "retrievalInsufficient": false,
+    "note": "3 of 4 citations valid. groundedness 0.75 keeps the answer; only [#q] is stripped.",
+    "source": "synthetic",
+    "expect": {
+      "citedChunkIds": ["a", "b", "c", "q"],
+      "fabricatedCitedChunkIds": ["q"],
+      "groundednessScore": 0.75,
+      "insufficient": false,
+      "sanitizedAnswer": "Puncte cheie [#a][#b][#c] și încă unul ."
+    }
+  },
+  {
+    "id": "B-fab-04",
+    "category": "fabricated",
+    "retrievedChunkIds": ["chunk-12"],
+    "modelAnswer": "Vezi sursa [#chunk-1] pentru detalii.",
+    "retrievalInsufficient": false,
+    "note": "Lookalike: [#chunk-1] is a substring of the retrieved id chunk-12 but not equal to it. Membership is exact, so it is treated as fabricated and stripped.",
+    "source": "synthetic",
+    "expect": {
+      "citedChunkIds": ["chunk-1"],
+      "fabricatedCitedChunkIds": ["chunk-1"],
+      "groundednessScore": 0,
+      "insufficient": true,
+      "sanitizedAnswer": "Vezi sursa  pentru detalii."
+    }
+  },
+  {
+    "id": "B-pg-01",
+    "category": "partial-grounding",
+    "retrievedChunkIds": ["a", "b"],
+    "modelAnswer": "Un punct valid [#a] și unul inventat [#zzz].",
+    "retrievalInsufficient": false,
+    "note": "Fold boundary: groundedness exactly 0.5. Strict `< 0.5` is false, so the answer is NOT folded.",
+    "source": "synthetic",
+    "expect": { "groundednessScore": 0.5, "insufficient": false }
+  },
+  {
+    "id": "B-pg-02",
+    "category": "partial-grounding",
+    "retrievedChunkIds": ["a"],
+    "modelAnswer": "Unul real [#a], două inventate [#x] [#y].",
+    "retrievalInsufficient": false,
+    "note": "Fold boundary: groundedness 1/3 < 0.5, so the answer IS folded to insufficient.",
+    "source": "synthetic",
+    "expect": { "groundednessScore": 0.3333333333333333, "insufficient": true }
+  },
+  {
+    "id": "B-pg-03",
+    "category": "partial-grounding",
+    "retrievedChunkIds": ["a", "b", "c", "d"],
+    "modelAnswer": "Două reale [#a][#b], două inventate [#x][#y].",
+    "retrievalInsufficient": false,
+    "note": "Fold boundary: groundedness exactly 0.5 with a larger retrieved set. Not folded.",
+    "source": "synthetic",
+    "expect": { "groundednessScore": 0.5, "insufficient": false }
+  },
+  {
+    "id": "B-pg-04",
+    "category": "partial-grounding",
+    "retrievedChunkIds": ["a", "b"],
+    "modelAnswer": "Două reale [#a][#b], trei inventate [#x][#y][#z].",
+    "retrievalInsufficient": false,
+    "note": "Fold boundary: groundedness 0.4 < 0.5, folded to insufficient.",
+    "source": "synthetic",
+    "expect": { "groundednessScore": 0.4, "insufficient": true }
+  },
+  {
+    "id": "B-ctl-01",
+    "category": "control",
+    "retrievedChunkIds": ["a", "b"],
+    "modelAnswer": "Răspuns complet [#a][#b].",
+    "retrievalInsufficient": false,
+    "note": "Clean answer, all citations valid. Nothing stripped; groundedness and format compliance both 1.",
+    "source": "synthetic",
+    "expect": {
+      "groundednessScore": 1,
+      "formatCompliance": 1,
+      "insufficient": false,
+      "sanitizedAnswer": "Răspuns complet [#a][#b]."
+    }
+  },
+  {
+    "id": "B-ctl-02",
+    "category": "control",
+    "retrievedChunkIds": ["a"],
+    "modelAnswer": "Un răspuns fără nicio citare.",
+    "retrievalInsufficient": false,
+    "note": "DIAGNOSTIC / potential gap: retrieval was sufficient but the answer cites nothing. groundedness 0 and formatCompliance 0, yet `insufficient` stays false — an uncited answer is served. Documented current behaviour, not evidence of a safe outcome.",
+    "source": "synthetic",
+    "expect": {
+      "groundednessScore": 0,
+      "formatCompliance": 0,
+      "insufficient": false,
+      "sanitizedAnswer": "Un răspuns fără nicio citare."
+    }
+  },
+  {
+    "id": "B-ctl-03",
+    "category": "control",
+    "retrievedChunkIds": [],
+    "modelAnswer": "Materialele locale nu acoperă această întrebare.",
+    "retrievalInsufficient": true,
+    "note": "Correct refusal: retrieval insufficient, answer has no citations. groundedness 1 and formatCompliance 1 (a refusal is compliant).",
+    "source": "synthetic",
+    "expect": {
+      "groundednessScore": 1,
+      "formatCompliance": 1,
+      "insufficient": true,
+      "sanitizedAnswer": "Materialele locale nu acoperă această întrebare."
+    }
+  },
+  {
+    "id": "B-mrk-01",
+    "category": "malformed-marker",
+    "retrievedChunkIds": ["a"],
+    "modelAnswer": "Vezi [#] apoi [# a ] apoi [#a][#a].",
+    "retrievalInsufficient": false,
+    "note": "Marker extraction pinned: `[#]` has no id character and is not matched at all (left in the text); `[# a ]` captures \" a \" with surrounding spaces and is treated as fabricated; `[#a][#a]` yields two entries.",
+    "source": "synthetic",
+    "expect": {
+      "citedChunkIds": [" a ", "a", "a"],
+      "fabricatedCitedChunkIds": [" a "],
+      "groundednessScore": 0.6666666666666666,
+      "insufficient": false,
+      "sanitizedAnswer": "Vezi [#] apoi  apoi [#a][#a]."
+    }
+  },
+  {
+    "id": "B-mrk-02",
+    "category": "malformed-marker",
+    "retrievedChunkIds": ["bio-cell-001"],
+    "modelAnswer": "Citează id-urile folosite, în forma [#id].",
+    "retrievalInsufficient": false,
+    "note": "The system prompt (src/llm/promptTemplates/generic.ts) literally tells the model to cite \"in the form [#id]\". If the model echoes that instruction, current code parses `id` as a citation, finds it was never retrieved, strips it, and drags groundedness to 0 — folding the answer to insufficient. Documented current behaviour.",
+    "source": "synthetic",
+    "expect": {
+      "citedChunkIds": ["id"],
+      "fabricatedCitedChunkIds": ["id"],
+      "groundednessScore": 0,
+      "insufficient": true,
+      "sanitizedAnswer": "Citează id-urile folosite, în forma ."
+    }
+  }
+]

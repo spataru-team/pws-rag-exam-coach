@@ -1,0 +1,142 @@
+[
+  {
+    "id": "A-ne-01",
+    "subjectId": "romanian",
+    "query": "Cum se calculează aria unui cerc?",
+    "lang": "ro",
+    "category": "no-evidence",
+    "shouldRefuse": true,
+    "rationale": "The Romanian pack covers language arts only (grammar, verbs, vocabulary, reading, writing, exam tips). Circle area is geometry — no chunk contains it.",
+    "source": "synthetic"
+  },
+  {
+    "id": "A-ne-02",
+    "subjectId": "english",
+    "query": "What is the atomic number of oxygen?",
+    "lang": "en",
+    "category": "no-evidence",
+    "shouldRefuse": true,
+    "rationale": "The English pack covers grammar, vocabulary, reading and writing skills. Atomic numbers are chemistry — absent from the corpus.",
+    "source": "synthetic"
+  },
+  {
+    "id": "A-ne-03",
+    "subjectId": "romanian",
+    "query": "Как приготовить плов?",
+    "lang": "ru",
+    "category": "no-evidence",
+    "shouldRefuse": true,
+    "rationale": "A cooking recipe, entirely outside every subject in the app.",
+    "source": "synthetic"
+  },
+  {
+    "id": "A-ne-04",
+    "subjectId": "biology",
+    "query": "Ce cauzează inflația economică?",
+    "lang": "ro",
+    "category": "no-evidence",
+    "shouldRefuse": true,
+    "rationale": "Economics. The biology pack covers cells, organism levels and basic terminology only.",
+    "source": "synthetic"
+  },
+  {
+    "id": "A-ne-05",
+    "subjectId": "history",
+    "query": "How do I solve a quadratic equation?",
+    "lang": "en",
+    "category": "no-evidence",
+    "shouldRefuse": true,
+    "rationale": "Algebra. The history pack covers chronology, sources, causation and historical terms.",
+    "source": "synthetic"
+  },
+  {
+    "id": "A-ne-06",
+    "subjectId": "english",
+    "query": "Какой язык программирования учить первым?",
+    "lang": "ru",
+    "category": "no-evidence",
+    "shouldRefuse": true,
+    "rationale": "Programming-language advice, outside every subject.",
+    "source": "synthetic"
+  },
+  {
+    "id": "A-wk-01",
+    "subjectId": "biology",
+    "query": "Ce rol are aparatul Golgi în celulă?",
+    "lang": "ro",
+    "category": "weak-partial",
+    "shouldRefuse": true,
+    "rationale": "Adjacent to covered material but absent: bio-cell-001/003 name the membrane, cytoplasm, nucleus and mitochondria; no chunk mentions the Golgi apparatus or its function.",
+    "source": "synthetic"
+  },
+  {
+    "id": "A-wk-02",
+    "subjectId": "history",
+    "query": "Cine a fost primul împărat roman?",
+    "lang": "ro",
+    "category": "weak-partial",
+    "shouldRefuse": true,
+    "rationale": "The history pack teaches meta-historical skills (chronology, sources, causation, terminology). It contains no content about specific rulers, dynasties or dated events.",
+    "source": "synthetic"
+  },
+  {
+    "id": "A-nm-01",
+    "subjectId": "romanian",
+    "query": "Cum se formează articolul hotărât în limba engleză?",
+    "lang": "ro",
+    "category": "within-subject-unsupported-near-match",
+    "shouldRefuse": true,
+    "rationale": "Near-identical wording to golden ro-g-001 but about English. ro-art-001 explains the Romanian enclitic article ('băiat' -> 'băiatul'); it does not describe English article formation, so the specific question is unsupported.",
+    "source": "synthetic"
+  },
+  {
+    "id": "A-nm-02",
+    "subjectId": "biology",
+    "query": "Care sunt componentele unei celule solare fotovoltaice?",
+    "lang": "ro",
+    "category": "within-subject-unsupported-near-match",
+    "shouldRefuse": true,
+    "rationale": "Shares the head word 'celulă' with the cell-biology chunks but means a photovoltaic solar cell. The corpus describes biological cells only.",
+    "source": "synthetic"
+  },
+  {
+    "id": "A-or-01",
+    "subjectId": "romanian",
+    "query": "În ce mod se atașează articolul hotărât la substantiv în limba română?",
+    "lang": "ro",
+    "category": "over-refusal-guard",
+    "shouldRefuse": false,
+    "rationale": "A clean paraphrase of golden ro-g-001; ro-art-001 answers it directly. A correct system must NOT refuse.",
+    "source": "synthetic"
+  },
+  {
+    "id": "A-or-02",
+    "subjectId": "english",
+    "query": "In which situations do we use the present continuous?",
+    "lang": "en",
+    "category": "over-refusal-guard",
+    "shouldRefuse": false,
+    "rationale": "A clean paraphrase of golden en-g-001; en-gram-001 answers it directly.",
+    "source": "synthetic"
+  },
+  {
+    "id": "A-or-03",
+    "subjectId": "history",
+    "query": "Ce este un secol și cum ordonăm evenimentele în ordine cronologică?",
+    "lang": "ro",
+    "category": "over-refusal-guard",
+    "shouldRefuse": false,
+    "rationale": "A clean, well-formed paraphrase of golden hist-g-001; hist-chr-001 answers it directly.",
+    "source": "synthetic"
+  },
+  {
+    "id": "A-or-04",
+    "subjectId": "history",
+    "query": "ce inseamna un secol si cum ordonez evenimentele in timp",
+    "lang": "ro",
+    "category": "over-refusal-guard",
+    "shouldRefuse": false,
+    "rationale": "Same on-topic question as A-or-03 but in informal, no-diacritics phrasing typical of the L2 phone-typing audience; hist-chr-001 still answers it directly.",
+    "source": "synthetic"
+  }
+]

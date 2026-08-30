@@ -162,6 +162,45 @@ deterministic payload is stable across runs.
 Cross-language refusal, claim-level faithfulness, and any gate decision are
 explicitly out of scope for this benchmark.
 
+### Rescue route sensitivity (`npm run eval:rescue`)
+A deterministic, offline, **report-only** benchmark (`eval/rescue/`) that
+characterizes how stable the **minimum sufficient Rescue route** is under
+reasonable uncertainty in the team's pedagogical per-skill ranking parameters.
+Only skills with **demonstrated partial competence** (aggregate earned points)
+are eligible for the short route (see `src/learning/rescueEngine.ts`); route
+length is adaptive 0–4, never padded. Scope: students below the internal
+`safetyTarget` — the current Rescue population.
+
+- **Inputs** (frozen before measurement, `eval/rescue/profiles.json` /
+  `perturbations.json`): 30 synthetic, public-safe student profiles — **15
+  clearly-separated** (an obvious top target) and **15 near-tie / borderline** —
+  each expanded against `romanian-sb26` through the real
+  `buildScoringAtoms → evaluateSkillEvidence → selectRescueRoute` path. 108
+  primary perturbations (9 non-boundary route-eligible skills ×
+  {trainability, transferReliability, trainingCost} × ±10 % / ±20 %), plus a
+  separate boundary/policy appendix (the `sinonime-antonime` eligibility-boundary
+  skill; `safetyTarget` 17 / 19). Perturbed configs are pure deep-frozen clones —
+  `RESCUE_CONFIG` is never mutated.
+- **Metrics**, reported separately for clearly-separated vs near-tie and for
+  ±10 % (primary) vs ±20 % (stress), not collapsed into one score: top-1 skill
+  stability, route-set Jaccard, top-k overlap, route-length stability + route
+  minimality, candidate-rank Kendall τ (split into genuine vs tie-break-only
+  reorders), and baseline-valued recovered-points drift (a route-*choice* change,
+  not weight inflation). Structural invariants (no zero-evidence skill ever
+  enters a route; route never exceeds `maxRescueSkills`; every profile below
+  `safetyTarget`; `RESCUE_CONFIG` unchanged after the sweep) are correctness
+  checks, not quality metrics.
+- **Interpretation** is descriptive, with predeclared principles: clearly-separated
+  profiles should be substantially more stable than near-ties; ±10 % is the
+  primary evidence and ±20 % a stress test; a top-1 change on a clearly-separated
+  profile matters more than an ordering swap inside an engineered near-tie;
+  route-length ±1 near `safetyTarget` is expected greedy-stop behaviour; 100 %
+  route identity is not required.
+
+`safetyTarget` (18) is an **internal pedagogical margin**, deliberately set above
+the official `passThreshold` (13, the ANCE nota-5 floor); it is neither an
+official passing threshold nor a probability-of-passing estimate.
+
 ### Cross-lingual coverage
 Every golden item carries `lang` (the query's language) — not just the `*-ru`
 id suffix convention some items also use — and `runEvalHarness` reports a

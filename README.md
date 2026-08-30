@@ -55,10 +55,15 @@ exam answer
 
 The skill weights are hand-authored pedagogical estimates, not model output; the
 prerequisite ("builds on") graph is authored data. The coach can say *why* a
-topic is hard, not just restate it. Terminology and formulas:
+topic is hard, not just restate it. `npm run eval:rescue` characterizes how
+stable the route is: under predefined ±10–20 % perturbations, Rescue routes
+remained unchanged across all 15 clearly-separated synthetic profiles. Near-tie
+changes were predominantly ordering swaps among comparably valued skills, with
+route-length changes confined to two safety-margin boundary profiles. No
+zero-evidence skill entered a route in 3,750 runs. Terminology and formulas:
 [`src/learning/rescueEngine.ts`](src/learning/rescueEngine.ts),
 [`rescueConfig.ts`](src/learning/rescueConfig.ts),
-[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+[docs/EVALUATION.md](docs/EVALUATION.md), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Measured validation
 

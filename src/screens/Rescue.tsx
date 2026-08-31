@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { BaremResult, ExamPaper, RescueForecast, RescueSession, RescueSkillEvidence, RescueSkillTag, SubjectId } from '@/types'
 import { getExamPaper, examPapersForSubject } from '@/data/exams'
+import { demoAttempt } from '@/data/exams/demoAttempt'
 import { microdrillsForSkill } from '@/data/exams/microdrills'
-import { runDiagnostic, runDrillsForSkill, buildForecast, selectTestBPaper } from '@/services'
+import { runDiagnostic, diagnosticFromAttempt, runDrillsForSkill, buildForecast, selectTestBPaper } from '@/services'
 import { RESCUE_CONFIG } from '@/learning'
 import { examAttemptRepo, rescueSessionRepo } from '@/storage'
 import { useAppStore } from '@/app/store'
@@ -50,9 +51,23 @@ export function Rescue() {
   const [testBPaper, setTestBPaper] = useState<ExamPaper | undefined>(undefined)
   const [testBAnswers, setTestBAnswers] = useState<Record<string, string>>({})
   const [testBScore, setTestBScore] = useState<{ awarded: number; max: number } | null>(null)
+  const [isDemo, setIsDemo] = useState(false)
 
   if (!profile) return <p>{t('common.loading')}</p>
   if (!paper) return <p>{t('exam.noPaper')}</p>
+
+  // Seeded DEMO diagnostic — a pre-graded sample attempt run through the real
+  // route engine, entirely in memory (no grading call, no IndexedDB write, no
+  // session, never in Stats/exports). Lets a reviewer see the whole flow with
+  // nothing to type and no provider.
+  function loadDemoDiagnostic() {
+    const res = diagnosticFromAttempt(paper!, demoAttempt)
+    setOfficialScore(demoAttempt.totalAwarded)
+    setEvidence(res.evidence)
+    setRoute(res.route)
+    setIsDemo(true)
+    setPhase('route')
+  }
 
   async function startDiagnostic() {
     if (!profile || submitting) return
@@ -175,10 +190,16 @@ export function Rescue() {
   return (
     <div>
       <h1>{t('rescue.title')}</h1>
+      {isDemo && <p className="warning">{t('rescue.demoBanner')}</p>}
 
       {phase === 'intro' && (
         <section className="card">
           <p>{t('rescue.intro')}</p>
+          <p>
+            <button type="button" onClick={loadDemoDiagnostic}>
+              {t('rescue.openDemoDiagnostic')}
+            </button>
+          </p>
           {paper.sourceText && (
             <details open>
               <summary>{t('exam.readingText')}</summary>
@@ -286,6 +307,7 @@ export function Rescue() {
               </strong>
             </p>
           ) : (
+            !isDemo &&
             examPapersForSubject(profile!.currentSubjectId, profile!.curriculumProfile).length > 1 && (
               <>
                 <p className="muted">{t('rescue.testBIntro')}</p>

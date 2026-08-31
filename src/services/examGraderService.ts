@@ -52,6 +52,21 @@ function selfResult(item: ExamItem, advice: string): BaremResult {
 const LLM_UNAVAILABLE_ADVICE = 'Evaluarea automată nu este disponibilă acum — compară-ți răspunsul cu baremul.'
 
 /**
+ * The `mock` provider grades a barem prompt with a deterministic, transparent
+ * pseudo-score (see `src/llm/adapters/mock.ts`) so the whole diagnose → rubric →
+ * Rescue flow works offline with no paid call. Stamp only the structured `demo`
+ * flag — the ONE thing eval / metrics / "measured performance" paths filter on
+ * (`src/learning/demoProvenance.ts`). `mode` stays mechanistic (the JSON really
+ * was parsed from a chat response) so the Rescue engine still produces a
+ * meaningful — and clearly demo-labelled — route; `[DEMO]` text and the UI tag
+ * carry the "not a real grade" message to the student.
+ */
+function asDemoIfMock(result: BaremResult, config: LLMProviderConfig): BaremResult {
+  if (config.kind !== 'mock') return result
+  return { ...result, demo: true }
+}
+
+/**
  * Grades one item. `short` → deterministic, no LLM. `open`/`correctness` →
  * retrieve local context, ask the provider to grade by barem, parse strictly.
  * Any failure (blank answer, provider down, invalid JSON) degrades to self-mode
@@ -125,14 +140,17 @@ export async function gradeItem(
     const chat = await adapter.chat({ messages, temperature: 0.1, jsonMode: true }, deps.apiKey)
 
     if (!isHybrid) {
-      return parseBaremResponse(chat.content, item)
+      return asDemoIfMock(parseBaremResponse(chat.content, item), config)
     }
 
     const llmSlots = llmCriteria.map((c) => ({ id: c.id, max: c.maxPoints }))
     const { perCriterion: llmPerCriterion, advice } = parseBaremCriteria(chat.content, llmSlots)
     const perCriterion = [...deterministicResults, ...llmPerCriterion]
     const awarded = Math.min(item.maxPoints, perCriterion.reduce((s, c) => s + c.awarded, 0))
-    return { itemId: item.id, perCriterion, awarded, max: item.maxPoints, advice, mode: 'hybrid' }
+    return asDemoIfMock(
+      { itemId: item.id, perCriterion, awarded, max: item.maxPoints, advice, mode: 'hybrid' },
+      config,
+    )
   } catch (err) {
     console.warn('[examGrader] LLM grading failed, falling back to self-mode:', err)
     if (isHybrid) {

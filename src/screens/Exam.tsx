@@ -208,9 +208,13 @@ export function Exam() {
             if (!r) return null
             return (
               <section key={item.id} className="card" style={{ marginBottom: '1rem' }}>
-                <p><strong>{item.order}.</strong> {r.awarded} / {r.max} <span className="muted">· {t(`exam.mode.${r.mode}`)}</span></p>
+                <p>
+                  <strong>{item.order}.</strong> {r.awarded} / {r.max}{' '}
+                  <span className="muted">· {t(`exam.mode.${r.demo ? 'demo' : r.mode}`)}</span>
+                </p>
                 <FigureList assets={item.assets} lang={lang} />
-                {r.lowConfidence && <p className="muted">{t('exam.lowConfidence')}</p>}
+                {r.demo && <p className="warning">{t('exam.demoResult')}</p>}
+                {r.lowConfidence && !r.demo && <p className="muted">{t('exam.lowConfidence')}</p>}
                 {r.perCriterion.filter((c) => c.comment).map((c) => (
                   <p key={c.id} style={{ margin: '0.2rem 0' }}>• {c.awarded}/{c.max} — {c.comment}</p>
                 ))}

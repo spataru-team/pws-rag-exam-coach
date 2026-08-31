@@ -13,9 +13,12 @@ What the proxy enforces:
   support OpenAI's truncation param).
 - `/api/v1/chat/completions` → OpenAI, model allowlist `{gpt-5.4-mini, gpt-5.4-nano}`
   (default `gpt-5.4-mini`), output tokens clamped to 512, `n:1`, `stream` stripped.
-- Same-origin guard (rejects mismatched `Origin`).
+  Returns `503` when `OPENAI_API_KEY` is unset (managed chat off by design).
+- Same-origin guard (rejects mismatched `Origin`); 32 KiB request-body cap
+  (`413`); 20 s upstream timeout (`504`). No secret / IP / prompt / answer is logged.
 - Each branch checks only its own secrets, so embeddings work even before the
-  OpenAI key is set (and vice versa).
+  OpenAI key is set (and vice versa). `GET /api/v1/health` →
+  `{ available, embeddingsConfigured, chatConfigured }`.
 
 ## Prerequisites
 - An OpenAI API key with access to `gpt-5.4-mini` (chat only).
@@ -59,13 +62,41 @@ npm run cf:deploy             # creates the Pages project; pick a name when prom
 ```
 
 ## Step C — Set the secrets, then re-deploy
+
+Managed embeddings and managed chat are **independent capabilities** — the proxy
+checks each branch's own secret, and `GET /api/v1/health` reports
+`{ embeddingsConfigured, chatConfigured }` separately.
+
+### Public (embeddings-only) deployment — recommended
+
+Set the Workers AI secrets, **do not set `OPENAI_API_KEY`**:
+
 ```powershell
-npx wrangler pages secret put OPENAI_API_KEY     # paste the key (Production + Preview)
 npx wrangler pages secret put CF_ACCOUNT_ID      # your Cloudflare account id
 npx wrangler pages secret put CF_API_TOKEN       # Workers AI: Read scoped token
 npm run build
-npm run cf:deploy                                # so the Function picks up the secrets
+npm run cf:deploy
 ```
+
+Retrieval then uses managed `bge-m3` embeddings (real RAG demo), and
+`/api/v1/chat/completions` returns a clean `503` "Managed chat is not enabled on
+this deployment". Onboarding lands on **Mock**; `worker` is hidden. Visitors who
+want real cloud chat use BYOK (`openai` / `openrouter`, their own key). No
+team-funded chat spend.
+
+### Private / controlled deployment — also enable managed chat
+
+Add the chat key on top:
+
+```powershell
+npx wrangler pages secret put OPENAI_API_KEY     # Production + Preview
+npm run build
+npm run cf:deploy
+```
+
+`worker` is then *offered* in Onboarding and Settings (still never auto-selected;
+the first-run provider stays Mock).
+
 (Dashboard alternative: Pages → project → Settings → Environment variables / secrets.)
 
 ## Local dev / re-seeding through the proxy (optional)

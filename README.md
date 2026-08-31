@@ -132,7 +132,7 @@ its own — see *Local inference under concurrent load*.
 | | Clients | Inference | Data path |
 |---|---|---|---|
 | **Local** | existing PCs / laptops / phones, browser PWA | one server on the school LAN → Intel OpenVINO Model Server → quantized embedding + chat models | student answers stay on the school network |
-| **Cloud** (the live demo) | browser PWA | Cloudflare Pages Function proxy → Workers AI (`bge-m3` embeddings) + OpenAI (chat) | prompts leave the network; the UI warns first |
+| **Cloud** (the live demo) | browser PWA | Cloudflare Pages Function → Workers AI (`bge-m3` embeddings); answer-checking is Mock by default, BYOK OpenAI/OpenRouter, or a local model | only the retrieval query reaches Workers AI; the chat prompt leaves the device only on an explicit BYOK/local choice, behind a warning |
 
 The architecture already supports what matters for scale: clients are ordinary
 devices with nothing to install; local mode centralises the AI on one school
@@ -333,15 +333,15 @@ npm run dev         # http://localhost:5173
 npm run build && npm run preview
 ```
 
-> **AI provider on the first run.** Onboarding starts on **Mock (offline demo)** —
-> deterministic, on-device, zero setup — for `npm run dev` and `npm run preview`.
-> It switches the initial pick to the same-origin **cloud proxy** only when a
-> *configured* `/api/v1` is actually detected (the deployed site, or
-> `npm run build && npm run cf:dev` with `.dev.vars` — see
-> [docs/DEPLOY_CLOUDFLARE.md](docs/DEPLOY_CLOUDFLARE.md)). You can pick any local
-> provider (Ollama / LM Studio / OpenVINO, if that server is running) or the
-> cloud proxy yourself in onboarding or Settings; cloud options always show a
-> data-egress warning first. Details:
+> **AI provider on the first run.** Onboarding always starts on **Mock (offline
+> demo)** — deterministic, on-device, zero setup — in every run mode, the
+> deployed site included, so the whole diagnose → rubric → Rescue → forecast
+> workflow is inspectable with no key and no team-funded spend. On the public
+> deployment, retrieval still uses managed Workers AI `bge-m3` embeddings (the
+> RAG demo stays real); managed chat is disabled. Real cloud answer-checking is
+> **BYOK** — `openai` / `openrouter` with your own key (stored only in local
+> IndexedDB, behind a data-egress warning) — or a local model
+> (OpenVINO / OVMS / Ollama / LM Studio). Details:
 > [docs/LLM_PROVIDERS.md](docs/LLM_PROVIDERS.md).
 
 ## Scripts

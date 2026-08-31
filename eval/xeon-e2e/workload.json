@@ -1,0 +1,46 @@
+{
+  "protocolVersion": 1,
+  "frozenAt": "2026-08-31",
+  "protocol": "eval/xeon-e2e/protocol.md (v1)",
+  "input": {
+    "path": "eval/fixtures/ro-synthetic-answers/answers.json",
+    "contentHash": "bdd5b2c9f63ad2113f31efc077b50e5c439a5060f20c8967123bc6ae19e9e264",
+    "usage": "workload only — no labels, no expected scores"
+  },
+  "packs": {
+    "requiredEmbeddingModel": "bge-m3",
+    "refuseIf": "deterministic-stub"
+  },
+  "warmup": {
+    "endToEndAttempts": 5,
+    "measured": false
+  },
+  "concurrencySweep": {
+    "levels": [1, 5, 10, 20],
+    "perLevelRepeats": 3,
+    "requestsPerLevel": { "1": 10, "5": 25, "10": 50, "20": 60 },
+    "inFlightModel": "semaphore holding exactly N end-to-end attempts"
+  },
+  "classroomSegment": {
+    "students": 20,
+    "attemptsPerStudent": 1,
+    "startWindowSeconds": 90,
+    "startDistribution": "poisson-jittered over the window",
+    "interItemThinkTimeSeconds": { "distribution": "uniform", "min": 0, "max": 8 }
+  },
+  "idleBetweenSegmentsSeconds": 30,
+  "timeoutsSeconds": {
+    "embeddingCall": 30,
+    "gradingCall": 120,
+    "endToEndAttempt": 300
+  },
+  "deterministicItemsInProcess": true,
+  "correctnessGradedOncePerAttempt": true,
+  "successCriterion": "every non-short item returned a parseable barem result within its timeout and the attempt total was computed",
+  "retryPolicy": "none — transport errors recorded verbatim",
+  "rawOutput": {
+    "dir": "eval/results/intel-xeon-e5-2678v3-e2e/",
+    "perAttemptLines": "raw/level-*.jsonl, raw/classroom.jsonl",
+    "preserveFailuresAndTimeouts": true
+  }
+}

@@ -81,7 +81,9 @@
     "apiKey": "Cheie API",
     "apiKeyHint": "Păstrată doar pe acest dispozitiv. Nu este încărcată sau comisă.",
     "cloudWarning": "Furnizor cloud: cererile tale și textul găsit vor fi trimise către un serviciu extern.",
-    "baseUrl": "URL de bază"
+    "baseUrl": "URL de bază",
+    "hostedRetrievalNote": "Căutarea în materiale folosește un model de embedding găzduit; verificarea răspunsului funcționează offline până alegi o cheie cloud sau un model local.",
+    "byokHint": "Cheia este păstrată doar pe acest dispozitiv și este trimisă doar către furnizorul ales."
   },
   "dashboard": {
     "title": "Progres pe disciplină",

@@ -37,37 +37,46 @@ afterEach(cleanup)
 const flush = () => new Promise((r) => setTimeout(r, 0))
 const pressed = (name: string) =>
   screen.getByRole('button', { name }).getAttribute('aria-pressed')
+const queryButton = (name: string) => screen.queryByRole('button', { name })
 
-describe('Onboarding — capability-aware initial provider', () => {
-  it('starts on Mock synchronously, before the probe resolves', () => {
+const EMBEDDINGS_ONLY: ProxyCapability = { available: true, embeddingsConfigured: true, chatConfigured: false }
+const MANAGED_CHAT_ON: ProxyCapability = { available: true, embeddingsConfigured: true, chatConfigured: true }
+const NO_PROXY: ProxyCapability = { available: false, embeddingsConfigured: false, chatConfigured: false }
+
+describe('Onboarding — provider selection', () => {
+  it('starts on Mock synchronously', () => {
     render(<Onboarding />)
     expect(pressed('Mock (offline demo)')).toBe('true')
+  })
+
+  it('stays on Mock when there is no proxy (npm run dev / preview)', async () => {
+    render(<Onboarding />)
+    cap.resolve(NO_PROXY)
+    await flush()
+    expect(pressed('Mock (offline demo)')).toBe('true')
+  })
+
+  it('stays on Mock on the embeddings-only public deployment, and does NOT offer managed chat', async () => {
+    render(<Onboarding />)
+    cap.resolve(EMBEDDINGS_ONLY)
+    await flush()
+    expect(pressed('Mock (offline demo)')).toBe('true')
+    expect(queryButton('OpenAI-compatible (cloud)')).toBeNull()
+  })
+
+  it('offers managed chat when the deployment enables it, but still never auto-selects it', async () => {
+    render(<Onboarding />)
+    cap.resolve(MANAGED_CHAT_ON)
+    await flush()
+    expect(queryButton('OpenAI-compatible (cloud)')).not.toBeNull()
     expect(pressed('OpenAI-compatible (cloud)')).toBe('false')
-  })
-
-  it('stays on Mock when no configured proxy is detected (npm run dev / preview)', async () => {
-    render(<Onboarding />)
-    cap.resolve({ available: false, configured: false })
-    await flush()
-    expect(pressed('Mock (offline demo)')).toBe('true')
-    expect(pressed('OpenAI-compatible (cloud)')).toBe('false')
-  })
-
-  it('stays on Mock when the proxy route exists but is not configured', async () => {
-    render(<Onboarding />)
-    cap.resolve({ available: true, configured: false })
-    await flush()
     expect(pressed('Mock (offline demo)')).toBe('true')
   })
 
-  it('switches to the cloud proxy ONLY when a configured proxy answers', async () => {
+  it('always offers the BYOK cloud providers', () => {
     render(<Onboarding />)
-    cap.resolve({ available: true, configured: true })
-    await flush()
-    expect(pressed('OpenAI-compatible (cloud)')).toBe('true')
-    expect(pressed('Mock (offline demo)')).toBe('false')
-    // cloud warning must be visible whenever Worker is selected
-    expect(screen.getByText(/⚠️/)).toBeInTheDocument()
+    expect(queryButton('OpenAI (свой ключ)')).not.toBeNull()
+    expect(queryButton('OpenRouter (cloud)')).not.toBeNull()
   })
 
   it('never overrides a provider the user picked before the probe resolved', async () => {
@@ -76,10 +85,9 @@ describe('Onboarding — capability-aware initial provider', () => {
     await user.click(screen.getByRole('button', { name: 'LM Studio (local)' }))
     expect(pressed('LM Studio (local)')).toBe('true')
 
-    cap.resolve({ available: true, configured: true }) // would pick Worker if unguarded
+    cap.resolve(MANAGED_CHAT_ON)
     await flush()
 
     expect(pressed('LM Studio (local)')).toBe('true')
-    expect(pressed('OpenAI-compatible (cloud)')).toBe('false')
   })
 })

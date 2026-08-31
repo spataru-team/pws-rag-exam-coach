@@ -6,8 +6,9 @@ import {
   PROVIDER_PRESETS,
   isCloudProvider,
   checkProxyCapability,
-  pickInitialProviderId,
+  visibleProviderIds,
   type LLMProviderConfig,
+  type ProxyCapability,
 } from '@/llm'
 import { subjectDataManager } from '@/packs'
 import { applyAppearance } from '@/theme/applyAppearance'
@@ -15,9 +16,13 @@ import { setLanguage, SUPPORTED_LANGUAGES } from '@/i18n'
 import { localize } from '@/i18n/localize'
 import { useAppStore } from '@/app/store'
 
-// Mock first — it is the zero-setup default for `npm run dev` / `npm run preview`
-// and needs no running server or key.
-const PROVIDER_ORDER = ['mock', 'worker', 'ollama', 'lmstudio', 'openvino', 'openai', 'openrouter']
+// Transport-only "nothing detected yet" — Mock is the default regardless, and
+// `worker` (managed chat) only appears once a deployment reports it enabled.
+const NO_CAPABILITY: ProxyCapability = {
+  available: false,
+  embeddingsConfigured: false,
+  chatConfigured: false,
+}
 
 export function Onboarding() {
   const { t } = useTranslation()
@@ -29,26 +34,27 @@ export function Onboarding() {
   const [studyMode, setStudyMode] = useState<StudyMode>('sprint')
   const [subjectId, setSubjectId] = useState<SubjectId>('romanian')
   const [curriculumProfile, setCurriculumProfile] = useState<CurriculumProfile | ''>('')
-  // Start synchronously on the offline Mock provider — the only one guaranteed
-  // to work under the documented `npm run dev` / `npm run preview`. An async
-  // capability probe (below) may upgrade this to the cloud proxy, but ONLY on a
-  // deployed / `cf:dev` build where a configured `/api/v1` actually answers.
+  // Mock is the zero-setup default for every run mode, the deployed site
+  // included — it is grounded and deterministic, so the whole workflow is
+  // inspectable with no key and no team-funded spend. The capability probe
+  // (below) never changes this selection; it only reveals `worker` (managed
+  // chat) when a deployment has explicitly enabled it.
   const [providerId, setProviderId] = useState<string>('mock')
-  // Once the user picks a provider by hand, the probe must never override it.
+  const [capability, setCapability] = useState<ProxyCapability>(NO_CAPABILITY)
+  // Once the user picks a provider by hand, nothing overrides it.
   const providerTouched = useRef(false)
   const [examDate, setExamDate] = useState('')
   const [busy, setBusy] = useState(false)
 
   const subjects = listSubjects()
   const provider = PROVIDER_PRESETS[providerId] as LLMProviderConfig
+  const providerOrder = visibleProviderIds(capability)
 
   useEffect(() => {
     let cancelled = false
     void checkProxyCapability().then((cap) => {
-      if (cancelled || providerTouched.current) return
-      // Never downgrades a manual choice; only lifts the initial Mock to Worker
-      // when a configured same-origin proxy is present.
-      setProviderId((current) => (current === 'mock' ? pickInitialProviderId(cap) : current))
+      if (cancelled) return
+      setCapability(cap)
     })
     return () => {
       cancelled = true
@@ -188,8 +194,9 @@ export function Onboarding() {
       <section className="card" style={{ marginBottom: '1rem' }}>
         <h2>{t('onboarding.chooseLlm')}</h2>
         <p className="muted">{t('onboarding.aiModeHint')}</p>
+        <p className="muted">{t('llm.hostedRetrievalNote')}</p>
         <div className="grid cols-2">
-          {PROVIDER_ORDER.map((id) => {
+          {providerOrder.map((id) => {
             const p = PROVIDER_PRESETS[id] as LLMProviderConfig
             return (
               <button key={id} type="button" aria-pressed={providerId === id} className={providerId === id ? 'primary' : ''} onClick={() => selectProvider(id)} style={{ textAlign: 'left' }}>
@@ -199,6 +206,7 @@ export function Onboarding() {
           })}
         </div>
         {isCloudProvider(provider) && <p className="warning" style={{ marginTop: '0.7rem' }}>⚠️ {t('llm.cloudWarning')}</p>}
+        {provider.apiKeyMode === 'user_key' && <p className="muted">{t('llm.byokHint')}</p>}
       </section>
 
       <button type="button" className="primary" disabled={busy} onClick={() => void finish()} style={{ fontSize: '1.1rem', padding: '0.8rem 1.4rem' }}>

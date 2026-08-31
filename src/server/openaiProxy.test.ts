@@ -83,13 +83,63 @@ describe('handleOpenAiProxy', () => {
     expect(res.status).toBe(500)
   })
 
-  it('500s the chat branch when OPENAI_API_KEY is missing, even if the CF embeddings secrets are set', async () => {
+  it('503s the chat branch when managed chat is not enabled (no OPENAI_API_KEY) — the intended public-demo state, not an error', async () => {
+    const fetchMock = vi.fn()
     const res = await handleOpenAiProxy(
       req('/api/v1/chat/completions', { messages: [] }),
       { CF_ACCOUNT_ID: 'acct-1', CF_API_TOKEN: 'cf-test' },
-      { fetch: vi.fn() },
+      { fetch: fetchMock },
     )
-    expect(res.status).toBe(500)
+    expect(res.status).toBe(503)
+    expect((await res.json()).error).toMatch(/not enabled/i)
+    expect(fetchMock).not.toHaveBeenCalled()
+  })
+
+  it('rejects an oversize request body with 413 before parsing or calling upstream', async () => {
+    const fetchMock = vi.fn()
+    const huge = 'x'.repeat(33 * 1024)
+    const res = await handleOpenAiProxy(
+      req('/api/v1/chat/completions', { model: 'gpt-5.4-mini', messages: [{ role: 'user', content: huge }] }),
+      env,
+      { fetch: fetchMock },
+    )
+    expect(res.status).toBe(413)
+    expect(fetchMock).not.toHaveBeenCalled()
+  })
+
+  it('returns 504 when the upstream call times out', async () => {
+    const fetchMock = vi.fn().mockRejectedValue(
+      Object.assign(new Error('The operation was aborted due to timeout'), { name: 'TimeoutError' }),
+    )
+    const res = await handleOpenAiProxy(
+      req('/api/v1/chat/completions', { model: 'gpt-5.4-mini', messages: [] }),
+      env,
+      { fetch: fetchMock },
+    )
+    expect(res.status).toBe(504)
+  })
+
+  it('never logs headers, Origin, CF-Connecting-IP, the request body, or the upstream body', async () => {
+    const spies = [
+      vi.spyOn(console, 'log').mockImplementation(() => {}),
+      vi.spyOn(console, 'warn').mockImplementation(() => {}),
+      vi.spyOn(console, 'error').mockImplementation(() => {}),
+      vi.spyOn(console, 'info').mockImplementation(() => {}),
+      vi.spyOn(console, 'debug').mockImplementation(() => {}),
+    ]
+    const fetchMock = vi.fn().mockResolvedValue(new Response('{"secret-upstream":"leak"}', { status: 200 }))
+    await handleOpenAiProxy(
+      req(
+        '/api/v1/chat/completions',
+        { model: 'gpt-5.4-mini', messages: [{ role: 'user', content: 'PRIVATE-ANSWER-TEXT' }] },
+        { 'CF-Connecting-IP': '203.0.113.7', Origin: 'https://app.pages.dev' },
+      ),
+      env,
+      { fetch: fetchMock },
+    )
+    const logged = spies.flatMap((s) => s.mock.calls.flat()).join(' ')
+    expect(logged).not.toMatch(/PRIVATE-ANSWER-TEXT|203\.0\.113\.7|secret-upstream|sk-test|cf-test/)
+    spies.forEach((s) => s.mockRestore())
   })
 
   it('404s unknown paths', async () => {
@@ -100,19 +150,39 @@ describe('handleOpenAiProxy', () => {
   describe('GET /api/v1/health (non-generative capability probe)', () => {
     const get = () => new Request('https://app.pages.dev/api/v1/health', { method: 'GET' })
 
-    it('reports available + configured when the chat key is set, without calling upstream', async () => {
+    it('reports the two capabilities independently when both are configured, without calling upstream', async () => {
       const fetchMock = vi.fn()
       const res = await handleOpenAiProxy(get(), env, { fetch: fetchMock })
       expect(res.status).toBe(200)
-      expect(await res.json()).toEqual({ available: true, configured: true })
+      expect(await res.json()).toEqual({
+        available: true,
+        embeddingsConfigured: true,
+        chatConfigured: true,
+      })
       expect(fetchMock).not.toHaveBeenCalled()
     })
 
-    it('reports available but NOT configured when OPENAI_API_KEY is absent', async () => {
-      const fetchMock = vi.fn()
-      const res = await handleOpenAiProxy(get(), { CF_ACCOUNT_ID: 'a', CF_API_TOKEN: 'b' }, { fetch: fetchMock })
-      expect(await res.json()).toEqual({ available: true, configured: false })
-      expect(fetchMock).not.toHaveBeenCalled()
+    it('reports chatConfigured:false but embeddingsConfigured:true on the embeddings-only public deployment', async () => {
+      const res = await handleOpenAiProxy(get(), { CF_ACCOUNT_ID: 'a', CF_API_TOKEN: 'b' }, { fetch: vi.fn() })
+      expect(await res.json()).toEqual({
+        available: true,
+        embeddingsConfigured: true,
+        chatConfigured: false,
+      })
+    })
+
+    it('reports embeddingsConfigured:false when the CF secrets are absent', async () => {
+      const res = await handleOpenAiProxy(get(), { OPENAI_API_KEY: 'sk-test' }, { fetch: vi.fn() })
+      expect(await res.json()).toEqual({
+        available: true,
+        embeddingsConfigured: false,
+        chatConfigured: true,
+      })
+    })
+
+    it('no longer emits the ambiguous flat `configured` field', async () => {
+      const res = await handleOpenAiProxy(get(), env, { fetch: vi.fn() })
+      expect('configured' in (await res.json())).toBe(false)
     })
 
     it('never echoes a secret value', async () => {

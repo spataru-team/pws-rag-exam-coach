@@ -7,8 +7,11 @@ import {
   isCloudProvider,
   isOllamaReachable,
   isOvmsReachable,
+  checkProxyCapability,
+  visibleProviderIds,
   validateProviderConfig,
   type LLMProviderConfig,
+  type ProxyCapability,
 } from '@/llm'
 import {
   DEFAULT_EMBEDDING_CONFIG,
@@ -34,6 +37,11 @@ export function Settings() {
   const [embCfg, setEmbCfg] = useState<EmbeddingRuntimeConfig>(DEFAULT_EMBEDDING_CONFIG)
   const [ollamaAvailable, setOllamaAvailable] = useState(false)
   const [ovmsAvailable, setOvmsAvailable] = useState(false)
+  const [capability, setCapability] = useState<ProxyCapability>({
+    available: false,
+    embeddingsConfigured: false,
+    chatConfigured: false,
+  })
   const lang = profile?.interfaceLanguage ?? 'ru'
 
   function loadStatuses() {
@@ -52,7 +60,16 @@ export function Settings() {
   useEffect(() => {
     void isOllamaReachable().then(setOllamaAvailable)
     void isOvmsReachable().then(setOvmsAvailable)
+    void checkProxyCapability().then(setCapability)
   }, [])
+
+  // `worker` (managed chat) is offered only where the deployment enabled it;
+  // a currently-selected provider is always kept in the list so the user can
+  // switch away from it.
+  const providerIds = (() => {
+    const ids = visibleProviderIds(capability)
+    return ids.includes(providerConfig.id) ? ids : [providerConfig.id, ...ids]
+  })()
 
   function saveEmbCfg(next: EmbeddingRuntimeConfig) {
     setEmbCfg(next)
@@ -209,12 +226,16 @@ export function Settings() {
 
       <section className="card" style={{ marginBottom: '1rem' }}>
         <h2>{t('llm.mode')}</h2>
+        <p className="muted">{t('llm.hostedRetrievalNote')}</p>
         <select
           value={providerConfig.id}
           onChange={(e) => void setProviderConfig(PROVIDER_PRESETS[e.target.value] as LLMProviderConfig)}
           style={{ width: 'auto' }}
         >
-          {Object.values(PROVIDER_PRESETS).map((p) => (<option key={p.id} value={p.id}>{p.name}</option>))}
+          {providerIds.map((id) => {
+            const p = PROVIDER_PRESETS[id] as LLMProviderConfig
+            return <option key={id} value={id}>{p.name}</option>
+          })}
         </select>
         <p className="muted" style={{ marginTop: '0.5rem' }}>{t('llm.baseUrl')}: {providerConfig.baseUrl || '—'} · {providerConfig.model}</p>
 
@@ -244,6 +265,7 @@ export function Settings() {
             <label htmlFor="api-key">{t('llm.apiKey')}</label>
             <input id="api-key" type="password" value={apiKey} onChange={(e) => void setApiKey(e.target.value)} autoComplete="off" />
             <span className="muted">{t('llm.apiKeyHint')}</span>
+            <span className="muted">{t('llm.byokHint')}</span>
           </p>
         )}
         {isCloudProvider(providerConfig) && <p className="warning">⚠️ {t('llm.cloudWarning')}</p>}

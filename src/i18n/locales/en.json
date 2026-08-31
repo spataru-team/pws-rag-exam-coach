@@ -81,7 +81,9 @@
     "apiKey": "API key",
     "apiKeyHint": "Stored only on this device. Never uploaded or committed.",
     "cloudWarning": "Cloud provider: your prompts and retrieved text will be sent to an external service.",
-    "baseUrl": "Base URL"
+    "baseUrl": "Base URL",
+    "hostedRetrievalNote": "Search over the study materials uses a hosted embedding model; answer-checking runs offline until you choose a cloud key or a local model.",
+    "byokHint": "Your key is stored only on this device and is sent only to the provider you chose."
   },
   "dashboard": {
     "title": "Subject dashboard",

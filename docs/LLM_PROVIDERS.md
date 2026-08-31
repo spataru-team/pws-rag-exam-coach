@@ -65,6 +65,14 @@ own key, entered in Settings, stored only in local IndexedDB, behind the existin
 cloud-egress warning. A provider the user selects by hand is never overridden by
 the probe. `DEFAULT_PROVIDER_ID = 'mock'`.
 
+> **Pending verification.** These providers make a cross-origin request with the
+> user's key straight from the browser. OpenRouter documents browser/CORS
+> support; a direct `api.openai.com` call from a Pages origin is **not yet
+> verified**. Until a keyed deployed-browser check is recorded (see
+> `docs/JUDGE_REPRODUCIBILITY.md` §"BYOK in the deployed browser"), treat
+> **OpenRouter** as the supported in-browser BYOK path; an OpenAI key works with
+> a local run or your own proxy. There is no team-funded managed-chat fallback.
+
 A persisted `worker` selection from a deployment that no longer offers managed
 chat resolves to `mock` for that session; the stored choice is left untouched and
 reactivates on a deployment that has `chatConfigured`.

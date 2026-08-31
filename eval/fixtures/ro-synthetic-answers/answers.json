@@ -1,0 +1,432 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Frozen, fully synthetic student-answer set. Shared, label-free input for P1-4 (human rubric agreement) and P1-5 (Intel Xeon end-to-end workload). Contains NO teacher labels and NO system predictions.",
+  "papers": ["ro-pr26", "ro-sb26"],
+  "provenance": "SYNTHETIC — self-authored by the project team. Not real student work. Not exam or textbook material beyond the public ANCE item prompts the answers respond to.",
+  "bands": {
+    "strong": "near-complete, mostly correct answers",
+    "partial": "genuine attempt, some criteria met, others missing or thin",
+    "l2-errors": "attempted throughout with typical alolingv/L2 Romanian errors — missing diacritics, gender/number agreement slips, Russian calques, word order",
+    "near-blank": "one or two items barely attempted, the rest empty"
+  },
+  "cases": [
+    {
+      "id": "syn-pr26-01",
+      "paperId": "ro-pr26",
+      "band": "strong",
+      "note": "full attempt, few errors",
+      "answersByItemId": {
+        "pr26-1": "a) Rolul părinților în educația copiilor este foarte important. b) Femeile din sat și-au educat copiii în moduri diferite. c) Faptele omului arată adevărata lui valoare, nu vorbele.",
+        "pr26-2": "harnic – muncitor; a stima – a respecta; adevărat – fals; puternic – slab",
+        "pr26-3": "1) Băieții joacă un meci de fotbal după ore. 2) Copiii se joacă veseli în livada bunicii.",
+        "pr26-4": "1) Voi credeți că laudele vă ajută să deveniți mai buni? 2) Ce v-au învățat părinții voștri despre respect? 3) Cum vă simțiți când sunteți lăudați fără motiv? 4) De ce credeți că oamenii au vorbit despre modestia Victoriei?",
+        "pr26-5": "Victoria este o femeie modestă, pentru că nu își laudă fiul în fața celorlalte. Ea este o mamă responsabilă, deoarece l-a învățat pe băiat să fie harnic și atent. Este și înțeleaptă, fiindcă știe că faptele contează mai mult decât vorbele.",
+        "pr26-6": "1) Educația prin exemplu personal este mai valoroasă decât laudele goale. 2) Adevărata valoare a omului se vede în faptele lui, nu în ceea ce spune.",
+        "pr26-7": "Femeia aceasta modestă și-a educat corect copilul și l-a învățat ce înseamnă o faptă bună.",
+        "pr26-8": "– Da, vreau să te ajut cu drag.\n– Cred că putem strânge hârtie și plastic la școală.\n– Aș putea vorbi cu diriginta noastră mâine.\n– Hai să facem afișe ca să vină mai mulți colegi.\n– Putem începe chiar sâmbăta aceasta dimineața.\n– Sunt sigur că și părinții ne vor sprijini.",
+        "pr26-9": "Dragă Alexandrin,\nTe felicităm din toată inima cu ocazia obținerii medaliei de aur la Campionatul Mondial de lupte U23. Îți dorim să rămâi la fel de puternic și modest, iar visele tale să te ducă și mai departe.\nCu admirație,\nAdmiratorii tăi",
+        "pr26-10": "Patria este locul unde ne sunt rădăcinile. Pentru mine, patria înseamnă casa părintească, limba pe care o vorbesc și oamenii dragi. Este locul unde m-am născut și unde mă simt în siguranță. Scriitorul Nicolae Dabija spunea că limba și pământul natal nu pot fi luate de nimeni. La fel, eu cred că patria trăiește în inima fiecărui om. Când ești departe, patria îți lipsește ca un prieten. De aceea trebuie să o iubim și să o îngrijim. În concluzie, patria este comoara pe care o purtăm mereu cu noi.",
+        "pr26-11": ""
+      }
+    },
+    {
+      "id": "syn-pr26-02",
+      "paperId": "ro-pr26",
+      "band": "strong",
+      "note": "full attempt, essay slightly short of 8 sentences",
+      "answersByItemId": {
+        "pr26-1": "a) Rolul părinților este să îi învețe pe copii ce este bine. b) Femeile s-au lăudat cu băieții lor la fântână. c) Faptele fiului Victoriei au vorbit în locul ei.",
+        "pr26-2": "harnic – sârguincios; a stima – a prețui; adevărat – neadevărat; puternic – moale",
+        "pr26-3": "1) Echipa noastră joacă în finala campionatului. 2) Frații mei se joacă în curte cu mingea.",
+        "pr26-4": "1) Cum credeți voi că trebuie să se poarte un copil bun? 2) V-ați gândit de ce mamele voastre v-au lăudat mereu? 3) Ce ați simțit când ați văzut fapta lui? 4) Sunteți de acord că faptele sunt mai importante decât vorbele?",
+        "pr26-5": "Victoria este modestă, deoarece tace când celelalte se laudă. Este o mamă bună, pentru că fiul ei o ajută fără să fie rugat. Este și corectă, fiindcă și-a crescut copilul prin exemplu.",
+        "pr26-6": "1) Buna creștere nu se înlocuiește cu laude goale. 2) Copilul bun are nevoie de îndrumare, nu de laude.",
+        "pr26-7": "Femeia aceasta modestă și-a educat corect copilul și l-a învățat ce înseamnă o faptă bună.",
+        "pr26-8": "– Sigur că vreau, mi se pare o idee bună.\n– Putem aduna gunoiul din parcul din centru.\n– Eu am acasă mănuși și saci pentru asta.\n– Hai să anunțăm și clasa a opta.\n– Cred că profesorul de biologie ne va ajuta.\n– Ne întâlnim duminică la ora nouă?",
+        "pr26-9": "Dragă Alexandrin,\nCu ocazia medaliei de aur cucerite la Campionatul Mondial U23, îți transmitem felicitări sincere. Îți dorim sănătate, putere și noi victorii care să bucure toată țara.\nCu respect,\nAdmiratorii",
+        "pr26-10": "Patria este locul unde ne sunt rădăcinile. Pentru mine, patria este satul bunicilor și limba română. Acolo cunosc fiecare drum și fiecare vecin. Nicolae Dabija scria despre dragostea pentru pământul natal. Cred că patria se apără prin muncă cinstită. Când plec undeva, mă gândesc mereu la casă. Patria ne dă putere să mergem înainte. În concluzie, patria este o comoară pe care o purtăm în suflet.",
+        "pr26-11": ""
+      }
+    },
+    {
+      "id": "syn-pr26-03",
+      "paperId": "ro-pr26",
+      "band": "partial",
+      "note": "solid on short items, essay and dialogue thin",
+      "answersByItemId": {
+        "pr26-1": "a) Rolul părinților este important. b) Femeile s-au lăudat. c) Faptele contează mai mult.",
+        "pr26-2": "harnic – muncitor; a stima – a respecta; adevărat – fals; puternic – slab",
+        "pr26-3": "1) Copiii joacă fotbal. 2) Ei se joacă afară.",
+        "pr26-4": "1) De ce v-ați lăudat? 2) Ce faceți acum? 3) Unde mergeți? 4) Cine v-a învățat asta?",
+        "pr26-5": "Victoria este modestă și este o mamă bună. Ea nu se laudă cu fiul ei.",
+        "pr26-6": "1) Faptele sunt mai importante ca vorbele. 2) Copiii trebuie educați prin exemplu.",
+        "pr26-7": "Femeia aceasta modestă și-a educat corect copilul.",
+        "pr26-8": "– Da, vreau.\n– Putem strânge gunoi.\n– Vorbesc cu profesorul.\n– Facem afișe.",
+        "pr26-9": "Dragă Alexandrin, felicitări pentru medalie. Îți dorim succes. Admiratorii.",
+        "pr26-10": "Patria este locul unde m-am născut. Pentru mine patria este casa mea și familia. Îmi place limba română. Trebuie să iubim patria. În concluzie, patria este importantă.",
+        "pr26-11": ""
+      }
+    },
+    {
+      "id": "syn-pr26-04",
+      "paperId": "ro-pr26",
+      "band": "partial",
+      "note": "misses the singular transformation, weak portrait",
+      "answersByItemId": {
+        "pr26-1": "a) Părinții îi învață pe copii. b) Femeile au vorbit la fântână. c) Faptele arată valoarea.",
+        "pr26-2": "harnic – muncitor; a stima – a iubi; adevărat – minciună; puternic – slab",
+        "pr26-3": "1) Noi jucăm volei în sală. 2) Copilul se joacă cu jucăriile.",
+        "pr26-4": "1) Ce ați făcut azi? 2) De ce vă lăudați? 3) Unde este mama voastră? 4) Vreți să vă ajut?",
+        "pr26-5": "Victoria este o femeie bună. Fiul ei o ajută.",
+        "pr26-6": "1) Nu trebuie să ne lăudăm. 2) Faptele bune sunt importante.",
+        "pr26-7": "Femeile acestea modeste și-a educat copiii corect.",
+        "pr26-8": "– Vreau să particip.\n– Strângem plastic.\n– Chem colegii.\n– Punem afișe.\n– Începem sâmbătă.",
+        "pr26-9": "Dragă Alexandrin,\nFelicitări pentru medalia de aur! Îți dorim multă sănătate și noi succese.\nAdmiratorii tăi",
+        "pr26-10": "Patria este locul natal. Eu iubesc patria mea. Aici am prietenii și familia. Limba noastră este frumoasă. Un scriitor a spus că patria e comoară. Trebuie să o păstrăm. În concluzie, patria e importantă pentru toți.",
+        "pr26-11": ""
+      }
+    },
+    {
+      "id": "syn-pr26-05",
+      "paperId": "ro-pr26",
+      "band": "l2-errors",
+      "note": "diacritics missing, agreement and calque errors throughout",
+      "answersByItemId": {
+        "pr26-1": "a) Rolul parintilor este mare in educatie. b) Femeile se lauda cu baietii lor. c) Faptele este mai important ca vorbele.",
+        "pr26-2": "harnic – muncitor; a stima – a respecta; adevarat – fals; puternic – slab",
+        "pr26-3": "1) Baietii joaca fotbal in curte. 2) Copilul se joaca cu prietenul lui.",
+        "pr26-4": "1) De ce voi va laudati mereu? 2) Ce ati invatat de la parinti? 3) Cum va simtiti acum? 4) Unde ati fost ieri?",
+        "pr26-5": "Victoria este o femeie modest. Ea nu vorbeste mult dar fiul ei este bun. Ea a educat el bine.",
+        "pr26-6": "1) Nu trebuie sa ne laudam mult. 2) Faptele buni conteaza.",
+        "pr26-7": "Femeia aceasta modesta si-a educat corect copiii si i-a invatat o fapta buna.",
+        "pr26-8": "– Da, eu vreau participa.\n– Noi putem sa colectam gunoi din parc.\n– Eu voi vorbi cu directoarea.\n– Facem niste afise mari.\n– Incepem in sambata asta.\n– Parintii nostri o sa ne ajute si ei.",
+        "pr26-9": "Draga Alexandrin,\nNoi te felicitam cu medalia de aur. Iti dorim sanatate si sa castigi mai mult. Cu respect, admiratorii.",
+        "pr26-10": "Patria este loc unde traim. Pentru mine patria este satul meu si limba mea. Aici locuiesc parintii mei. Un scriitor roman a scris despre patrie. Eu cred ca patria trebuie iubita. Cand plec departe imi este dor. In concluzie patria este comoara noastra care nimeni nu ia.",
+        "pr26-11": ""
+      }
+    },
+    {
+      "id": "syn-pr26-06",
+      "paperId": "ro-pr26",
+      "band": "l2-errors",
+      "note": "shorter, more agreement errors, dialogue under length",
+      "answersByItemId": {
+        "pr26-1": "a) Parintii invata copiii. b) Femeile vorbesc la fantana. c) Faptele arata valoare.",
+        "pr26-2": "harnic – activ; a stima – a respecta; adevarat – neadevarat; puternic – moale",
+        "pr26-3": "1) Eu joc sah cu tata. 2) Copii se joaca in ograda.",
+        "pr26-4": "1) Voi de ce va laudati? 2) Ce face mama voastra? 3) Unde mergeti voi? 4) Cine sunteti voi?",
+        "pr26-5": "Victoria este modesta si linistita. Fiul ei o ajuta.",
+        "pr26-6": "1) Laudele goale nu ajuta. 2) Copilul are nevoie de sprijin.",
+        "pr26-7": "Femeia aceasta modesta a educat copilul ei corect.",
+        "pr26-8": "– Da, vreau si eu.\n– Strangem sticle si hartie.\n– Vorbesc cu colegii.",
+        "pr26-9": "Draga Alexandrin, felicitari pentru medalie de aur. Iti doresc succes. Admiratorii.",
+        "pr26-10": "Patria este tara mea. Eu iubesc patria. Aici este familia mea si casa. Limba romana este a noastra. Trebuie sa aparam patria. In concluzie patria este importanta.",
+        "pr26-11": ""
+      }
+    },
+    {
+      "id": "syn-pr26-07",
+      "paperId": "ro-pr26",
+      "band": "partial",
+      "note": "good essay, weak short items",
+      "answersByItemId": {
+        "pr26-1": "a) Rolul părinților este să educe. b) Femeile s-au lăudat cu copiii. c) Faptele sunt importante.",
+        "pr26-2": "harnic – muncitor; a stima – ?; adevărat – fals; puternic – ?",
+        "pr26-3": "1) Ei joacă fotbal. 2) Copiii se joacă.",
+        "pr26-4": "1) De ce vă lăudați? 2) Ce simțiți? 3) — 4) —",
+        "pr26-5": "Victoria este modestă. Ea este o mamă bună pentru că fiul ei o respectă. Ea l-a educat prin exemplu.",
+        "pr26-6": "1) Faptele contează mai mult decât laudele. 2) Modestia este o calitate.",
+        "pr26-7": "Femeia aceasta modestă și-a educat corect copilul.",
+        "pr26-8": "– Vreau să ajut și eu.\n– Putem curăța malul râului.\n– Aduc saci de acasă.\n– Chem și colegii din clasa vecină.\n– Punem afișe la intrare.\n– Ne vedem duminică dimineața.",
+        "pr26-9": "Dragă Alexandrin,\nCu ocazia medaliei de aur de la Campionatul Mondial U23, îți transmitem felicitări din suflet. Îți dorim sănătate, putere și noi izbânzi.\nCu admirație,\nAdmiratorii tăi",
+        "pr26-10": "Patria este locul unde ne sunt rădăcinile. Pentru mine, patria este satul copilăriei și limba română. Acolo cunosc fiecare om. Nicolae Dabija a scris despre dragostea de țară. Cred că patria se apără prin fapte bune. Când sunt departe, mă gândesc la casă. Patria ne ține uniți. În concluzie, patria este o comoară pe care nimeni nu ne-o poate lua.",
+        "pr26-11": ""
+      }
+    },
+    {
+      "id": "syn-pr26-08",
+      "paperId": "ro-pr26",
+      "band": "near-blank",
+      "note": "only two items attempted",
+      "answersByItemId": {
+        "pr26-1": "",
+        "pr26-2": "harnic – muncitor; adevărat – fals",
+        "pr26-3": "",
+        "pr26-4": "",
+        "pr26-5": "Victoria este bună.",
+        "pr26-6": "",
+        "pr26-7": "",
+        "pr26-8": "",
+        "pr26-9": "",
+        "pr26-10": "",
+        "pr26-11": ""
+      }
+    },
+    {
+      "id": "syn-pr26-09",
+      "paperId": "ro-pr26",
+      "band": "near-blank",
+      "note": "single-word / fragment attempts",
+      "answersByItemId": {
+        "pr26-1": "a) important b) - c) -",
+        "pr26-2": "harnic – muncitor",
+        "pr26-3": "joc",
+        "pr26-4": "De ce?",
+        "pr26-5": "",
+        "pr26-6": "",
+        "pr26-7": "",
+        "pr26-8": "",
+        "pr26-9": "Felicitări!",
+        "pr26-10": "Patria este tara.",
+        "pr26-11": ""
+      }
+    },
+    {
+      "id": "syn-pr26-10",
+      "paperId": "ro-pr26",
+      "band": "partial",
+      "note": "attempts everything but thin; transformation partly right",
+      "answersByItemId": {
+        "pr26-1": "a) Părinții au un rol mare. b) Femeile s-au lăudat la fântână. c) Faptele arată valoarea omului.",
+        "pr26-2": "harnic – muncitor; a stima – a respecta; adevărat – fals; puternic – tare",
+        "pr26-3": "1) Copiii joacă un joc. 2) Fetița se joacă cu păpușa.",
+        "pr26-4": "1) De ce vă lăudați mereu? 2) Ce v-au spus părinții? 3) Unde vă jucați? 4) Cum vă cheamă?",
+        "pr26-5": "Victoria este o mamă modestă și liniștită. Ea nu se laudă, dar fiul ei este harnic și respectuos.",
+        "pr26-6": "1) Nu trebuie să ne lăudăm degeaba. 2) Faptele bune spun mai mult decât vorbele.",
+        "pr26-7": "Femeia aceasta modestă și-a educat corect copiii și i-a învățat ce înseamnă o faptă bună.",
+        "pr26-8": "– Da, particip cu plăcere.\n– Putem planta copaci în curtea școlii.\n– Eu vorbesc cu primăria.\n– Facem un anunț pentru toți.\n– Începem săptămâna viitoare.",
+        "pr26-9": "Dragă Alexandrin,\nFelicitări pentru medalia de aur cucerită la Campionatul Mondial U23! Îți dorim multă sănătate și noi succese.\nCu respect,\nAdmiratorii tăi",
+        "pr26-10": "Patria este locul unde ne sunt rădăcinile. Pentru mine, patria este orașul natal și oamenii dragi. Îmi place limba română. Un scriitor a spus că patria nu poate fi luată. Trebuie să o iubim și să o apărăm. În concluzie, patria este o comoară.",
+        "pr26-11": ""
+      }
+    },
+    {
+      "id": "syn-pr26-11",
+      "paperId": "ro-pr26",
+      "band": "l2-errors",
+      "note": "moderate errors, essay present",
+      "answersByItemId": {
+        "pr26-1": "a) Parintii au rol important. b) Doua femei s-au laudat cu baieti. c) Faptele arata cine esti.",
+        "pr26-2": "harnic – muncitor; a stima – a onora; adevarat – fals; puternic – slab",
+        "pr26-3": "1) Baietii joaca fotbal dupa scoala. 2) Copii se joaca in parc.",
+        "pr26-4": "1) Ce ati invatat de la mama? 2) De ce va laudati atat? 3) Unde ati fost? 4) Cum va numiti voi?",
+        "pr26-5": "Victoria este modesta si buna. Ea nu se lauda cu fiul dar el o ajuta singur. Asta arata ca ea l-a crescut bine.",
+        "pr26-6": "1) Modestia este mai buna ca lauda. 2) Copilul trebuie sa fie educat prin exemplu.",
+        "pr26-7": "Femeia aceasta modesta si-a educat corect copilul si l-a invatat o fapta buna.",
+        "pr26-8": "– Da, vreau sa vin si eu.\n– Colectam gunoiul din padure.\n– Eu aduc manusi si saci.\n– Anuntam toata scoala.\n– Incepem duminica dimineata.\n– Sunt sigur ca reusim impreuna.",
+        "pr26-9": "Draga Alexandrin,\nTe felicitam cu ocazia medaliei de aur de la campionatul mondial. Iti dorim sanatate, putere si multe victorii.\nCu admiratie, admiratorii tai",
+        "pr26-10": "Patria este locul unde sunt radacinile noastre. Pentru mine patria este casa parinteasca si limba romana. Acolo cunosc fiecare colt. Un scriitor a scris ca limba nu poate fi luata. Eu cred ca patria se apara prin munca. Cand plec imi este dor de ea. Patria ne uneste pe toti. In concluzie patria este comoara noastra.",
+        "pr26-11": ""
+      }
+    },
+    {
+      "id": "syn-sb26-01",
+      "paperId": "ro-sb26",
+      "band": "strong",
+      "note": "full attempt, few errors",
+      "answersByItemId": {
+        "sb26-1": "a) Proprietarul bărcii a rugat un meșter să îi vopsească barca în roșu. b) Meșterul a observat o gaură în carcasă și a reparat-o în liniște. c) Bucuria tatălui a fost mare când și-a văzut copiii întorcându-se sănătoși de la pescuit.",
+        "sb26-2": "a repara – a renova; a plăti – a achita; mic – mare; a se întoarce – a pleca",
+        "sb26-3": "1) De la fereastră puteam vedea toată curtea școlii. 2) În apa liniștită a lacului se vedea cerul senin.",
+        "sb26-4": "1) Domnule, de ce ați reparat gaura fără să spuneți nimic? 2) V-a fost greu să găsiți defectul? 3) Ce ați simțit când ați primit al doilea cec? 4) Credeți că orice muncă mică poate fi importantă?",
+        "sb26-5": "Proprietarul bărcii este un om recunoscător, pentru că îl răsplătește pe meșter pentru fapta lui. Este și corect, deoarece consideră că o faptă bună merită plătită. În plus, este un tată iubitor, fiindcă se bucură din suflet că i-au fost salvați copiii.",
+        "sb26-6": "1) O faptă mică poate avea urmări foarte mari. 2) Binele făcut în tăcere este cel mai valoros.",
+        "sb26-7": "Mergând spre casă, băiatul, vesel și mulțumit, a mers la o terasă și a băut ceai.",
+        "sb26-8": "– Da, Victoria, vreau să particip cu drag.\n– Cred că putem începe cu strângerea gunoiului din parc.\n– Aș putea vorbi cu diriginta ca să ne sprijine.\n– Hai să facem afișe pentru toată școala.\n– Putem organiza și plantarea unor copaci.\n– Sunt sigur că împreună vom reuși.",
+        "sb26-9": "Dragă Crina,\nCu ocazia medaliei de bronz obținute la Olimpiada Internațională de Chimie, îți transmitem felicitări din toată inima. Îți dorim să rămâi la fel de curioasă și harnică, iar știința să îți deschidă mereu drumuri noi.\nCu admirație,\nColegii tăi",
+        "sb26-10": "Învățătura este o comoară pe care nimeni nu ți-o poate lua. Pentru mine, a învăța înseamnă a înțelege mai bine lumea și pe mine însumi. Cunoștințele nu se pierd și nu pot fi furate. În opera lui Nicolae Dabija, regele prețuiește înțelepciunea filozofului mai mult decât aurul. La fel, un om învățat este bogat oriunde ar merge. Cartea îți ține companie și la bine, și la greu. De aceea merită să învățăm în fiecare zi. În concluzie, învățătura este singura avere care crește atunci când o împarți.",
+        "sb26-11": ""
+      }
+    },
+    {
+      "id": "syn-sb26-02",
+      "paperId": "ro-sb26",
+      "band": "strong",
+      "note": "full attempt, essay exactly on the reperele",
+      "answersByItemId": {
+        "sb26-1": "a) Proprietarul bărcii a cerut ca barca să fie vopsită în roșu aprins. b) Meșterul a reparat gaura din carcasă fără să ceară plată. c) Bucuria stăpânului a fost imensă când și-a văzut copiii teferi.",
+        "sb26-2": "a repara – a drege; a plăti – a achita; mic – mare; a se întoarce – a pleca",
+        "sb26-3": "1) De pe deal se vedea tot satul. 2) În oglinda apei se vedeau norii.",
+        "sb26-4": "1) Domnule, de ce nu mi-ați spus despre gaură la început? 2) Cum ați observat defectul? 3) V-ați gândit că fapta va conta atât de mult? 4) Ce sfat le-ați da altor meșteri?",
+        "sb26-5": "Proprietarul este un om recunoscător, pentru că plătește o faptă pe care nici nu a cerut-o. Este drept, deoarece consideră că binele trebuie răsplătit. Este și un tată sensibil, fiindcă se emoționează gândindu-se la copiii lui.",
+        "sb26-6": "1) O faptă aparent mică poate salva vieți. 2) Adevărata valoare a unei fapte se vede în urmările ei.",
+        "sb26-7": "Mergând spre casă, băiatul, vesel și mulțumit, a mers la o terasă și a băut ceai.",
+        "sb26-8": "– Sigur, Victoria, mă bucur că m-ai chemat.\n– Am putea curăța malul râului sâmbăta viitoare.\n– Eu aduc mănuși și saci de acasă.\n– Hai să anunțăm și clasele mai mici.\n– Putem cere ajutorul profesorului de biologie.\n– Cred că mulți colegi vor veni cu plăcere.",
+        "sb26-9": "Dragă Crina,\nTe felicităm cu ocazia medaliei de bronz de la Olimpiada Internațională de Chimie! Îți dorim sănătate, răbdare și descoperiri care să îți bucure inima.\nCu respect,\nColegii tăi",
+        "sb26-10": "Învățătura este o comoară pe care nimeni nu ți-o poate lua. Pentru mine, cunoștințele înseamnă libertate și încredere în forțele proprii. Ele nu se strică și nu se fură. În textul lui Nicolae Dabija, filozoful este prețuit pentru mintea lui, nu pentru avere. Un om care învață își face singur drum în viață. Cartea rămâne prietenul care nu te trădează. De aceea trebuie să prețuim fiecare oră de școală. În concluzie, învățătura este o avere care nu scade niciodată.",
+        "sb26-11": ""
+      }
+    },
+    {
+      "id": "syn-sb26-03",
+      "paperId": "ro-sb26",
+      "band": "strong",
+      "note": "full, dialogue a touch informal",
+      "answersByItemId": {
+        "sb26-1": "a) Proprietarul bărcii a angajat un meșter pentru vopsire. b) Meșterul a reparat pe tăcute gaura din barcă. c) Bucuria tatălui a fost fără margini când copiii s-au întors sănătoși.",
+        "sb26-2": "a repara – a repune în stare; a plăti – a da bani; mic – enorm; a se întoarce – a se duce",
+        "sb26-3": "1) Din tren se vedeau câmpurile pline de flori. 2) În geam se vedea reflexia luminii.",
+        "sb26-4": "1) De ce ați reparat gaura fără să cereți nimic? 2) Cum v-ați dat seama că barca are un defect? 3) Ce ați simțit auzind povestea copiilor? 4) Considerați că orice muncă merită respect?",
+        "sb26-5": "Proprietarul bărcii este un om recunoscător și darnic, pentru că răsplătește generos o faptă mică. Este cinstit, deoarece nu vrea să rămână dator. Este și un părinte grijuliu, fiindcă viața copiilor este pentru el mai presus de bani.",
+        "sb26-6": "1) Faptele bune, chiar mărunte, pot avea urmări uriașe. 2) Recunoștința este semnul unui om de caracter.",
+        "sb26-7": "Mergând spre casă, băiatul, vesel și mulțumit, a mers la o terasă și a băut ceai.",
+        "sb26-8": "– Da, Victoria, hai să facem asta!\n– Putem strânge plasticul de pe strada principală.\n– Eu vorbesc cu vecinii să ne ajute.\n– Facem niște afișe colorate pentru toți.\n– Organizăm totul pentru duminică dimineața.\n– O să iasă foarte bine, sunt sigur.",
+        "sb26-9": "Dragă Crina,\nCu ocazia medaliei de bronz de la Olimpiada Internațională de Chimie, primește felicitările noastre calde. Îți dorim putere de muncă și bucuria de a descoperi lucruri noi.\nCu drag,\nColegii tăi",
+        "sb26-10": "Învățătura este o comoară pe care nimeni nu ți-o poate lua. Pentru mine, a învăța înseamnă a-mi lărgi orizontul și a înțelege oamenii. Cunoștințele nu se pierd la un incendiu sau un furt. La Nicolae Dabija, regele îl așază pe filozof mai presus de bogății. Un om învățat găsește soluții acolo unde alții se opresc. Cărțile îmi țin de urât și mă învață mereu ceva. De aceea nu vreau să pierd nicio zi de școală. În concluzie, învățătura este comoara care ne însoțește toată viața.",
+        "sb26-11": ""
+      }
+    },
+    {
+      "id": "syn-sb26-04",
+      "paperId": "ro-sb26",
+      "band": "partial",
+      "note": "short items ok, essay thin, transformation partly wrong",
+      "answersByItemId": {
+        "sb26-1": "a) Proprietarul bărcii a cerut vopsirea. b) Meșterul a reparat gaura. c) Bucuria a fost mare.",
+        "sb26-2": "a repara – a face; a plăti – a achita; mic – mare; a se întoarce – a pleca",
+        "sb26-3": "1) Se vedea marea de la balcon. 2) În apă se vedea luna.",
+        "sb26-4": "1) De ce ați reparat gaura? 2) Cum ați văzut-o? 3) Ce ați simțit? 4) V-a plăcut munca?",
+        "sb26-5": "Proprietarul este recunoscător și bun. El plătește meșterul mai mult.",
+        "sb26-6": "1) O faptă mică poate fi importantă. 2) Trebuie să fim recunoscători.",
+        "sb26-7": "Mergând spre casă, băiatul, veseli și mulțumit, a mers la o terasă și a băut ceai.",
+        "sb26-8": "– Da, vreau.\n– Strângem gunoi.\n– Vorbesc cu diriginta.\n– Facem afișe.",
+        "sb26-9": "Dragă Crina, felicitări pentru medalie. Îți dorim succes. Colegii tăi.",
+        "sb26-10": "Învățătura este o comoară. Pentru mine este importantă. Cunoștințele nu se pierd. Un scriitor a spus asta. Trebuie să învățăm mult. În concluzie, învățătura este o comoară.",
+        "sb26-11": ""
+      }
+    },
+    {
+      "id": "syn-sb26-05",
+      "paperId": "ro-sb26",
+      "band": "partial",
+      "note": "good portrait and conclusions, weak felicitare and dialogue",
+      "answersByItemId": {
+        "sb26-1": "a) Proprietarul a rugat meșterul să vopsească barca. b) Meșterul a găsit și a reparat o gaură. c) Bucuria tatălui a fost uriașă.",
+        "sb26-2": "a repara – a renova; a plăti – a achita; mic – mare; a se întoarce – a se duce",
+        "sb26-3": "1) De pe munte se vedea tot orașul. 2) În vitrină se vedea reflexia trecătorilor.",
+        "sb26-4": "1) De ce nu ați cerut plată pentru reparație? 2) Cum ați observat gaura? 3) Ce ați gândit când ați primit cecul? 4) —",
+        "sb26-5": "Proprietarul bărcii este un om recunoscător, pentru că răsplătește o faptă neînsemnată. Este drept, deoarece crede că binele trebuie plătit. Este și un tată iubitor, fiindcă viața copiilor contează cel mai mult pentru el.",
+        "sb26-6": "1) Faptele mici pot avea urmări mari. 2) Recunoștința arată bunătatea unui om.",
+        "sb26-7": "Mergând spre casă, băiatul, vesel și mulțumit, a mers la o terasă și a băut ceai.",
+        "sb26-8": "– Da, vreau să particip.\n– Putem strânge gunoiul din curtea școlii.\n– Chem și colegii mei.",
+        "sb26-9": "Dragă Crina,\nFelicitări pentru medalia de bronz! Îți dorim succes.\nColegii",
+        "sb26-10": "Învățătura este o comoară pe care nimeni nu ți-o poate lua. Pentru mine, cunoștințele înseamnă putere și încredere. Ele nu se pierd. Nicolae Dabija a scris despre prețuirea înțelepciunii. Un om învățat se descurcă oriunde. Trebuie să învățăm mereu. În concluzie, învățătura este cea mai sigură avere.",
+        "sb26-11": ""
+      }
+    },
+    {
+      "id": "syn-sb26-06",
+      "paperId": "ro-sb26",
+      "band": "partial",
+      "note": "attempts all, essay under 8 sentences, some criteria missed",
+      "answersByItemId": {
+        "sb26-1": "a) Proprietarul bărcii a vrut barca vopsită. b) Meșterul a reparat gaura. c) Bucuria tatălui a fost mare când copiii s-au întors.",
+        "sb26-2": "a repara – a drege; a plăti – a achita; mic – mare; a se întoarce – a pleca",
+        "sb26-3": "1) Din avion se vedeau munții. 2) În lac se vedea cerul.",
+        "sb26-4": "1) De ce ați reparat barca gratis? 2) Cum ați găsit gaura? 3) Ce ați simțit? 4) Ați mai face la fel?",
+        "sb26-5": "Proprietarul este recunoscător și corect. El plătește meșterul pentru că i-a salvat copiii.",
+        "sb26-6": "1) O faptă mică poate salva vieți. 2) Binele trebuie răsplătit.",
+        "sb26-7": "Mergând spre casă, băiatul, vesel și mulțumit, a mers la o terasă și a băut ceai.",
+        "sb26-8": "– Da, Victoria, vreau și eu.\n– Putem curăța parcul din centru.\n– Eu aduc saci și mănuși.\n– Anunțăm toată clasa.\n– Începem sâmbătă.",
+        "sb26-9": "Dragă Crina,\nCu ocazia medaliei de bronz de la Olimpiada de Chimie, îți transmitem felicitări. Îți dorim sănătate și succes.\nColegii tăi",
+        "sb26-10": "Învățătura este o comoară pe care nimeni nu ți-o poate lua. Pentru mine, a învăța înseamnă a fi liber. Cunoștințele rămân cu tine oriunde. Un om învățat este respectat. Trebuie să prețuim școala. În concluzie, învățătura este o avere adevărată.",
+        "sb26-11": ""
+      }
+    },
+    {
+      "id": "syn-sb26-07",
+      "paperId": "ro-sb26",
+      "band": "l2-errors",
+      "note": "diacritics missing, agreement errors, calques",
+      "answersByItemId": {
+        "sb26-1": "a) Proprietarul barcii a cerut sa vopseasca barca in rosu. b) Mesterul a gasit o gaura si a reparat ea. c) Bucuria tatalui a fost mare cand copiii s-au intors acasa.",
+        "sb26-2": "a repara – a face; a plati – a achita; mic – mare; a se intoarce – a pleca",
+        "sb26-3": "1) De la fereastra se vedea strada. 2) In apa se vedea soarele.",
+        "sb26-4": "1) De ce voi ați reparat gaura fara bani? 2) Cum ați vazut defectul? 3) Ce ați simtit cand ați luat cecul? 4) Voi credeti ca munca mica conteaza?",
+        "sb26-5": "Proprietarul barcii este un om recunoscator si bun. El plateste mesterul mai mult pentru ca a salvat copii lui. Asta arata ca el este un tata bun.",
+        "sb26-6": "1) O fapta mica poate sa aiba urmari mari. 2) Trebuie sa fim recunoscatori pentru bine.",
+        "sb26-7": "Mergand spre casa, baiatul, vesel si multumit, a mers la o terasa si a baut ceai.",
+        "sb26-8": "– Da, Victoria, eu vreau participa.\n– Noi putem sa colectam gunoiul din parc.\n– Eu voi vorbi cu diriginta noastra.\n– Facem afise pentru toata scoala.\n– Incepem sambata asta dimineata.\n– Sunt sigur ca reusim toti impreuna.",
+        "sb26-9": "Draga Crina,\nNoi te felicitam cu medalia de bronz de la olimpiada de chimie. Iti dorim sanatate si sa castigi si mai mult. Cu respect, colegii tai.",
+        "sb26-10": "Invatatura este o comoara care nimeni nu poate sa ia. Pentru mine a invata inseamna sa intelegi lumea. Cunostintele nu se pierd niciodata. In textul lui Nicolae Dabija regele pretuieste filozoful. Un om invatat este bogat oriunde merge. Cartea este prietenul care nu tradeaza. De aceea trebuie sa invatam in fiecare zi. In concluzie invatatura este averea care creste cand o imparti.",
+        "sb26-11": ""
+      }
+    },
+    {
+      "id": "syn-sb26-08",
+      "paperId": "ro-sb26",
+      "band": "l2-errors",
+      "note": "shorter, more agreement slips, dialogue under length",
+      "answersByItemId": {
+        "sb26-1": "a) Proprietarul vrea barca rosie. b) Mesterul repara gaura. c) Bucuria tatalui este mare.",
+        "sb26-2": "a repara – a renova; a plati – a da bani; mic – mare; a se intoarce – a merge",
+        "sb26-3": "1) Se vedea padurea din masina. 2) In geam se vede fata mea.",
+        "sb26-4": "1) De ce ați reparat? 2) Cum ați vazut gaura? 3) Ce simtiti voi? 4) Unde locuiti?",
+        "sb26-5": "Proprietarul este bun si recunoscator. El da bani mesterului.",
+        "sb26-6": "1) Faptele buni conteaza. 2) Trebuie sa multumim pentru ajutor.",
+        "sb26-7": "Mergand spre casa, baiatul, vesel si multumit, a mers la terasa si a baut ceai.",
+        "sb26-8": "– Da, vreau si eu.\n– Strangem sticle din parc.\n– Chem colegii.",
+        "sb26-9": "Draga Crina, felicitari pentru medalie de bronz. Iti doresc succes. Colegii.",
+        "sb26-10": "Invatatura este comoara. Eu invat mult la scoala. Cunostintele raman cu mine. Un scriitor a spus asta. Trebuie sa citim carti. In concluzie invatatura este importanta.",
+        "sb26-11": ""
+      }
+    },
+    {
+      "id": "syn-sb26-09",
+      "paperId": "ro-sb26",
+      "band": "near-blank",
+      "note": "two short items only",
+      "answersByItemId": {
+        "sb26-1": "",
+        "sb26-2": "a repara – a face; mic – mare",
+        "sb26-3": "",
+        "sb26-4": "De ce ați făcut asta?",
+        "sb26-5": "",
+        "sb26-6": "",
+        "sb26-7": "",
+        "sb26-8": "",
+        "sb26-9": "",
+        "sb26-10": "",
+        "sb26-11": ""
+      }
+    },
+    {
+      "id": "syn-sb26-10",
+      "paperId": "ro-sb26",
+      "band": "partial",
+      "note": "strong essay, weak short/grammar items",
+      "answersByItemId": {
+        "sb26-1": "a) Proprietarul a cerut vopsirea bărcii. b) Meșterul a reparat o gaură. c) Bucuria tatălui a fost mare.",
+        "sb26-2": "a repara – a drege; a plăti – ?; mic – mare; a se întoarce – ?",
+        "sb26-3": "1) Se vedea grădina. 2) În apă se vedea cerul.",
+        "sb26-4": "1) De ce ați reparat gaura? 2) Cum ați observat-o? 3) — 4) —",
+        "sb26-5": "Proprietarul bărcii este recunoscător, deoarece plătește o faptă pe care nu a cerut-o. Este drept și este un tată iubitor, fiindcă se bucură că i s-au salvat copiii.",
+        "sb26-6": "1) Faptele mici pot avea urmări mari. 2) Recunoștința este semnul unui om bun.",
+        "sb26-7": "Mergând spre casă, băieții, vesel și mulțumit, a mers la o terasă și a băut ceai.",
+        "sb26-8": "– Da, vreau să ajut.\n– Strângem gunoiul din parc.\n– Chem colegii.\n– Facem afișe.",
+        "sb26-9": "Dragă Crina,\nFelicitări pentru medalia de bronz de la Olimpiada de Chimie! Îți dorim sănătate și noi reușite.\nColegii tăi",
+        "sb26-10": "Învățătura este o comoară pe care nimeni nu ți-o poate lua. Pentru mine, cunoștințele înseamnă libertate și demnitate. Ele nu pot fi furate sau arse. În textul lui Nicolae Dabija, mintea filozofului valorează mai mult decât aurul regelui. Un om învățat își găsește drumul oriunde. Cartea rămâne alături de tine la bine și la greu. De aceea prețuiesc fiecare zi de școală. În concluzie, învățătura este averea care nu scade niciodată.",
+        "sb26-11": ""
+      }
+    },
+    {
+      "id": "syn-sb26-11",
+      "paperId": "ro-sb26",
+      "band": "near-blank",
+      "note": "fragments only",
+      "answersByItemId": {
+        "sb26-1": "a) barca b) - c) -",
+        "sb26-2": "a repara – a face",
+        "sb26-3": "vad",
+        "sb26-4": "",
+        "sb26-5": "Este bun.",
+        "sb26-6": "",
+        "sb26-7": "",
+        "sb26-8": "",
+        "sb26-9": "Felicitări Crina!",
+        "sb26-10": "",
+        "sb26-11": ""
+      }
+    }
+  ]
+}

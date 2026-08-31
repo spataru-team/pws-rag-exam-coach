@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "frozenAt": "2026-08-31",
+  "freezeCommit": "PENDING — fill with the FREEZE commit SHA",
+  "contentHash": "bdd5b2c9f63ad2113f31efc077b50e5c439a5060f20c8967123bc6ae19e9e264",
+  "hashScope": "sha256 over JSON.stringify(answers.json .cases)",
+  "caseCount": 22,
+  "byPaper": {
+    "ro-pr26": 11,
+    "ro-sb26": 11
+  },
+  "byBand": {
+    "strong": 5,
+    "partial": 8,
+    "l2-errors": 5,
+    "near-blank": 4
+  },
+  "cases": [
+    {
+      "id": "syn-pr26-01",
+      "paperId": "ro-pr26",
+      "band": "strong",
+      "itemsAnswered": 10,
+      "totalChars": 2054
+    },
+    {
+      "id": "syn-pr26-02",
+      "paperId": "ro-pr26",
+      "band": "strong",
+      "itemsAnswered": 10,
+      "totalChars": 1781
+    },
+    {
+      "id": "syn-pr26-03",
+      "paperId": "ro-pr26",
+      "band": "partial",
+      "itemsAnswered": 10,
+      "totalChars": 809
+    },
+    {
+      "id": "syn-pr26-04",
+      "paperId": "ro-pr26",
+      "band": "partial",
+      "itemsAnswered": 10,
+      "totalChars": 881
+    },
+    {
+      "id": "syn-pr26-05",
+      "paperId": "ro-pr26",
+      "band": "l2-errors",
+      "itemsAnswered": 10,
+      "totalChars": 1181
+    },
+    {
+      "id": "syn-pr26-06",
+      "paperId": "ro-pr26",
+      "band": "l2-errors",
+      "itemsAnswered": 10,
+      "totalChars": 778
+    },
+    {
+      "id": "syn-pr26-07",
+      "paperId": "ro-pr26",
+      "band": "partial",
+      "itemsAnswered": 10,
+      "totalChars": 1161
+    },
+    {
+      "id": "syn-pr26-08",
+      "paperId": "ro-pr26",
+      "band": "near-blank",
+      "itemsAnswered": 2,
+      "totalChars": 53
+    },
+    {
+      "id": "syn-pr26-09",
+      "paperId": "ro-pr26",
+      "band": "near-blank",
+      "itemsAnswered": 6,
+      "totalChars": 76
+    },
+    {
+      "id": "syn-pr26-10",
+      "paperId": "ro-pr26",
+      "band": "partial",
+      "itemsAnswered": 10,
+      "totalChars": 1127
+    },
+    {
+      "id": "syn-pr26-11",
+      "paperId": "ro-pr26",
+      "band": "l2-errors",
+      "itemsAnswered": 10,
+      "totalChars": 1238
+    },
+    {
+      "id": "syn-sb26-01",
+      "paperId": "ro-sb26",
+      "band": "strong",
+      "itemsAnswered": 10,
+      "totalChars": 2055
+    },
+    {
+      "id": "syn-sb26-02",
+      "paperId": "ro-sb26",
+      "band": "strong",
+      "itemsAnswered": 10,
+      "totalChars": 1832
+    },
+    {
+      "id": "syn-sb26-03",
+      "paperId": "ro-sb26",
+      "band": "strong",
+      "itemsAnswered": 10,
+      "totalChars": 1886
+    },
+    {
+      "id": "syn-sb26-04",
+      "paperId": "ro-sb26",
+      "band": "partial",
+      "itemsAnswered": 10,
+      "totalChars": 840
+    },
+    {
+      "id": "syn-sb26-05",
+      "paperId": "ro-sb26",
+      "band": "partial",
+      "itemsAnswered": 10,
+      "totalChars": 1248
+    },
+    {
+      "id": "syn-sb26-06",
+      "paperId": "ro-sb26",
+      "band": "partial",
+      "itemsAnswered": 10,
+      "totalChars": 1105
+    },
+    {
+      "id": "syn-sb26-07",
+      "paperId": "ro-sb26",
+      "band": "l2-errors",
+      "itemsAnswered": 10,
+      "totalChars": 1512
+    },
+    {
+      "id": "syn-sb26-08",
+      "paperId": "ro-sb26",
+      "band": "l2-errors",
+      "itemsAnswered": 10,
+      "totalChars": 815
+    },
+    {
+      "id": "syn-sb26-09",
+      "paperId": "ro-sb26",
+      "band": "near-blank",
+      "itemsAnswered": 2,
+      "totalChars": 50
+    },
+    {
+      "id": "syn-sb26-10",
+      "paperId": "ro-sb26",
+      "band": "partial",
+      "itemsAnswered": 10,
+      "totalChars": 1229
+    },
+    {
+      "id": "syn-sb26-11",
+      "paperId": "ro-sb26",
+      "band": "near-blank",
+      "itemsAnswered": 5,
+      "totalChars": 64
+    }
+  ],
+  "guarantees": [
+    "Fully synthetic, self-authored. No real student work.",
+    "No teacher labels and no system predictions in this directory at freeze time.",
+    "Answers respond to the real public ANCE item prompts (ro-pr26 / ro-sb26) and are scored with the production barem structure.",
+    "Case ids are stable and never reused.",
+    "Not tuned toward any expected grading result.",
+    "Shared input for P1-4 (human rubric agreement) and P1-5 (Xeon end-to-end workload); P1-5 uses these as workload only and never reads any P1-4 label file."
+  ]
+}

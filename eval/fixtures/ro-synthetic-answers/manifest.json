@@ -1,7 +1,8 @@
 {
   "schemaVersion": 1,
   "frozenAt": "2026-08-31",
-  "freezeCommit": "PENDING — fill with the FREEZE commit SHA",
+  "freezeCommit": "e19782dec7fd6352c178f9cd3addf12c08552ce8",
+  "freezeCommitNote": "SHA of the FREEZE commit that introduced answers.json; recorded here (outside the hashed .cases payload) so contentHash stays stable.",
   "contentHash": "bdd5b2c9f63ad2113f31efc077b50e5c439a5060f20c8967123bc6ae19e9e264",
   "hashScope": "sha256 over JSON.stringify(answers.json .cases)",
   "caseCount": 22,

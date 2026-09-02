@@ -71,6 +71,11 @@ Screen (Practice)
   hosted Cloudflare proxy routes `/api/v1/embeddings` (and now `/api/v1/rerank`)
   to Workers AI's own endpoints (`@cf/baai/bge-m3` / `@cf/baai/bge-reranker-base`),
   not OpenAI — see `src/server/openaiProxy.ts` and `docs/DEPLOY_CLOUDFLARE.md`.
+  The proxy's embeddings and chat branches are **independent capabilities**
+  (`GET /api/v1/health` → `{ embeddingsConfigured, chatConfigured }`); the
+  first-run provider is always Mock, and the managed-chat `worker` preset is
+  opt-in — offered only when `chatConfigured`, disabled on the public deployment,
+  never auto-selected.
 - **Query and chunk vectors must come from the same model — same dimension is
   not sufficient**, a different model at an equal dimension is still a
   different, incomparable vector space. Each pack records its `embeddingModel`;

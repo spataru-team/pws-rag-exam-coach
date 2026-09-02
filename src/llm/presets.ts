@@ -1,4 +1,5 @@
 import type { LLMProviderConfig } from './types'
+import type { ProxyCapability } from './proxyProbe'
 
 /** Built-in provider presets. baseUrls match the existing local stack. */
 export const PROVIDER_PRESETS: Record<string, LLMProviderConfig> = {
@@ -88,13 +89,23 @@ export const PROVIDER_PRESETS: Record<string, LLMProviderConfig> = {
 }
 
 /**
- * Deployed / fallback default. It is what the store falls back to when no
- * provider is persisted yet, and what the deployed site's onboarding lands on.
- *
- * NOTE: onboarding is capability-aware (see `src/screens/Onboarding.tsx` +
- * `src/llm/proxyProbe.ts`): a fresh session starts on `mock` and only switches
- * to `worker` when a *configured* same-origin `/api/v1` proxy is detected. So on
- * a plain `npm run dev` / `npm run preview` the first-run provider is `mock`,
- * not this constant. Do not treat this as "the default the user always sees".
+ * Zero-setup default for every run mode, the deployed site included. Mock is
+ * offline, deterministic and grounded, so a fresh visitor can walk the whole
+ * diagnose → rubric → Rescue → forecast loop with no setup and no team-funded
+ * API spend. Managed chat (`worker`) is never auto-selected (see
+ * `pickInitialProviderId`); real cloud chat is a deliberate BYOK choice.
  */
-export const DEFAULT_PROVIDER_ID = 'worker'
+export const DEFAULT_PROVIDER_ID = 'mock'
+
+/**
+ * Provider ids to offer in Onboarding / Settings, given the deployment's proxy
+ * capabilities. `worker` (managed chat on the team key) is shown ONLY when the
+ * deployment has explicitly enabled it (`chatConfigured`) — the public demo runs
+ * with it off. Every other provider (Mock, the local servers, and the BYOK
+ * cloud providers) is always offered. `mock` is always first.
+ */
+export function visibleProviderIds(cap: ProxyCapability): string[] {
+  const ids = ['mock', 'openvino', 'ollama', 'lmstudio', 'openai', 'openrouter']
+  if (cap.chatConfigured) ids.push('worker')
+  return ids
+}

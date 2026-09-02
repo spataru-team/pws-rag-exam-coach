@@ -31,6 +31,12 @@ Per the deployment configuration ([DEPLOY_CLOUDFLARE.md](./DEPLOY_CLOUDFLARE.md)
 and the June deploy plan in `docs/superpowers/plans/`), the API key was held
 server-side by the same-origin proxy and was not exposed to the browser.
 
+This describes what the June 2026 cohort actually used and does not change. The
+**current public demo** is configured differently — managed cloud chat is
+disabled and answer-checking defaults to the offline Mock provider (real cloud
+chat is bring-your-own-key); see [DEPLOY_CLOUDFLARE.md](./DEPLOY_CLOUDFLARE.md).
+That later configuration change does not alter what this cohort used.
+
 The **school-local OpenVINO Model Server was not used for this cohort**, and the
 deployed version **did not yet include Rescue Mode** (see *What changed after the
 main session*).

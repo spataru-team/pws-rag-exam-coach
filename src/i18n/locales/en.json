@@ -81,7 +81,9 @@
     "apiKey": "API key",
     "apiKeyHint": "Stored only on this device. Never uploaded or committed.",
     "cloudWarning": "Cloud provider: your prompts and retrieved text will be sent to an external service.",
-    "baseUrl": "Base URL"
+    "baseUrl": "Base URL",
+    "hostedRetrievalNote": "Search over the study materials uses a hosted embedding model; answer-checking runs offline until you choose a cloud key or a local model.",
+    "byokHint": "Your key is stored only on this device and is sent only to the provider you chose."
   },
   "dashboard": {
     "title": "Subject dashboard",
@@ -230,7 +232,8 @@
     "tabWarning": "You left the exam tab {{count}}/{{max}}. After {{max}} the exam is submitted automatically.",
     "total": "Total score",
     "advice": "Advice",
-    "mode": { "deterministic": "auto-checked", "llm": "AI-graded", "self": "self-check", "hybrid": "mixed grading" },
+    "mode": { "deterministic": "auto-checked", "llm": "AI-graded", "self": "self-check", "hybrid": "mixed grading", "demo": "demonstration" },
+    "demoResult": "Demonstration — not a real grade.",
     "lowConfidence": "Approximate — verify against the barem.",
     "feedbackTitle": "Quick feedback",
     "clear": "Was it clear?",
@@ -246,6 +249,8 @@
     "navTitle": "Rescue",
     "title": "Recover exam points",
     "intro": "Take the diagnostic exam once, then get a short, targeted plan to recover points before the retake.",
+    "openDemoDiagnostic": "Open the demonstration diagnostic (DEMO)",
+    "demoBanner": "Demonstration — sample data, not a real diagnosis or a model score.",
     "startDiagnostic": "Start diagnostic",
     "grading": "Grading your diagnostic…",
     "currentResult": "Current result",

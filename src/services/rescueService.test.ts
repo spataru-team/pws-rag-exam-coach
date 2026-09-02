@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest'
-import { runDiagnostic, buildForecast, selectTestBPaper } from './rescueService'
+import { runDiagnostic, diagnosticFromAttempt, buildForecast, selectTestBPaper } from './rescueService'
 import { romanianSb26 } from '@/data/exams/romanian-sb26'
 import { romanianPr26 } from '@/data/exams/romanian-pr26'
-import type { ExamPaper } from '@/types'
+import type { ExamAttempt, ExamPaper } from '@/types'
 
 describe('runDiagnostic', () => {
   it('grades the sb26 paper, builds atoms, evidence and a route, all from one pass', async () => {
@@ -15,6 +15,45 @@ describe('runDiagnostic', () => {
     expect(result.atoms.length).toBeGreaterThan(0)
     expect(result.evidence.every((e) => e.skillTag)).toBe(true)
     expect(Array.isArray(result.route)).toBe(true)
+  })
+})
+
+describe('diagnosticFromAttempt', () => {
+  // A pre-graded attempt: partial credit on several skills, total below the
+  // safety target so a route is produced.
+  const attempt: ExamAttempt = {
+    id: 'seed-1',
+    subjectId: 'romanian',
+    paperId: 'ro-sb26',
+    startedAt: '2026-08-01T00:00:00.000Z',
+    submittedAt: '2026-08-01T00:20:00.000Z',
+    timeSpentSec: 1200,
+    answersByItemId: Object.fromEntries(romanianSb26.items.map((i) => [i.id, 'un răspuns parțial dezvoltat aici'])),
+    results: [
+      { itemId: 'sb26-1', perCriterion: [{ id: 'sb26-1', awarded: 2, max: 3, comment: '' }], awarded: 2, max: 3, advice: '', mode: 'llm' },
+      { itemId: 'sb26-2', perCriterion: [{ id: 'sb26-2', awarded: 2, max: 4, comment: '' }], awarded: 2, max: 4, advice: '', mode: 'deterministic' },
+      { itemId: 'sb26-7', perCriterion: [{ id: 'sb26-7', awarded: 1, max: 5, comment: '' }], awarded: 1, max: 5, advice: '', mode: 'llm' },
+      { itemId: 'sb26-9', perCriterion: [
+        { id: 'adresare', awarded: 1, max: 1, comment: '' }, { id: 'ocazie', awarded: 1, max: 1, comment: '' },
+        { id: 'urare', awarded: 0, max: 2, comment: '' }, { id: 'asezare', awarded: 0, max: 1, comment: '' },
+      ], awarded: 2, max: 5, advice: '', mode: 'llm' },
+    ],
+    totalAwarded: 7,
+    totalMax: 50,
+  }
+
+  it('derives atoms, evidence and a route from a pre-graded attempt without regrading', () => {
+    const result = diagnosticFromAttempt(romanianSb26, attempt)
+    expect(result.attempt).toBe(attempt)
+    expect(result.atoms.length).toBeGreaterThan(0)
+    expect(result.evidence.every((e) => e.skillTag)).toBe(true)
+    expect(result.route.length).toBeGreaterThan(0)
+  })
+
+  it('is pure — same attempt in, identical route out', () => {
+    expect(diagnosticFromAttempt(romanianSb26, attempt).route).toEqual(
+      diagnosticFromAttempt(romanianSb26, attempt).route,
+    )
   })
 })
 

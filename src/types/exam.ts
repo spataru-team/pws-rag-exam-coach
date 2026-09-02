@@ -95,6 +95,11 @@ export interface BaremResult {
   mode: GradeMode
   /** Low confidence (e.g. correctness item, or LLM fallback). */
   lowConfidence?: boolean
+  /** DEMO provenance — the offline Mock grader produced this. The single
+   * structured flag every eval / metrics path filters on (see
+   * `src/learning/demoProvenance.ts`); never inferred from a `[DEMO]` text
+   * prefix, which is presentation only. */
+  demo?: boolean
 }
 
 /** Mini end-of-mock feedback from the student. */
@@ -119,4 +124,8 @@ export interface ExamAttempt {
   /** Times the student left/hid the exam tab during the exam (anti-cheat signal). */
   tabLeaves?: number
   feedback?: ExamFeedback
+  /** DEMO provenance — a seeded demonstration attempt, not a real sitting. Held
+   * in memory only, never written to IndexedDB, never counted in Stats,
+   * progress, exports or any eval. See `src/learning/demoProvenance.ts`. */
+  demo?: boolean
 }

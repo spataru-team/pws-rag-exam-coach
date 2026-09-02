@@ -12,7 +12,7 @@ import {
   settingsRepo,
   SETTING_KEYS,
 } from '@/storage'
-import { PROVIDER_PRESETS, DEFAULT_PROVIDER_ID, type LLMProviderConfig } from '@/llm'
+import { PROVIDER_PRESETS, DEFAULT_PROVIDER_ID, checkProxyCapability, type LLMProviderConfig } from '@/llm'
 import { applyAppearance } from '@/theme/applyAppearance'
 import { setLanguage } from '@/i18n'
 
@@ -48,9 +48,18 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   async load() {
     const profile = (await profileRepo.getCurrent()) ?? null
-    const providerConfig =
+    const stored =
       (await settingsRepo.get<LLMProviderConfig>(SETTING_KEYS.llmProviderConfig)) ??
       (PROVIDER_PRESETS[DEFAULT_PROVIDER_ID] as LLMProviderConfig)
+    // A previously-selected managed-chat provider (`worker`) that THIS deployment
+    // no longer offers: fall back to Mock for this session. The stored choice is
+    // left untouched in IndexedDB — it becomes active again on a deployment that
+    // has managed chat enabled. (Only `worker` is proxy-gated; BYOK/local
+    // choices are always usable, so they never trigger the probe.)
+    let providerConfig = stored
+    if (stored.id === 'worker' && !(await checkProxyCapability()).chatConfigured) {
+      providerConfig = PROVIDER_PRESETS[DEFAULT_PROVIDER_ID] as LLMProviderConfig
+    }
     const apiKey = (await settingsRepo.get<string>(SETTING_KEYS.llmApiKey)) ?? ''
 
     if (profile) {

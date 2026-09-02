@@ -16,6 +16,11 @@ const RERANK_MODEL = '@cf/baai/bge-reranker-base'
 const CHAT_MODELS = new Set(['gpt-5.4-mini', 'gpt-5.4-nano'])
 const DEFAULT_CHAT_MODEL = 'gpt-5.4-mini'
 const MAX_OUTPUT_TOKENS = 512
+/** Public-endpoint request guardrails (intended architecture, not a fix): a
+ * generous ceiling on the proxied body, and a hard upstream timeout so a slow
+ * model can't pin a Function invocation open. */
+const MAX_BODY_BYTES = 32 * 1024
+const UPSTREAM_TIMEOUT_MS = 20_000
 
 export interface ProxyEnv {
   /** Chat completions only (OpenAI). */
@@ -55,19 +60,32 @@ export async function handleOpenAiProxy(
   const path = new URL(request.url).pathname.replace(/^\/api\/v1/, '')
 
   // Non-generative capability probe for the client's first-run provider
-  // auto-selection (src/llm/proxyProbe.ts). It NEVER calls the upstream LLM,
-  // creates no token usage, and echoes no secret value — only whether this
-  // proxy route exists (`available`) and whether the chat key is present
-  // (`configured`). A plain `npm run dev`/`preview` has no Function, so this
-  // 404s and the client stays on the offline Mock provider.
+  // selection (src/llm/proxyProbe.ts). It NEVER calls the upstream LLM, creates
+  // no token usage, and echoes no secret value. `embeddingsConfigured` and
+  // `chatConfigured` are INDEPENDENT capability signals — the public deployment
+  // runs with managed embeddings on and managed chat off, and nothing may infer
+  // one from the other. `available` is a transport check only ("an /api/v1
+  // route answered"), never a capability. A plain `npm run dev`/`preview` has no
+  // Function, so this 404s and the client stays on the offline Mock provider.
   if (path === '/health') {
-    return json({ available: true, configured: Boolean(env.OPENAI_API_KEY) }, 200)
+    return json(
+      {
+        available: true,
+        embeddingsConfigured: Boolean(env.CF_ACCOUNT_ID && env.CF_API_TOKEN),
+        chatConfigured: Boolean(env.OPENAI_API_KEY),
+      },
+      200,
+    )
   }
 
   if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405)
+  const raw = await request.text()
+  if (raw.length > MAX_BODY_BYTES) {
+    return json({ error: 'Request body too large' }, 413)
+  }
   let body: Record<string, unknown>
   try {
-    body = (await request.json()) as Record<string, unknown>
+    body = JSON.parse(raw) as Record<string, unknown>
   } catch {
     return json({ error: 'Invalid JSON body' }, 400)
   }
@@ -104,7 +122,11 @@ export async function handleOpenAiProxy(
     body = cfBody
   } else if (path === '/chat/completions') {
     if (!env.OPENAI_API_KEY) {
-      return json({ error: 'Proxy misconfigured: OPENAI_API_KEY not set' }, 500)
+      // Not an error: the public demo runs managed chat OFF by design (cloud
+      // chat there is BYOK / local). A controlled private deployment sets the
+      // key to enable this route. Distinct from the CF-secret 500s above, which
+      // are genuine misconfiguration of an enabled capability.
+      return json({ error: 'Managed chat is not enabled on this deployment' }, 503)
     }
     const requested = typeof body.model === 'string' ? body.model : ''
     body.model = CHAT_MODELS.has(requested) ? requested : DEFAULT_CHAT_MODEL
@@ -128,14 +150,22 @@ export async function handleOpenAiProxy(
     return json({ error: 'Not found' }, 404)
   }
 
-  const upstream = await doFetch(target, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${authKey}`,
-    },
-    body: JSON.stringify(body),
-  })
+  let upstream: Response
+  try {
+    upstream = await doFetch(target, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authKey}`,
+      },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+    })
+  } catch {
+    // Timeout or transport failure reaching the upstream provider. No detail is
+    // surfaced or logged — the error object can carry the request URL.
+    return json({ error: 'Upstream request failed or timed out' }, 504)
+  }
 
   if (isRerank) {
     // Reshape Cloudflare's run-endpoint envelope { result: { response: [{index,

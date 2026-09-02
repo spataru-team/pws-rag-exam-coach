@@ -7,11 +7,16 @@ vi.mock('@/llm', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/llm')>()
   return {
     ...actual,
-    createAdapter: () => ({ config: actual.PROVIDER_PRESETS.mock, chat: chatMock }),
+    // A real (non-mock) provider — this suite exercises grading/merge logic, not
+    // the offline demonstration path (that is examGraderService.demo.test.ts).
+    createAdapter: () => ({ config: actual.PROVIDER_PRESETS.openai, chat: chatMock }),
   }
 })
 
 const { gradeItem } = await import('./examGraderService')
+const { PROVIDER_PRESETS } = await import('@/llm')
+/** Deps with a real (non-mock) provider — keeps grading out of the demo path. */
+const realDeps = { supportLanguage: 'ru' as const, providerConfig: PROVIDER_PRESETS.openai }
 
 function chatResponse(content: string): ChatResponse {
   return { content, usage: { tokensIn: 1, tokensOut: 1 }, latencyMs: 1, provider: 'mock', model: 'mock' }
@@ -97,7 +102,7 @@ describe('gradeItem', () => {
           }),
         ),
       )
-      const r = await gradeItem(hybridItem, '9*sqrt(2)*pi', { supportLanguage: 'ru' })
+      const r = await gradeItem(hybridItem, '9*sqrt(2)*pi', realDeps)
       expect(r.mode).toBe('hybrid')
       expect(r.awarded).toBe(5) // 2 (radius) + 1 (slant) + 2 (final, deterministic match)
       expect(r.perCriterion.find((c) => c.id === 'final')?.awarded).toBe(2)

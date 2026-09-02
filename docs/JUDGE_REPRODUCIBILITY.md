@@ -26,25 +26,41 @@ npm run dev                             # http://localhost:5173
 ## AI provider on the first run
 
 The **first "Check answer" in Practice** is the first thing that needs an AI
-provider. There are two documented paths:
+provider. Onboarding **always pre-selects Mock**, in every run mode including the
+deployed site:
 
-| path | what onboarding pre-selects | first response |
+| path | retrieval | answer-checking |
 |---|---|---|
-| **Quick demo / clean clone** — `npm run dev` or `npm run build && npm run preview` (this repo, no Cloudflare Functions) | **Mock (offline demo)** — a `GET /api/v1/health` probe finds no configured proxy | a deterministic grounded answer that cites `[#chunk-id]`s, no network call, within ~1–2 s |
-| **Cloud / deployed** — the live site, or `npm run build && npm run cf:dev` with a populated `.dev.vars` (`docs/DEPLOY_CLOUDFLARE.md`) | **the cloud proxy** — the health probe reports it is configured; the cloud data-egress warning is shown | a real LLM answer via the same-origin `/api/v1` proxy |
+| **Quick demo / clean clone** — `npm run dev` or `npm run build && npm run preview` | offline deterministic-stub embeddings (stub-seeded packs) | **Mock** — deterministic grounded answer citing `[#chunk-id]`s, no network, ~1–2 s |
+| **Public deployment** — the live site, or `cf:dev` with embeddings-only `.dev.vars` | **managed Workers AI `bge-m3`** via `/api/v1/embeddings` (keeps the RAG demo real) | **Mock** — managed chat is disabled; the barem-grading / diagnostic / Rescue flow runs offline with a deterministic, `[DEMO]`-labelled pseudo-score |
+| **Private deployment** with `OPENAI_API_KEY` set | managed or local | Mock by default; `worker` (managed chat) is *offered* but never auto-selected |
 
-- The probe (`src/llm/proxyProbe.ts`) is **non-generative** — it never calls a
-  model and creates no token usage.
-- A provider you pick by hand in onboarding is **never** overridden by the probe.
+- The probe (`src/llm/proxyProbe.ts`) is **non-generative** and only decides
+  whether to *offer* `worker` — it never changes the selection.
+- Real cloud answer-checking is **BYOK**: pick `openai` / `openrouter` in
+  onboarding or Settings and enter your own key (stored only in local IndexedDB,
+  behind the cloud-egress warning). *Documented as supported only after a
+  deployed-browser check — see below.*
 - Any local provider (Ollama / LM Studio / OpenVINO) is selectable but never
   auto-selected — it needs that server running.
+- To explore Rescue Mode with nothing to type: Rescue → **"Открыть
+  демонстрационную диагностику (DEMO)"** loads a seeded sample attempt through
+  the real route engine, entirely in memory, with zero grading calls.
 - If a selected provider can't be reached, Practice shows an explicit
-  **"AI provider unavailable"** notice with the retrieved sources still listed —
-  it never fails silently.
+  **"AI provider unavailable"** notice with the retrieved sources still listed.
 
 So: on a clean clone, follow the TL;DR, complete onboarding **without changing
 the AI-mode step**, open Practice for a seeded subject, and submit an answer —
 you get a predictable grounded first response with no extra setup.
+
+### BYOK in the deployed browser
+
+`openai` / `openrouter` make a cross-origin request with your key from the
+browser. OpenRouter documents browser/CORS support; direct calls to
+`api.openai.com` from a Pages origin are **pending a keyed deployed-browser
+check**. Until that check is recorded here, treat **OpenRouter** as the verified
+in-browser BYOK path; an OpenAI key works with a local run or your own proxy.
+There is no team-funded managed-chat fallback.
 
 ## What ships in the public repo, and what does not
 

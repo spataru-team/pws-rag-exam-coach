@@ -32,9 +32,23 @@ export async function runDiagnostic(
     totalAwarded: graded.totalAwarded,
     totalMax: graded.totalMax,
   }
-  const atoms = buildScoringAtoms(paper, answersByItemId, graded.results)
+  return diagnosticFromAttempt(paper, attempt, corroboratingAtoms)
+}
+
+/**
+ * The derive-only half of `runDiagnostic`: scoring atoms → skill evidence →
+ * recovery route from an attempt that is **already graded**. Pure (no I/O, no
+ * LLM). Used for the seeded DEMO diagnostic (`src/data/exams/demoAttempt.ts`),
+ * which lets a visitor explore the whole Rescue flow with zero grading calls.
+ */
+export function diagnosticFromAttempt(
+  paper: ExamPaper,
+  attempt: ExamAttempt,
+  corroboratingAtoms: ScoringAtom[] = [],
+): DiagnosticResult {
+  const atoms = buildScoringAtoms(paper, attempt.answersByItemId, attempt.results)
   const evidence = evaluateSkillEvidence(atoms, corroboratingAtoms)
-  const route = selectRescueRoute(evidence, graded.totalAwarded)
+  const route = selectRescueRoute(evidence, attempt.totalAwarded)
   return { attempt, atoms, evidence, route }
 }
 
